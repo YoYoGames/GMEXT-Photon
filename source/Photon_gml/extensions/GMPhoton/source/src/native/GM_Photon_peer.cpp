@@ -67,15 +67,15 @@ std::int32_t photon_realtime_peer_get_queued_outgoing_commands()
     return 0;
 }
 
-std::int32_t photon_realtime_peer_get_debug_output_level()
+gm_enums::PhotonCommonDebugLevel photon_realtime_peer_get_debug_output_level()
 {
-    if(auto* c = photon_internal_get_lb_client()) return c->getDebugOutputLevel();
-    return 0;
+    if(auto* c = photon_internal_get_lb_client()) return static_cast<gm_enums::PhotonCommonDebugLevel>(c->getDebugOutputLevel());
+    return gm_enums::PhotonCommonDebugLevel::Off;
 }
 
-bool photon_realtime_peer_set_debug_output_level(std::int32_t level)
+bool photon_realtime_peer_set_debug_output_level(gm_enums::PhotonCommonDebugLevel level)
 {
-    if(auto* c = photon_internal_get_lb_client()) { c->setDebugOutputLevel(level); return true; }
+    if(auto* c = photon_internal_get_lb_client()) { c->setDebugOutputLevel(static_cast<int>(level)); return true; }
     return false;
 }
 
@@ -173,15 +173,15 @@ std::int32_t photon_chat_peer_get_queued_outgoing_commands()
     return 0;
 }
 
-std::int32_t photon_chat_peer_get_debug_output_level()
+gm_enums::PhotonCommonDebugLevel photon_chat_peer_get_debug_output_level()
 {
-    if(auto* c = photon_chat_internal_get_client()) return c->getDebugOutputLevel();
-    return 0;
+    if(auto* c = photon_chat_internal_get_client()) return static_cast<gm_enums::PhotonCommonDebugLevel>(c->getDebugOutputLevel());
+    return gm_enums::PhotonCommonDebugLevel::Off;
 }
 
-bool photon_chat_peer_set_debug_output_level(std::int32_t level)
+bool photon_chat_peer_set_debug_output_level(gm_enums::PhotonCommonDebugLevel level)
 {
-    if(auto* c = photon_chat_internal_get_client()) { c->setDebugOutputLevel(level); return true; }
+    if(auto* c = photon_chat_internal_get_client()) { c->setDebugOutputLevel(static_cast<int>(level)); return true; }
     return false;
 }
 

@@ -1108,13 +1108,13 @@ public class GMPhotonInternal extends RunnerSocial {
     {
         return __EXT_JNI__photon_realtime_peer_get_queued_outgoing_commands();
     }
-    public double __EXT_NATIVE__photon_realtime_peer_get_debug_output_level()
+    public double __EXT_NATIVE__photon_realtime_peer_get_debug_output_level(ByteBuffer __ret_buffer, double __ret_buffer_length)
     {
-        return __EXT_JNI__photon_realtime_peer_get_debug_output_level();
+        return __EXT_JNI__photon_realtime_peer_get_debug_output_level(__ret_buffer, __ret_buffer_length);
     }
-    public double __EXT_NATIVE__photon_realtime_peer_set_debug_output_level(double level)
+    public double __EXT_NATIVE__photon_realtime_peer_set_debug_output_level(ByteBuffer __arg_buffer, double __arg_buffer_length)
     {
-        return __EXT_JNI__photon_realtime_peer_set_debug_output_level(level);
+        return __EXT_JNI__photon_realtime_peer_set_debug_output_level(__arg_buffer, __arg_buffer_length);
     }
     public double __EXT_NATIVE__photon_realtime_peer_get_disconnect_timeout()
     {
@@ -1180,13 +1180,13 @@ public class GMPhotonInternal extends RunnerSocial {
     {
         return __EXT_JNI__photon_chat_peer_get_queued_outgoing_commands();
     }
-    public double __EXT_NATIVE__photon_chat_peer_get_debug_output_level()
+    public double __EXT_NATIVE__photon_chat_peer_get_debug_output_level(ByteBuffer __ret_buffer, double __ret_buffer_length)
     {
-        return __EXT_JNI__photon_chat_peer_get_debug_output_level();
+        return __EXT_JNI__photon_chat_peer_get_debug_output_level(__ret_buffer, __ret_buffer_length);
     }
-    public double __EXT_NATIVE__photon_chat_peer_set_debug_output_level(double level)
+    public double __EXT_NATIVE__photon_chat_peer_set_debug_output_level(ByteBuffer __arg_buffer, double __arg_buffer_length)
     {
-        return __EXT_JNI__photon_chat_peer_set_debug_output_level(level);
+        return __EXT_JNI__photon_chat_peer_set_debug_output_level(__arg_buffer, __arg_buffer_length);
     }
     public double __EXT_NATIVE__photon_chat_peer_get_disconnect_timeout()
     {
@@ -1244,21 +1244,21 @@ public class GMPhotonInternal extends RunnerSocial {
     {
         return __EXT_JNI__photon_peer_network_sim_set_packet_loss(incoming_pct, outgoing_pct);
     }
-    public double __EXT_NATIVE__photon_common_set_debug_level(double level)
+    public double __EXT_NATIVE__photon_common_set_debug_level(ByteBuffer __arg_buffer, double __arg_buffer_length)
     {
-        return __EXT_JNI__photon_common_set_debug_level(level);
+        return __EXT_JNI__photon_common_set_debug_level(__arg_buffer, __arg_buffer_length);
     }
-    public double __EXT_NATIVE__photon_common_get_debug_level()
+    public double __EXT_NATIVE__photon_common_get_debug_level(ByteBuffer __ret_buffer, double __ret_buffer_length)
     {
-        return __EXT_JNI__photon_common_get_debug_level();
+        return __EXT_JNI__photon_common_get_debug_level(__ret_buffer, __ret_buffer_length);
     }
-    public double __EXT_NATIVE__photon_common_get_serialization_protocol()
+    public double __EXT_NATIVE__photon_common_get_serialization_protocol(ByteBuffer __ret_buffer, double __ret_buffer_length)
     {
-        return __EXT_JNI__photon_common_get_serialization_protocol();
+        return __EXT_JNI__photon_common_get_serialization_protocol(__ret_buffer, __ret_buffer_length);
     }
-    public String __EXT_NATIVE__photon_common_type_code_to_string(double type_code)
+    public String __EXT_NATIVE__photon_common_type_code_to_string(ByteBuffer __arg_buffer, double __arg_buffer_length)
     {
-        return __EXT_JNI__photon_common_type_code_to_string(type_code);
+        return __EXT_JNI__photon_common_type_code_to_string(__arg_buffer, __arg_buffer_length);
     }
     public String __EXT_NATIVE__photon_common_get_sdk_version()
     {

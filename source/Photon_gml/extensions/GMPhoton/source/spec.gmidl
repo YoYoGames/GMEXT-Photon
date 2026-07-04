@@ -161,7 +161,7 @@ class `[[PhotonRealtimeRoomInfo]]` prototype Object
 class `[[PhotonRealtimeLobbyStats]]` prototype Object
 {
     [field] property name : string { get; set; }
-    [field] property type : int32 { get; set; }
+    [field, type_hint = `PhotonRealtimeLobbyType`] property type : gmval { get; set; }
     [field] property peer_count : int32 { get; set; }
     [field] property room_count : int32 { get; set; }
 }
@@ -459,7 +459,7 @@ function photon_realtime_player_is_inactive(player_number: int32): bool;
 function photon_realtime_player_is_master_client(player_number: int32): bool;
 
 /// Returns an array of all player numbers currently in the room (local + remote).
-[global, bind = typed_gml]
+[global, bind = typed_gml, type_hint=`int32[]`]
 function photon_realtime_get_player_numbers(): gmval;
 
 // -----------------------------------------------------------------------------
@@ -669,7 +669,7 @@ function photon_realtime_room_properties_to_string(): string;
 /// Returns all current room custom properties as a GML struct.
 /// Keys are property names; values preserve their native type (string, int, real, bool).
 [global, bind = typed_gml]
-function photon_realtime_room_properties_get_all(): gmval;
+function photon_realtime_room_properties_get_all(): object;
 
 /// CAS (Check-And-Set): set key=new_value only if it currently equals expected_value.
 /// Returns false immediately if not in a room; the server fires properties_change_failed if CAS fails.
@@ -727,7 +727,7 @@ function photon_realtime_player_properties_to_string_local(): string;
 
 /// Returns all local player custom properties as a GML struct.
 [global, bind = typed_gml]
-function photon_realtime_player_properties_get_local_all(): gmval;
+function photon_realtime_player_properties_get_local_all(): object;
 
 
 // -----------------------------------------------------------------------------
@@ -754,7 +754,7 @@ function photon_realtime_player_properties_to_string_remote(player_number: int32
 
 /// Returns all custom properties for a remote player as a GML struct.
 [global, bind = typed_gml]
-function photon_realtime_player_properties_get_remote_all(player_number: int32): gmval;
+function photon_realtime_player_properties_get_remote_all(player_number: int32): object;
 
 [global, bind = typed_gml]
 function photon_realtime_peek_next_buffer_event_player_number(): int32;
@@ -1754,11 +1754,11 @@ function photon_realtime_peer_get_queued_incoming_commands(): int32;
 [global, bind = typed_gml]
 function photon_realtime_peer_get_queued_outgoing_commands(): int32;
 
-[global, bind = typed_gml]
-function photon_realtime_peer_get_debug_output_level(): int32;
+[global, bind = typed_gml, type_hint=`PhotonCommonDebugLevel`]
+function photon_realtime_peer_get_debug_output_level(): gmval;
 
 [global, bind = typed_gml]
-function photon_realtime_peer_set_debug_output_level(level: int32): bool;
+function photon_realtime_peer_set_debug_output_level([type_hint = `PhotonCommonDebugLevel`] level: int32): bool;
 
 [global, bind = typed_gml]
 function photon_realtime_peer_get_disconnect_timeout(): int32;
@@ -1813,11 +1813,11 @@ function photon_chat_peer_get_queued_incoming_commands(): int32;
 [global, bind = typed_gml]
 function photon_chat_peer_get_queued_outgoing_commands(): int32;
 
-[global, bind = typed_gml]
-function photon_chat_peer_get_debug_output_level(): int32;
+[global, bind = typed_gml, type_hint=`PhotonCommonDebugLevel`]
+function photon_chat_peer_get_debug_output_level(): gmval;
 
 [global, bind = typed_gml]
-function photon_chat_peer_set_debug_output_level(level: int32): bool;
+function photon_chat_peer_set_debug_output_level([type_hint = `PhotonCommonDebugLevel`] level: int32): bool;
 
 [global, bind = typed_gml]
 function photon_chat_peer_get_disconnect_timeout(): int32;
@@ -1881,16 +1881,16 @@ function photon_peer_network_sim_set_packet_loss(incoming_pct: int32, outgoing_p
 // =============================================================================
 
 [global, bind = typed_gml]
-function photon_common_set_debug_level(level: int32): bool;
+function photon_common_set_debug_level([type_hint = `PhotonCommonDebugLevel`] level: int32): bool;
+
+[global, bind = typed_gml, type_hint=`PhotonCommonDebugLevel`]
+function photon_common_get_debug_level(): gmval;
+
+[global, bind = typed_gml, type_hint=`PhotonCommonSerializationProtocol`]
+function photon_common_get_serialization_protocol(): gmval;
 
 [global, bind = typed_gml]
-function photon_common_get_debug_level(): int32;
-
-[global, bind = typed_gml]
-function photon_common_get_serialization_protocol(): int32;
-
-[global, bind = typed_gml]
-function photon_common_type_code_to_string(type_code: int32): string;
+function photon_common_type_code_to_string([type_hint = `PhotonCommonTypeCode`] type_code: int32): string;
 
 [global, bind = typed_gml]
 function photon_common_get_sdk_version(): string;

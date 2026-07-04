@@ -2637,17 +2637,29 @@ static jdouble __JNI_WRAPPER__photon_realtime_peer_get_queued_outgoing_commands_
     return static_cast<jdouble>(__ret);
 }
 
-// photon_realtime_peer_get_debug_output_level JNI wrapper signature: ()D
-static jdouble __JNI_WRAPPER__photon_realtime_peer_get_debug_output_level_6DEE89EFDEF6(JNIEnv* /* env */, jclass /* GMPhotonBridge */)
+// photon_realtime_peer_get_debug_output_level JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
+static jdouble __JNI_WRAPPER__photon_realtime_peer_get_debug_output_level_6C780CA4351C(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __ret_buffer, jdouble __ret_buffer_length)
 {
-    double __ret = __EXT_NATIVE__photon_realtime_peer_get_debug_output_level();
+    void* __ret_buffer_ptr = env->GetDirectBufferAddress(__ret_buffer);
+    jlong __ret_buffer_cap = env->GetDirectBufferCapacity(__ret_buffer);
+    if (!__ret_buffer_ptr || __ret_buffer_cap <= 0) {
+        throwIAE(env, "__ret_buffer must be a DIRECT ByteBuffer");
+        return 0.0;
+    }
+    double __ret = __EXT_NATIVE__photon_realtime_peer_get_debug_output_level((char *)__ret_buffer_ptr, static_cast<double>(__ret_buffer_length));
     return static_cast<jdouble>(__ret);
 }
 
-// photon_realtime_peer_set_debug_output_level JNI wrapper signature: (D)D
-static jdouble __JNI_WRAPPER__photon_realtime_peer_set_debug_output_level_B66E4A3B117C(JNIEnv* /* env */, jclass /* GMPhotonBridge */, jdouble level)
+// photon_realtime_peer_set_debug_output_level JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
+static jdouble __JNI_WRAPPER__photon_realtime_peer_set_debug_output_level_05194282241D(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __arg_buffer, jdouble __arg_buffer_length)
 {
-    double __ret = __EXT_NATIVE__photon_realtime_peer_set_debug_output_level(static_cast<double>(level));
+    void* __arg_buffer_ptr = env->GetDirectBufferAddress(__arg_buffer);
+    jlong __arg_buffer_cap = env->GetDirectBufferCapacity(__arg_buffer);
+    if (!__arg_buffer_ptr || __arg_buffer_cap <= 0) {
+        throwIAE(env, "__arg_buffer must be a DIRECT ByteBuffer");
+        return 0.0;
+    }
+    double __ret = __EXT_NATIVE__photon_realtime_peer_set_debug_output_level((char *)__arg_buffer_ptr, static_cast<double>(__arg_buffer_length));
     return static_cast<jdouble>(__ret);
 }
 
@@ -2763,17 +2775,29 @@ static jdouble __JNI_WRAPPER__photon_chat_peer_get_queued_outgoing_commands_8F71
     return static_cast<jdouble>(__ret);
 }
 
-// photon_chat_peer_get_debug_output_level JNI wrapper signature: ()D
-static jdouble __JNI_WRAPPER__photon_chat_peer_get_debug_output_level_16E6751F8D1A(JNIEnv* /* env */, jclass /* GMPhotonBridge */)
+// photon_chat_peer_get_debug_output_level JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
+static jdouble __JNI_WRAPPER__photon_chat_peer_get_debug_output_level_D6BA8784D4DE(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __ret_buffer, jdouble __ret_buffer_length)
 {
-    double __ret = __EXT_NATIVE__photon_chat_peer_get_debug_output_level();
+    void* __ret_buffer_ptr = env->GetDirectBufferAddress(__ret_buffer);
+    jlong __ret_buffer_cap = env->GetDirectBufferCapacity(__ret_buffer);
+    if (!__ret_buffer_ptr || __ret_buffer_cap <= 0) {
+        throwIAE(env, "__ret_buffer must be a DIRECT ByteBuffer");
+        return 0.0;
+    }
+    double __ret = __EXT_NATIVE__photon_chat_peer_get_debug_output_level((char *)__ret_buffer_ptr, static_cast<double>(__ret_buffer_length));
     return static_cast<jdouble>(__ret);
 }
 
-// photon_chat_peer_set_debug_output_level JNI wrapper signature: (D)D
-static jdouble __JNI_WRAPPER__photon_chat_peer_set_debug_output_level_AB801297CBBD(JNIEnv* /* env */, jclass /* GMPhotonBridge */, jdouble level)
+// photon_chat_peer_set_debug_output_level JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
+static jdouble __JNI_WRAPPER__photon_chat_peer_set_debug_output_level_7A2EA6BE085B(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __arg_buffer, jdouble __arg_buffer_length)
 {
-    double __ret = __EXT_NATIVE__photon_chat_peer_set_debug_output_level(static_cast<double>(level));
+    void* __arg_buffer_ptr = env->GetDirectBufferAddress(__arg_buffer);
+    jlong __arg_buffer_cap = env->GetDirectBufferCapacity(__arg_buffer);
+    if (!__arg_buffer_ptr || __arg_buffer_cap <= 0) {
+        throwIAE(env, "__arg_buffer must be a DIRECT ByteBuffer");
+        return 0.0;
+    }
+    double __ret = __EXT_NATIVE__photon_chat_peer_set_debug_output_level((char *)__arg_buffer_ptr, static_cast<double>(__arg_buffer_length));
     return static_cast<jdouble>(__ret);
 }
 
@@ -2875,31 +2899,55 @@ static jdouble __JNI_WRAPPER__photon_peer_network_sim_set_packet_loss_490B736C75
     return static_cast<jdouble>(__ret);
 }
 
-// photon_common_set_debug_level JNI wrapper signature: (D)D
-static jdouble __JNI_WRAPPER__photon_common_set_debug_level_D1BD1ABF90A8(JNIEnv* /* env */, jclass /* GMPhotonBridge */, jdouble level)
+// photon_common_set_debug_level JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
+static jdouble __JNI_WRAPPER__photon_common_set_debug_level_FC6C4B83D765(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __arg_buffer, jdouble __arg_buffer_length)
 {
-    double __ret = __EXT_NATIVE__photon_common_set_debug_level(static_cast<double>(level));
+    void* __arg_buffer_ptr = env->GetDirectBufferAddress(__arg_buffer);
+    jlong __arg_buffer_cap = env->GetDirectBufferCapacity(__arg_buffer);
+    if (!__arg_buffer_ptr || __arg_buffer_cap <= 0) {
+        throwIAE(env, "__arg_buffer must be a DIRECT ByteBuffer");
+        return 0.0;
+    }
+    double __ret = __EXT_NATIVE__photon_common_set_debug_level((char *)__arg_buffer_ptr, static_cast<double>(__arg_buffer_length));
     return static_cast<jdouble>(__ret);
 }
 
-// photon_common_get_debug_level JNI wrapper signature: ()D
-static jdouble __JNI_WRAPPER__photon_common_get_debug_level_8FF11C2FCC02(JNIEnv* /* env */, jclass /* GMPhotonBridge */)
+// photon_common_get_debug_level JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
+static jdouble __JNI_WRAPPER__photon_common_get_debug_level_2CE444929B41(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __ret_buffer, jdouble __ret_buffer_length)
 {
-    double __ret = __EXT_NATIVE__photon_common_get_debug_level();
+    void* __ret_buffer_ptr = env->GetDirectBufferAddress(__ret_buffer);
+    jlong __ret_buffer_cap = env->GetDirectBufferCapacity(__ret_buffer);
+    if (!__ret_buffer_ptr || __ret_buffer_cap <= 0) {
+        throwIAE(env, "__ret_buffer must be a DIRECT ByteBuffer");
+        return 0.0;
+    }
+    double __ret = __EXT_NATIVE__photon_common_get_debug_level((char *)__ret_buffer_ptr, static_cast<double>(__ret_buffer_length));
     return static_cast<jdouble>(__ret);
 }
 
-// photon_common_get_serialization_protocol JNI wrapper signature: ()D
-static jdouble __JNI_WRAPPER__photon_common_get_serialization_protocol_F6FCB288A54E(JNIEnv* /* env */, jclass /* GMPhotonBridge */)
+// photon_common_get_serialization_protocol JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
+static jdouble __JNI_WRAPPER__photon_common_get_serialization_protocol_4815F66AEA2D(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __ret_buffer, jdouble __ret_buffer_length)
 {
-    double __ret = __EXT_NATIVE__photon_common_get_serialization_protocol();
+    void* __ret_buffer_ptr = env->GetDirectBufferAddress(__ret_buffer);
+    jlong __ret_buffer_cap = env->GetDirectBufferCapacity(__ret_buffer);
+    if (!__ret_buffer_ptr || __ret_buffer_cap <= 0) {
+        throwIAE(env, "__ret_buffer must be a DIRECT ByteBuffer");
+        return 0.0;
+    }
+    double __ret = __EXT_NATIVE__photon_common_get_serialization_protocol((char *)__ret_buffer_ptr, static_cast<double>(__ret_buffer_length));
     return static_cast<jdouble>(__ret);
 }
 
-// photon_common_type_code_to_string JNI wrapper signature: (D)Ljava/lang/String;
-static jstring __JNI_WRAPPER__photon_common_type_code_to_string_BB79FD83C4E3(JNIEnv* env, jclass /* GMPhotonBridge */, jdouble type_code)
+// photon_common_type_code_to_string JNI wrapper signature: (Ljava/nio/ByteBuffer;D)Ljava/lang/String;
+static jstring __JNI_WRAPPER__photon_common_type_code_to_string_02273DC80740(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __arg_buffer, jdouble __arg_buffer_length)
 {
-    const char* __out = __EXT_NATIVE__photon_common_type_code_to_string(static_cast<double>(type_code));
+    void* __arg_buffer_ptr = env->GetDirectBufferAddress(__arg_buffer);
+    jlong __arg_buffer_cap = env->GetDirectBufferCapacity(__arg_buffer);
+    if (!__arg_buffer_ptr || __arg_buffer_cap <= 0) {
+        throwIAE(env, "__arg_buffer must be a DIRECT ByteBuffer");
+        return nullptr;
+    }
+    const char* __out = __EXT_NATIVE__photon_common_type_code_to_string((char *)__arg_buffer_ptr, static_cast<double>(__arg_buffer_length));
     jstring __j = __out ? env->NewStringUTF(__out) : nullptr;
     return __j;
 }
@@ -3232,8 +3280,8 @@ extern "C" {
             { "__EXT_JNI__photon_realtime_peer_get_bytes_out", "()D", (void*)__JNI_WRAPPER__photon_realtime_peer_get_bytes_out_99C8E0D89F42 },
             { "__EXT_JNI__photon_realtime_peer_get_queued_incoming_commands", "()D", (void*)__JNI_WRAPPER__photon_realtime_peer_get_queued_incoming_commands_4D5C65C20E2A },
             { "__EXT_JNI__photon_realtime_peer_get_queued_outgoing_commands", "()D", (void*)__JNI_WRAPPER__photon_realtime_peer_get_queued_outgoing_commands_CE8A67FC6956 },
-            { "__EXT_JNI__photon_realtime_peer_get_debug_output_level", "()D", (void*)__JNI_WRAPPER__photon_realtime_peer_get_debug_output_level_6DEE89EFDEF6 },
-            { "__EXT_JNI__photon_realtime_peer_set_debug_output_level", "(D)D", (void*)__JNI_WRAPPER__photon_realtime_peer_set_debug_output_level_B66E4A3B117C },
+            { "__EXT_JNI__photon_realtime_peer_get_debug_output_level", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_realtime_peer_get_debug_output_level_6C780CA4351C },
+            { "__EXT_JNI__photon_realtime_peer_set_debug_output_level", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_realtime_peer_set_debug_output_level_05194282241D },
             { "__EXT_JNI__photon_realtime_peer_get_disconnect_timeout", "()D", (void*)__JNI_WRAPPER__photon_realtime_peer_get_disconnect_timeout_F8E90BBEE348 },
             { "__EXT_JNI__photon_realtime_peer_set_disconnect_timeout", "(D)D", (void*)__JNI_WRAPPER__photon_realtime_peer_set_disconnect_timeout_F69CEDBCC518 },
             { "__EXT_JNI__photon_realtime_peer_get_time_ping_interval", "()D", (void*)__JNI_WRAPPER__photon_realtime_peer_get_time_ping_interval_F607994034F2 },
@@ -3250,8 +3298,8 @@ extern "C" {
             { "__EXT_JNI__photon_chat_peer_get_bytes_out", "()D", (void*)__JNI_WRAPPER__photon_chat_peer_get_bytes_out_90F10AEA15D3 },
             { "__EXT_JNI__photon_chat_peer_get_queued_incoming_commands", "()D", (void*)__JNI_WRAPPER__photon_chat_peer_get_queued_incoming_commands_679361BDC6E6 },
             { "__EXT_JNI__photon_chat_peer_get_queued_outgoing_commands", "()D", (void*)__JNI_WRAPPER__photon_chat_peer_get_queued_outgoing_commands_8F7108F51059 },
-            { "__EXT_JNI__photon_chat_peer_get_debug_output_level", "()D", (void*)__JNI_WRAPPER__photon_chat_peer_get_debug_output_level_16E6751F8D1A },
-            { "__EXT_JNI__photon_chat_peer_set_debug_output_level", "(D)D", (void*)__JNI_WRAPPER__photon_chat_peer_set_debug_output_level_AB801297CBBD },
+            { "__EXT_JNI__photon_chat_peer_get_debug_output_level", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_chat_peer_get_debug_output_level_D6BA8784D4DE },
+            { "__EXT_JNI__photon_chat_peer_set_debug_output_level", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_chat_peer_set_debug_output_level_7A2EA6BE085B },
             { "__EXT_JNI__photon_chat_peer_get_disconnect_timeout", "()D", (void*)__JNI_WRAPPER__photon_chat_peer_get_disconnect_timeout_CF768749746B },
             { "__EXT_JNI__photon_chat_peer_set_disconnect_timeout", "(D)D", (void*)__JNI_WRAPPER__photon_chat_peer_set_disconnect_timeout_3205F0556722 },
             { "__EXT_JNI__photon_chat_peer_get_time_ping_interval", "()D", (void*)__JNI_WRAPPER__photon_chat_peer_get_time_ping_interval_CEDD8AC324B3 },
@@ -3266,10 +3314,10 @@ extern "C" {
             { "__EXT_JNI__photon_peer_network_sim_set_lag", "(DD)D", (void*)__JNI_WRAPPER__photon_peer_network_sim_set_lag_891A23DC09C2 },
             { "__EXT_JNI__photon_peer_network_sim_set_jitter", "(DD)D", (void*)__JNI_WRAPPER__photon_peer_network_sim_set_jitter_1634AE68824D },
             { "__EXT_JNI__photon_peer_network_sim_set_packet_loss", "(DD)D", (void*)__JNI_WRAPPER__photon_peer_network_sim_set_packet_loss_490B736C75EA },
-            { "__EXT_JNI__photon_common_set_debug_level", "(D)D", (void*)__JNI_WRAPPER__photon_common_set_debug_level_D1BD1ABF90A8 },
-            { "__EXT_JNI__photon_common_get_debug_level", "()D", (void*)__JNI_WRAPPER__photon_common_get_debug_level_8FF11C2FCC02 },
-            { "__EXT_JNI__photon_common_get_serialization_protocol", "()D", (void*)__JNI_WRAPPER__photon_common_get_serialization_protocol_F6FCB288A54E },
-            { "__EXT_JNI__photon_common_type_code_to_string", "(D)Ljava/lang/String;", (void*)__JNI_WRAPPER__photon_common_type_code_to_string_BB79FD83C4E3 },
+            { "__EXT_JNI__photon_common_set_debug_level", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_common_set_debug_level_FC6C4B83D765 },
+            { "__EXT_JNI__photon_common_get_debug_level", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_common_get_debug_level_2CE444929B41 },
+            { "__EXT_JNI__photon_common_get_serialization_protocol", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_common_get_serialization_protocol_4815F66AEA2D },
+            { "__EXT_JNI__photon_common_type_code_to_string", "(Ljava/nio/ByteBuffer;D)Ljava/lang/String;", (void*)__JNI_WRAPPER__photon_common_type_code_to_string_02273DC80740 },
             { "__EXT_JNI__photon_common_get_sdk_version", "()Ljava/lang/String;", (void*)__JNI_WRAPPER__photon_common_get_sdk_version_189C94BE8076 },
             { "__EXT_JNI__photon_common_client_state_to_string", "(D)Ljava/lang/String;", (void*)__JNI_WRAPPER__photon_common_client_state_to_string_B7668D36AB8A },
             { "__EXT_JNI__photon_common_disconnect_cause_to_string", "(D)Ljava/lang/String;", (void*)__JNI_WRAPPER__photon_common_disconnect_cause_to_string_E8DF55C7B621 },

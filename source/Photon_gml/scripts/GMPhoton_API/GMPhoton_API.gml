@@ -1785,7 +1785,8 @@ function __PhotonRealtimeLobbyStats_encode(_inst, _buffer, _offset, _where = _GM
         buffer_write(_buffer, buffer_u32, string_byte_length(self.name));
         buffer_write(_buffer, buffer_string, self.name);
 
-        // field: type, type: Int32
+        // field: type, type: enum PhotonRealtimeLobbyType
+
         if (!is_numeric(self.type)) show_error($"{_where} :: self.type expected number", true);
         buffer_write(_buffer, buffer_s32, self.type);
 
@@ -1818,7 +1819,7 @@ function __PhotonRealtimeLobbyStats_decode(_buffer, _offset)
         buffer_read(_buffer, buffer_u32);
         self.name = buffer_read(_buffer, buffer_string);
 
-        // field: type, type: Int32
+        // field: type, type: enum PhotonRealtimeLobbyType
         self.type = buffer_read(_buffer, buffer_s32);
 
         // field: peer_count, type: Int32
@@ -3098,7 +3099,7 @@ function photon_realtime_get_room_info_by_index(_index)
 
 
 /**
- * @returns {Any}
+ * @returns {Array[Real]}
  */
 function photon_realtime_get_player_numbers()
 {
@@ -3107,7 +3108,12 @@ function photon_realtime_get_player_numbers()
     var _return_value = __photon_realtime_get_player_numbers(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
     var _result = undefined;
-    _result = __ext_core_buffer_unmarshal_value(__ret_buffer, __decoders);
+    var _length = buffer_read(__ret_buffer, buffer_u32);
+    _result = array_create(_length);
+    for (var _i = 0; _i < _length; ++_i)
+    {
+        _result[_i] = buffer_read(__ret_buffer, buffer_s32);
+    }
     return _result;
 }
 
@@ -3723,7 +3729,7 @@ function photon_realtime_set_callback_custom_operation_response(_callback)
 
 
 /**
- * @returns {Any}
+ * @returns {Struct}
  */
 function photon_realtime_room_properties_get_all()
 {
@@ -3785,7 +3791,7 @@ function photon_realtime_room_properties_get_all()
 
 
 /**
- * @returns {Any}
+ * @returns {Struct}
  */
 function photon_realtime_player_properties_get_local_all()
 {
@@ -3818,7 +3824,7 @@ function photon_realtime_player_properties_get_local_all()
 
 /**
  * @param {Real} _player_number
- * @returns {Any}
+ * @returns {Struct}
  */
 function photon_realtime_player_properties_get_remote_all(_player_number)
 {
@@ -4933,11 +4939,37 @@ function photon_voice_set_callback_debug(_callback)
 // Skipping function photon_realtime_peer_get_queued_outgoing_commands (no wrapper is required)
 
 
-// Skipping function photon_realtime_peer_get_debug_output_level (no wrapper is required)
+/**
+ * @returns {Enum.PhotonCommonDebugLevel}
+ */
+function photon_realtime_peer_get_debug_output_level()
+{
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
+    var _return_value = __photon_realtime_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-// Skipping function photon_realtime_peer_set_debug_output_level (no wrapper is required)
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_s32);
+    return _result;
+}
 
+/**
+ * @param {Enum.PhotonCommonDebugLevel} _level
+ * @returns {Bool}
+ */
+function photon_realtime_peer_set_debug_output_level(_level)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _level, type: enum PhotonCommonDebugLevel
+
+    if (!is_numeric(_level)) show_error($"{_GMFUNCTION_} :: _level expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _level);
+
+    var _return_value = __photon_realtime_peer_set_debug_output_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
 
 // Skipping function photon_realtime_peer_get_disconnect_timeout (no wrapper is required)
 
@@ -4987,11 +5019,37 @@ function photon_voice_set_callback_debug(_callback)
 // Skipping function photon_chat_peer_get_queued_outgoing_commands (no wrapper is required)
 
 
-// Skipping function photon_chat_peer_get_debug_output_level (no wrapper is required)
+/**
+ * @returns {Enum.PhotonCommonDebugLevel}
+ */
+function photon_chat_peer_get_debug_output_level()
+{
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
+    var _return_value = __photon_chat_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-// Skipping function photon_chat_peer_set_debug_output_level (no wrapper is required)
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_s32);
+    return _result;
+}
 
+/**
+ * @param {Enum.PhotonCommonDebugLevel} _level
+ * @returns {Bool}
+ */
+function photon_chat_peer_set_debug_output_level(_level)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _level, type: enum PhotonCommonDebugLevel
+
+    if (!is_numeric(_level)) show_error($"{_GMFUNCTION_} :: _level expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _level);
+
+    var _return_value = __photon_chat_peer_set_debug_output_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
 
 // Skipping function photon_chat_peer_get_disconnect_timeout (no wrapper is required)
 
@@ -5035,17 +5093,69 @@ function photon_voice_set_callback_debug(_callback)
 // Skipping function photon_peer_network_sim_set_packet_loss (no wrapper is required)
 
 
-// Skipping function photon_common_set_debug_level (no wrapper is required)
+/**
+ * @param {Enum.PhotonCommonDebugLevel} _level
+ * @returns {Bool}
+ */
+function photon_common_set_debug_level(_level)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
 
+    // param: _level, type: enum PhotonCommonDebugLevel
 
-// Skipping function photon_common_get_debug_level (no wrapper is required)
+    if (!is_numeric(_level)) show_error($"{_GMFUNCTION_} :: _level expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _level);
 
+    var _return_value = __photon_common_set_debug_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-// Skipping function photon_common_get_serialization_protocol (no wrapper is required)
+    return _return_value;
+}
 
+/**
+ * @returns {Enum.PhotonCommonDebugLevel}
+ */
+function photon_common_get_debug_level()
+{
+    var __ret_buffer = __ext_core_get_ret_buffer();
 
-// Skipping function photon_common_type_code_to_string (no wrapper is required)
+    var _return_value = __photon_common_get_debug_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_s32);
+    return _result;
+}
+
+/**
+ * @returns {Enum.PhotonCommonSerializationProtocol}
+ */
+function photon_common_get_serialization_protocol()
+{
+    var __ret_buffer = __ext_core_get_ret_buffer();
+
+    var _return_value = __photon_common_get_serialization_protocol(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+
+    var _result = undefined;
+    _result = buffer_read(__ret_buffer, buffer_s32);
+    return _result;
+}
+
+/**
+ * @param {Enum.PhotonCommonTypeCode} _type_code
+ * @returns {String}
+ */
+function photon_common_type_code_to_string(_type_code)
+{
+    var __args_buffer = __ext_core_get_args_buffer();
+
+    // param: _type_code, type: enum PhotonCommonTypeCode
+
+    if (!is_numeric(_type_code)) show_error($"{_GMFUNCTION_} :: _type_code expected number", true);
+    buffer_write(__args_buffer, buffer_s32, _type_code);
+
+    var _return_value = __photon_common_type_code_to_string(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+
+    return _return_value;
+}
 
 // Skipping function photon_common_get_sdk_version (no wrapper is required)
 

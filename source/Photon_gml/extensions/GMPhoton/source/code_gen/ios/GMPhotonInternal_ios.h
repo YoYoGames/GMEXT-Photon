@@ -277,8 +277,8 @@
 - (double)__EXT_NATIVE__photon_realtime_peer_get_bytes_out;
 - (double)__EXT_NATIVE__photon_realtime_peer_get_queued_incoming_commands;
 - (double)__EXT_NATIVE__photon_realtime_peer_get_queued_outgoing_commands;
-- (double)__EXT_NATIVE__photon_realtime_peer_get_debug_output_level;
-- (double)__EXT_NATIVE__photon_realtime_peer_set_debug_output_level:(double)level;
+- (double)__EXT_NATIVE__photon_realtime_peer_get_debug_output_level:(char*)__ret_buffer arg1:(double)__ret_buffer_length;
+- (double)__EXT_NATIVE__photon_realtime_peer_set_debug_output_level:(char*)__arg_buffer arg1:(double)__arg_buffer_length;
 - (double)__EXT_NATIVE__photon_realtime_peer_get_disconnect_timeout;
 - (double)__EXT_NATIVE__photon_realtime_peer_set_disconnect_timeout:(double)timeout_ms;
 - (double)__EXT_NATIVE__photon_realtime_peer_get_time_ping_interval;
@@ -295,8 +295,8 @@
 - (double)__EXT_NATIVE__photon_chat_peer_get_bytes_out;
 - (double)__EXT_NATIVE__photon_chat_peer_get_queued_incoming_commands;
 - (double)__EXT_NATIVE__photon_chat_peer_get_queued_outgoing_commands;
-- (double)__EXT_NATIVE__photon_chat_peer_get_debug_output_level;
-- (double)__EXT_NATIVE__photon_chat_peer_set_debug_output_level:(double)level;
+- (double)__EXT_NATIVE__photon_chat_peer_get_debug_output_level:(char*)__ret_buffer arg1:(double)__ret_buffer_length;
+- (double)__EXT_NATIVE__photon_chat_peer_set_debug_output_level:(char*)__arg_buffer arg1:(double)__arg_buffer_length;
 - (double)__EXT_NATIVE__photon_chat_peer_get_disconnect_timeout;
 - (double)__EXT_NATIVE__photon_chat_peer_set_disconnect_timeout:(double)timeout_ms;
 - (double)__EXT_NATIVE__photon_chat_peer_get_time_ping_interval;
@@ -311,10 +311,10 @@
 - (double)__EXT_NATIVE__photon_peer_network_sim_set_lag:(double)incoming_ms arg1:(double)outgoing_ms;
 - (double)__EXT_NATIVE__photon_peer_network_sim_set_jitter:(double)incoming_ms arg1:(double)outgoing_ms;
 - (double)__EXT_NATIVE__photon_peer_network_sim_set_packet_loss:(double)incoming_pct arg1:(double)outgoing_pct;
-- (double)__EXT_NATIVE__photon_common_set_debug_level:(double)level;
-- (double)__EXT_NATIVE__photon_common_get_debug_level;
-- (double)__EXT_NATIVE__photon_common_get_serialization_protocol;
-- (char*)__EXT_NATIVE__photon_common_type_code_to_string:(double)type_code;
+- (double)__EXT_NATIVE__photon_common_set_debug_level:(char*)__arg_buffer arg1:(double)__arg_buffer_length;
+- (double)__EXT_NATIVE__photon_common_get_debug_level:(char*)__ret_buffer arg1:(double)__ret_buffer_length;
+- (double)__EXT_NATIVE__photon_common_get_serialization_protocol:(char*)__ret_buffer arg1:(double)__ret_buffer_length;
+- (char*)__EXT_NATIVE__photon_common_type_code_to_string:(char*)__arg_buffer arg1:(double)__arg_buffer_length;
 - (char*)__EXT_NATIVE__photon_common_get_sdk_version;
 - (char*)__EXT_NATIVE__photon_common_client_state_to_string:(double)state;
 - (char*)__EXT_NATIVE__photon_common_disconnect_cause_to_string:(double)cause;

@@ -293,8 +293,8 @@ public final class GMPhotonBridge {
     public static native double __EXT_JNI__photon_realtime_peer_get_bytes_out();
     public static native double __EXT_JNI__photon_realtime_peer_get_queued_incoming_commands();
     public static native double __EXT_JNI__photon_realtime_peer_get_queued_outgoing_commands();
-    public static native double __EXT_JNI__photon_realtime_peer_get_debug_output_level();
-    public static native double __EXT_JNI__photon_realtime_peer_set_debug_output_level(double level);
+    public static native double __EXT_JNI__photon_realtime_peer_get_debug_output_level(ByteBuffer __ret_buffer, double __ret_buffer_length);
+    public static native double __EXT_JNI__photon_realtime_peer_set_debug_output_level(ByteBuffer __arg_buffer, double __arg_buffer_length);
     public static native double __EXT_JNI__photon_realtime_peer_get_disconnect_timeout();
     public static native double __EXT_JNI__photon_realtime_peer_set_disconnect_timeout(double timeout_ms);
     public static native double __EXT_JNI__photon_realtime_peer_get_time_ping_interval();
@@ -311,8 +311,8 @@ public final class GMPhotonBridge {
     public static native double __EXT_JNI__photon_chat_peer_get_bytes_out();
     public static native double __EXT_JNI__photon_chat_peer_get_queued_incoming_commands();
     public static native double __EXT_JNI__photon_chat_peer_get_queued_outgoing_commands();
-    public static native double __EXT_JNI__photon_chat_peer_get_debug_output_level();
-    public static native double __EXT_JNI__photon_chat_peer_set_debug_output_level(double level);
+    public static native double __EXT_JNI__photon_chat_peer_get_debug_output_level(ByteBuffer __ret_buffer, double __ret_buffer_length);
+    public static native double __EXT_JNI__photon_chat_peer_set_debug_output_level(ByteBuffer __arg_buffer, double __arg_buffer_length);
     public static native double __EXT_JNI__photon_chat_peer_get_disconnect_timeout();
     public static native double __EXT_JNI__photon_chat_peer_set_disconnect_timeout(double timeout_ms);
     public static native double __EXT_JNI__photon_chat_peer_get_time_ping_interval();
@@ -327,10 +327,10 @@ public final class GMPhotonBridge {
     public static native double __EXT_JNI__photon_peer_network_sim_set_lag(double incoming_ms, double outgoing_ms);
     public static native double __EXT_JNI__photon_peer_network_sim_set_jitter(double incoming_ms, double outgoing_ms);
     public static native double __EXT_JNI__photon_peer_network_sim_set_packet_loss(double incoming_pct, double outgoing_pct);
-    public static native double __EXT_JNI__photon_common_set_debug_level(double level);
-    public static native double __EXT_JNI__photon_common_get_debug_level();
-    public static native double __EXT_JNI__photon_common_get_serialization_protocol();
-    public static native String __EXT_JNI__photon_common_type_code_to_string(double type_code);
+    public static native double __EXT_JNI__photon_common_set_debug_level(ByteBuffer __arg_buffer, double __arg_buffer_length);
+    public static native double __EXT_JNI__photon_common_get_debug_level(ByteBuffer __ret_buffer, double __ret_buffer_length);
+    public static native double __EXT_JNI__photon_common_get_serialization_protocol(ByteBuffer __ret_buffer, double __ret_buffer_length);
+    public static native String __EXT_JNI__photon_common_type_code_to_string(ByteBuffer __arg_buffer, double __arg_buffer_length);
     public static native String __EXT_JNI__photon_common_get_sdk_version();
     public static native String __EXT_JNI__photon_common_client_state_to_string(double state);
     public static native String __EXT_JNI__photon_common_disconnect_cause_to_string(double cause);

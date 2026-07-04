@@ -213,8 +213,8 @@
  * @returns {Bool} Whether the operation was sent.
  * @event callback
  * @desc The callback is invoked with the following arguments:
- * @member {Array<Struct.PhotonRealtimeRoomInfo>} rooms The rooms that were added or updated.
- * @member {Array<String>} removed The names of rooms that were removed.
+ * @member {Array[Struct.PhotonRealtimeRoomInfo]} rooms The rooms that were added or updated.
+ * @member {Array[String]} removed The names of rooms that were removed.
  * @event_end
  * @function_end
  */
@@ -226,7 +226,7 @@
  * @returns {Bool} Whether the operation was sent.
  * @event callback
  * @desc The callback is invoked with the following arguments:
- * @member {Array<Struct.PhotonRealtimeLobbyStats>} stats The statistics for each tracked lobby.
+ * @member {Array[Struct.PhotonRealtimeLobbyStats]} stats The statistics for each tracked lobby.
  * @event_end
  * @function_end
  */
@@ -234,12 +234,12 @@
 /**
  * @function photon_realtime_operation_find_friends
  * @desc Finds friends by user ID.
- * @param {Array<String>} friends An array of user IDs to look up.
+ * @param {Array[String]} friends An array of user IDs to look up.
  * @param {Function} [callback] Optional callback invoked with the friend info.
  * @returns {Bool} Whether the operation was sent.
  * @event callback
  * @desc The callback is invoked with the following arguments:
- * @member {Array<Struct.PhotonRealtimeFriendInfo>} friends The status of each requested friend.
+ * @member {Array[Struct.PhotonRealtimeFriendInfo]} friends The status of each requested friend.
  * @event_end
  * @function_end
  */
@@ -264,8 +264,8 @@
 /**
  * @function photon_realtime_operation_change_groups
  * @desc Changes the interest groups this client receives events from. Pass the groups to remove and the groups to add; an empty or omitted array leaves that set unchanged.
- * @param {Array<Real>} [groups_to_remove] The interest groups to stop receiving.
- * @param {Array<Real>} [groups_to_add] The interest groups to start receiving.
+ * @param {Array[Real]} [groups_to_remove] The interest groups to stop receiving.
+ * @param {Array[Real]} [groups_to_add] The interest groups to start receiving.
  * @returns {Bool} Whether the operation was sent.
  * @function_end
  */
@@ -299,7 +299,7 @@
  * @function photon_realtime_operation_raise_event_buffer
  * @desc Raises a custom event carrying a binary buffer payload to other players in the room. Receivers are notified via ${function.photon_realtime_set_callback_custom_event} (with `is_buffer` set) and read the bytes with ${function.photon_realtime_receive_one_event_buffer}.
  * @param {Bool} reliable Whether the event is sent reliably.
- * @param {Id.Buffer} data The buffer holding the payload.
+ * @param {Buffer} data The buffer holding the payload.
  * @param {Real} bytes The number of bytes from the buffer to send.
  * @param {Real} event_code A custom event code identifying the event.
  * @param {Struct.PhotonRealtimeRaiseEventOptions} [options] Optional targeting and caching options.
@@ -345,7 +345,7 @@
 /**
  * @function photon_realtime_receive_one_event_buffer
  * @desc Removes the next buffered binary event from the queue and writes its payload into the given buffer.
- * @param {Id.Buffer} out_data The buffer to write the payload into.
+ * @param {Buffer} out_data The buffer to write the payload into.
  * @param {Real} max_bytes The maximum number of bytes to write.
  * @param {Real} offset The offset within the buffer to start writing at.
  * @returns {Struct.PhotonRealtimeEventBufferReceived} A struct describing the received event.
@@ -684,7 +684,7 @@
 /**
  * @function photon_realtime_get_player_numbers
  * @desc Returns an array of the player numbers currently in the room.
- * @returns {Array<Real>} An array of player numbers.
+ * @returns {Array[Real]} An array of player numbers.
  * @function_end
  */
 
@@ -867,7 +867,7 @@
  * @returns {Bool} Whether the callback was set.
  * @event callback
  * @desc The callback is invoked with the following arguments:
- * @member {Array<Struct.PhotonRealtimeLobbyStats>} stats The statistics for each tracked lobby.
+ * @member {Array[Struct.PhotonRealtimeLobbyStats]} stats The statistics for each tracked lobby.
  * @event_end
  * @function_end
  */
@@ -924,8 +924,8 @@
  * @returns {Bool} Whether the callback was set.
  * @event callback
  * @desc The callback is invoked with the following arguments:
- * @member {Array<String>} regions The available region tokens.
- * @member {Array<String>} servers The server address for each region.
+ * @member {Array[String]} regions The available region tokens.
+ * @member {Array[String]} servers The server address for each region.
  * @event_end
  * @function_end
  */
@@ -1204,8 +1204,8 @@
  * @member {Real} [empty_room_ttl] How long (ms) an empty room is kept alive before being removed.
  * @member {Bool} [suppress_room_events] Whether to suppress join/leave events for the room.
  * @member {Bool} [publish_user_id] Whether player user IDs are visible to others in the room.
- * @member {Array<String>} lobby_keys The custom-property keys exposed to the lobby for matchmaking.
- * @member {Array<String>} expected_users User IDs reserved a slot in the room.
+ * @member {Array[String]} lobby_keys The custom-property keys exposed to the lobby for matchmaking.
+ * @member {Array[String]} expected_users User IDs reserved a slot in the room.
  * @struct_end
  */
 
@@ -1225,7 +1225,7 @@
  * @member {String} [lobby_name] The lobby to match within.
  * @member {Constant.PhotonRealtimeLobbyType} [lobby_type] The type of lobby to match within.
  * @member {String} [sql_filter] An SQL-style filter applied when using an SQL lobby.
- * @member {Array<String>} expected_users User IDs reserved a slot in the matched room.
+ * @member {Array[String]} expected_users User IDs reserved a slot in the matched room.
  * @struct_end
  */
 
@@ -1238,7 +1238,7 @@
  * @member {Real} [channel_id] The sequencing channel to send on.
  * @member {Real} [cache_slice_index] The cache slice index to target.
  * @member {Bool} [encrypt] Whether to encrypt the event payload.
- * @member {Array<Real>} target_players Target specific player numbers. An empty array broadcasts to `receiver_group` (default: `Others`).
+ * @member {Array[Real]} target_players Target specific player numbers. An empty array broadcasts to `receiver_group` (default: `Others`).
  * @struct_end
  */
 
@@ -1277,7 +1277,7 @@
  * @struct PhotonRealtimeLobbyStats
  * @desc A statistics entry for a single lobby, delivered by ${function.photon_realtime_operation_lobby_stats} and the lobby-stats-update callback.
  * @member {String} name The lobby's name.
- * @member {Real} type The lobby's type.
+ * @member {Constant.PhotonRealtimeLobbyType} type The lobby's type.
  * @member {Real} peer_count The number of players in the lobby.
  * @member {Real} room_count The number of rooms in the lobby.
  * @struct_end

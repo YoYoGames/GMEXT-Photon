@@ -497,7 +497,7 @@
 
 /**
  * @function_partial photon_realtime_get_player_numbers
- * @returns {Any}
+ * @returns {Array[Real]}
  * @function_end
  */
 
@@ -914,7 +914,7 @@
 
 /**
  * @function_partial photon_realtime_room_properties_get_all
- * @returns {Any}
+ * @returns {Struct}
  * @function_end
  */
 
@@ -1042,7 +1042,7 @@
 
 /**
  * @function_partial photon_realtime_player_properties_get_local_all
- * @returns {Any}
+ * @returns {Struct}
  * @function_end
  */
 
@@ -1096,7 +1096,7 @@
 /**
  * @function_partial photon_realtime_player_properties_get_remote_all
  * @param {Real} player_number
- * @returns {Any}
+ * @returns {Struct}
  * @function_end
  */
 
@@ -1869,13 +1869,13 @@
 
 /**
  * @function_partial photon_realtime_peer_get_debug_output_level
- * @returns {Real}
+ * @returns {Enum.PhotonCommonDebugLevel}
  * @function_end
  */
 
 /**
  * @function_partial photon_realtime_peer_set_debug_output_level
- * @param {Real} level
+ * @param {Enum.PhotonCommonDebugLevel} level
  * @returns {Bool}
  * @function_end
  */
@@ -1981,13 +1981,13 @@
 
 /**
  * @function_partial photon_chat_peer_get_debug_output_level
- * @returns {Real}
+ * @returns {Enum.PhotonCommonDebugLevel}
  * @function_end
  */
 
 /**
  * @function_partial photon_chat_peer_set_debug_output_level
- * @param {Real} level
+ * @param {Enum.PhotonCommonDebugLevel} level
  * @returns {Bool}
  * @function_end
  */
@@ -2088,26 +2088,26 @@
 
 /**
  * @function_partial photon_common_set_debug_level
- * @param {Real} level
+ * @param {Enum.PhotonCommonDebugLevel} level
  * @returns {Bool}
  * @function_end
  */
 
 /**
  * @function_partial photon_common_get_debug_level
- * @returns {Real}
+ * @returns {Enum.PhotonCommonDebugLevel}
  * @function_end
  */
 
 /**
  * @function_partial photon_common_get_serialization_protocol
- * @returns {Real}
+ * @returns {Enum.PhotonCommonSerializationProtocol}
  * @function_end
  */
 
 /**
  * @function_partial photon_common_type_code_to_string
- * @param {Real} type_code
+ * @param {Enum.PhotonCommonTypeCode} type_code
  * @returns {String}
  * @function_end
  */
@@ -2217,7 +2217,7 @@
 /**
  * @struct_partial PhotonRealtimeLobbyStats
  * @member {String} name
- * @member {Real} type
+ * @member {Enum.PhotonRealtimeLobbyType} type
  * @member {Real} peer_count
  * @member {Real} room_count
  * @struct_end

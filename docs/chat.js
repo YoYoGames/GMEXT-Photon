@@ -50,13 +50,13 @@
 /**
  * @function photon_chat_operation_subscribe
  * @desc Subscribes to one or more chat channels. Messages then arrive via ${function.photon_chat_set_callback_get_messages}.
- * @param {Array<String>} channels The channel names to subscribe to.
+ * @param {Array[String]} channels The channel names to subscribe to.
  * @param {Real} [messages_from_history] How many historical messages to fetch per channel (0 for none).
  * @param {Function} [callback] Optional callback invoked with the subscription results.
  * @returns {Bool} Whether the operation was sent.
  * @event callback
  * @desc The callback is invoked with the following arguments:
- * @member {Array<Struct.PhotonChatSubscribeResult>} results The per-channel subscription results.
+ * @member {Array[Struct.PhotonChatSubscribeResult]} results The per-channel subscription results.
  * @event_end
  * @function_end
  */
@@ -64,12 +64,12 @@
 /**
  * @function photon_chat_operation_unsubscribe
  * @desc Unsubscribes from one or more chat channels.
- * @param {Array<String>} channels The channel names to unsubscribe from.
+ * @param {Array[String]} channels The channel names to unsubscribe from.
  * @param {Function} [callback] Optional callback invoked with the unsubscribed channels.
  * @returns {Bool} Whether the operation was sent.
  * @event callback
  * @desc The callback is invoked with the following arguments:
- * @member {Array<String>} channels The channel names that were unsubscribed.
+ * @member {Array[String]} channels The channel names that were unsubscribed.
  * @event_end
  * @function_end
  */
@@ -105,7 +105,7 @@
 /**
  * @function photon_chat_operation_add_friends
  * @desc Adds users to the local user's friend list to receive their status updates.
- * @param {Array<String>} user_ids The user IDs to add.
+ * @param {Array[String]} user_ids The user IDs to add.
  * @returns {Bool} Whether the operation was sent.
  * @function_end
  */
@@ -113,7 +113,7 @@
 /**
  * @function photon_chat_operation_remove_friends
  * @desc Removes users from the local user's friend list.
- * @param {Array<String>} user_ids The user IDs to remove.
+ * @param {Array[String]} user_ids The user IDs to remove.
  * @returns {Bool} Whether the operation was sent.
  * @function_end
  */
@@ -271,7 +271,7 @@
 /**
  * @function photon_chat_receive_one_broadcast_buffer
  * @desc Removes the next buffered broadcast from the queue and writes its payload into the given buffer.
- * @param {Id.Buffer} out_data The buffer to write the payload into.
+ * @param {Buffer} out_data The buffer to write the payload into.
  * @param {Real} max_bytes The maximum number of bytes to write.
  * @param {Real} offset The offset within the buffer to start writing at.
  * @returns {Struct.PhotonRealtimeEventBufferReceived} A struct describing the received broadcast.
@@ -397,7 +397,7 @@
  * @event callback
  * @desc The callback is invoked with the following arguments:
  * @member {String} channel_name The channel the messages arrived on.
- * @member {Array<Struct.PhotonChatMessage>} messages The received messages.
+ * @member {Array[Struct.PhotonChatMessage]} messages The received messages.
  * @event_end
  * @function_end
  */

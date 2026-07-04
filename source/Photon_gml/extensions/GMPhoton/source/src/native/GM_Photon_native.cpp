@@ -1059,7 +1059,7 @@ public:
             const LB::LobbyStatsResponse& ls = lobbyStats[i];
             gm_structs::PhotonRealtimeLobbyStats s;
             s.name       = photon_realtime_from_jstring(ls.getName());
-            s.type       = static_cast<std::int32_t>(ls.getType());
+            s.type       = static_cast<gm_enums::PhotonRealtimeLobbyType>(ls.getType());
             s.peer_count = ls.getPeerCount();
             s.room_count = ls.getRoomCount();
             stream << s;
@@ -1118,7 +1118,7 @@ public:
             const LB::LobbyStatsResponse& ls = lobbyStats[i];
             gm_structs::PhotonRealtimeLobbyStats s;
             s.name       = photon_realtime_from_jstring(ls.getName());
-            s.type       = static_cast<std::int32_t>(ls.getType());
+            s.type       = static_cast<gm_enums::PhotonRealtimeLobbyType>(ls.getType());
             s.peer_count = ls.getPeerCount();
             s.room_count = ls.getRoomCount();
             stream << s;
@@ -1950,14 +1950,12 @@ std::string photon_realtime_room_properties_to_string()
     return photon_realtime_hashtable_to_string(room->getCustomProperties());
 }
 
-gm::wire::DataStream photon_realtime_room_properties_get_all()
+gm::wire::StructStream photon_realtime_room_properties_get_all()
 {
     gm::wire::StructStream ss;
     LB::MutableRoom* room = photon_realtime_room_ref();
     if(room) photon_realtime_fill_hashtable_to_struct_stream(room->getCustomProperties(), ss);
-    gm::wire::DataStream ds;
-    ds << ss;
-    return ds;
+    return ss;
 }
 
 bool photon_realtime_room_properties_cas_string(std::string_view key, std::string_view expected_value, std::string_view new_value)
@@ -2097,14 +2095,12 @@ std::string photon_realtime_player_properties_to_string_local()
     return photon_realtime_hashtable_to_string(p->getCustomProperties());
 }
 
-gm::wire::DataStream photon_realtime_player_properties_get_local_all()
+gm::wire::StructStream photon_realtime_player_properties_get_local_all()
 {
     gm::wire::StructStream ss;
     LB::MutablePlayer* p = photon_realtime_local_player_ref();
     if(p) photon_realtime_fill_hashtable_to_struct_stream(p->getCustomProperties(), ss);
-    gm::wire::DataStream ds;
-    ds << ss;
-    return ds;
+    return ss;
 }
 
 
@@ -2158,14 +2154,12 @@ std::string photon_realtime_player_properties_to_string_remote(std::int32_t play
     return photon_realtime_hashtable_to_string(p->getCustomProperties());
 }
 
-gm::wire::DataStream photon_realtime_player_properties_get_remote_all(std::int32_t player_number)
+gm::wire::StructStream photon_realtime_player_properties_get_remote_all(std::int32_t player_number)
 {
     gm::wire::StructStream ss;
     const LB::Player* p = photon_realtime_remote_player_ptr(player_number);
     if(p) photon_realtime_fill_hashtable_to_struct_stream(p->getCustomProperties(), ss);
-    gm::wire::DataStream ds;
-    ds << ss;
-    return ds;
+    return ss;
 }
 
 // =============================================================================
@@ -2295,20 +2289,18 @@ bool photon_realtime_player_is_master_client(std::int32_t player_number)
     return p ? p->getIsMasterClient() : false;
 }
 
-gm::wire::DataStream photon_realtime_get_player_numbers()
+std::vector<std::int32_t> photon_realtime_get_player_numbers()
 {
-    gm::wire::ArrayStream arr;
+    std::vector<std::int32_t> numbers;
     LB::MutableRoom* room = photon_realtime_room_ref();
     if(room)
     {
         const C::JVector<LB::Player*>& players = room->getPlayers();
         for(unsigned int i = 0; i < players.getSize(); ++i)
             if(players[i])
-                arr << static_cast<std::int32_t>(players[i]->getNumber());
+                numbers.push_back(static_cast<std::int32_t>(players[i]->getNumber()));
     }
-    gm::wire::DataStream ds;
-    ds << arr;
-    return ds;
+    return numbers;
 }
 
 // =============================================================================

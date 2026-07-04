@@ -114,7 +114,7 @@
  * @function photon_voice_push_frame_buffer
  * @desc Pushes a buffer of audio samples into a local voice stream for encoding and transmission.
  * @param {Real} voice_id The local voice ID.
- * @param {Id.Buffer} data The buffer holding the audio samples.
+ * @param {Buffer} data The buffer holding the audio samples.
  * @param {Real} bytes The number of bytes to read from the buffer.
  * @returns {Bool} Whether the frame was pushed.
  * @function_end
@@ -177,7 +177,7 @@
 /**
  * @function photon_voice_receive_frame_buffer
  * @desc Removes the next received audio frame from the queue and writes its decoded samples into the given buffer.
- * @param {Id.Buffer} out_data The buffer to write the samples into.
+ * @param {Buffer} out_data The buffer to write the samples into.
  * @param {Real} max_bytes The maximum number of bytes to write.
  * @param {Real} offset The offset within the buffer to start writing at.
  * @returns {Struct.PhotonRealtimeEventBufferReceived} A struct describing the received frame.

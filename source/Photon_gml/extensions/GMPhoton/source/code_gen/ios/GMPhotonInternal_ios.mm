@@ -1184,13 +1184,13 @@ static void GMInjectSelectorsIntoSubclass(Class subclass, Class base)
 {
     return __EXT_NATIVE__photon_realtime_peer_get_queued_outgoing_commands();
 }
-- (double)__EXT_NATIVE__photon_realtime_peer_get_debug_output_level
+- (double)__EXT_NATIVE__photon_realtime_peer_get_debug_output_level:(char*)__ret_buffer arg1:(double)__ret_buffer_length
 {
-    return __EXT_NATIVE__photon_realtime_peer_get_debug_output_level();
+    return __EXT_NATIVE__photon_realtime_peer_get_debug_output_level(__ret_buffer, __ret_buffer_length);
 }
-- (double)__EXT_NATIVE__photon_realtime_peer_set_debug_output_level:(double)level
+- (double)__EXT_NATIVE__photon_realtime_peer_set_debug_output_level:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    return __EXT_NATIVE__photon_realtime_peer_set_debug_output_level(level);
+    return __EXT_NATIVE__photon_realtime_peer_set_debug_output_level(__arg_buffer, __arg_buffer_length);
 }
 - (double)__EXT_NATIVE__photon_realtime_peer_get_disconnect_timeout
 {
@@ -1256,13 +1256,13 @@ static void GMInjectSelectorsIntoSubclass(Class subclass, Class base)
 {
     return __EXT_NATIVE__photon_chat_peer_get_queued_outgoing_commands();
 }
-- (double)__EXT_NATIVE__photon_chat_peer_get_debug_output_level
+- (double)__EXT_NATIVE__photon_chat_peer_get_debug_output_level:(char*)__ret_buffer arg1:(double)__ret_buffer_length
 {
-    return __EXT_NATIVE__photon_chat_peer_get_debug_output_level();
+    return __EXT_NATIVE__photon_chat_peer_get_debug_output_level(__ret_buffer, __ret_buffer_length);
 }
-- (double)__EXT_NATIVE__photon_chat_peer_set_debug_output_level:(double)level
+- (double)__EXT_NATIVE__photon_chat_peer_set_debug_output_level:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    return __EXT_NATIVE__photon_chat_peer_set_debug_output_level(level);
+    return __EXT_NATIVE__photon_chat_peer_set_debug_output_level(__arg_buffer, __arg_buffer_length);
 }
 - (double)__EXT_NATIVE__photon_chat_peer_get_disconnect_timeout
 {
@@ -1320,21 +1320,21 @@ static void GMInjectSelectorsIntoSubclass(Class subclass, Class base)
 {
     return __EXT_NATIVE__photon_peer_network_sim_set_packet_loss(incoming_pct, outgoing_pct);
 }
-- (double)__EXT_NATIVE__photon_common_set_debug_level:(double)level
+- (double)__EXT_NATIVE__photon_common_set_debug_level:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    return __EXT_NATIVE__photon_common_set_debug_level(level);
+    return __EXT_NATIVE__photon_common_set_debug_level(__arg_buffer, __arg_buffer_length);
 }
-- (double)__EXT_NATIVE__photon_common_get_debug_level
+- (double)__EXT_NATIVE__photon_common_get_debug_level:(char*)__ret_buffer arg1:(double)__ret_buffer_length
 {
-    return __EXT_NATIVE__photon_common_get_debug_level();
+    return __EXT_NATIVE__photon_common_get_debug_level(__ret_buffer, __ret_buffer_length);
 }
-- (double)__EXT_NATIVE__photon_common_get_serialization_protocol
+- (double)__EXT_NATIVE__photon_common_get_serialization_protocol:(char*)__ret_buffer arg1:(double)__ret_buffer_length
 {
-    return __EXT_NATIVE__photon_common_get_serialization_protocol();
+    return __EXT_NATIVE__photon_common_get_serialization_protocol(__ret_buffer, __ret_buffer_length);
 }
-- (char*)__EXT_NATIVE__photon_common_type_code_to_string:(double)type_code
+- (char*)__EXT_NATIVE__photon_common_type_code_to_string:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
-    return __EXT_NATIVE__photon_common_type_code_to_string(type_code);
+    return __EXT_NATIVE__photon_common_type_code_to_string(__arg_buffer, __arg_buffer_length);
 }
 - (char*)__EXT_NATIVE__photon_common_get_sdk_version
 {

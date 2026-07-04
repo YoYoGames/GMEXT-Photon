@@ -734,7 +734,7 @@ GMEXPORT double __EXT_NATIVE__photon_realtime_get_player_numbers(char* __ret_buf
     auto&& __result = photon_realtime_get_player_numbers();
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: Any
+    // return: __result, type: Int32[]
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -1243,7 +1243,7 @@ GMEXPORT double __EXT_NATIVE__photon_realtime_room_properties_get_all(char* __re
     auto&& __result = photon_realtime_room_properties_get_all();
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: Any
+    // return: __result, type: AnyMap
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -1351,7 +1351,7 @@ GMEXPORT double __EXT_NATIVE__photon_realtime_player_properties_get_local_all(ch
     auto&& __result = photon_realtime_player_properties_get_local_all();
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: Any
+    // return: __result, type: AnyMap
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -1399,7 +1399,7 @@ GMEXPORT double __EXT_NATIVE__photon_realtime_player_properties_get_remote_all(d
     auto&& __result = photon_realtime_player_properties_get_remote_all(static_cast<std::int32_t>(player_number));
     gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
 
-    // return: __result, type: Any
+    // return: __result, type: AnyMap
     gm::wire::codec::writeValue(__bw, __result);
     return 0;
 }
@@ -2360,15 +2360,24 @@ GMEXPORT double __EXT_NATIVE__photon_realtime_peer_get_queued_outgoing_commands(
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__photon_realtime_peer_get_debug_output_level()
+GMEXPORT double __EXT_NATIVE__photon_realtime_peer_get_debug_output_level(char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = photon_realtime_peer_get_debug_output_level();
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum PhotonCommonDebugLevel
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__photon_realtime_peer_set_debug_output_level(double level)
+GMEXPORT double __EXT_NATIVE__photon_realtime_peer_set_debug_output_level(char* __arg_buffer, double __arg_buffer_length)
 {
-    auto&& __result = photon_realtime_peer_set_debug_output_level(static_cast<std::int32_t>(level));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: level, type: enum PhotonCommonDebugLevel
+    gm_enums::PhotonCommonDebugLevel level = gm::wire::codec::readValue<gm_enums::PhotonCommonDebugLevel>(__br);
+
+    auto&& __result = photon_realtime_peer_set_debug_output_level(level);
     return static_cast<double>(__result);
 }
 
@@ -2468,15 +2477,24 @@ GMEXPORT double __EXT_NATIVE__photon_chat_peer_get_queued_outgoing_commands()
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__photon_chat_peer_get_debug_output_level()
+GMEXPORT double __EXT_NATIVE__photon_chat_peer_get_debug_output_level(char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = photon_chat_peer_get_debug_output_level();
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum PhotonCommonDebugLevel
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__photon_chat_peer_set_debug_output_level(double level)
+GMEXPORT double __EXT_NATIVE__photon_chat_peer_set_debug_output_level(char* __arg_buffer, double __arg_buffer_length)
 {
-    auto&& __result = photon_chat_peer_set_debug_output_level(static_cast<std::int32_t>(level));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: level, type: enum PhotonCommonDebugLevel
+    gm_enums::PhotonCommonDebugLevel level = gm::wire::codec::readValue<gm_enums::PhotonCommonDebugLevel>(__br);
+
+    auto&& __result = photon_chat_peer_set_debug_output_level(level);
     return static_cast<double>(__result);
 }
 
@@ -2564,28 +2582,46 @@ GMEXPORT double __EXT_NATIVE__photon_peer_network_sim_set_packet_loss(double inc
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__photon_common_set_debug_level(double level)
+GMEXPORT double __EXT_NATIVE__photon_common_set_debug_level(char* __arg_buffer, double __arg_buffer_length)
 {
-    auto&& __result = photon_common_set_debug_level(static_cast<std::int32_t>(level));
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: level, type: enum PhotonCommonDebugLevel
+    gm_enums::PhotonCommonDebugLevel level = gm::wire::codec::readValue<gm_enums::PhotonCommonDebugLevel>(__br);
+
+    auto&& __result = photon_common_set_debug_level(level);
     return static_cast<double>(__result);
 }
 
-GMEXPORT double __EXT_NATIVE__photon_common_get_debug_level()
+GMEXPORT double __EXT_NATIVE__photon_common_get_debug_level(char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = photon_common_get_debug_level();
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum PhotonCommonDebugLevel
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
-GMEXPORT double __EXT_NATIVE__photon_common_get_serialization_protocol()
+GMEXPORT double __EXT_NATIVE__photon_common_get_serialization_protocol(char* __ret_buffer, double __ret_buffer_length)
 {
     auto&& __result = photon_common_get_serialization_protocol();
-    return static_cast<double>(__result);
+    gm::byteio::BufferWriter __bw{__ret_buffer, static_cast<size_t>(__ret_buffer_length)};
+
+    // return: __result, type: enum PhotonCommonSerializationProtocol
+    gm::wire::codec::writeValue(__bw, __result);
+    return 0;
 }
 
-GMEXPORT char* __EXT_NATIVE__photon_common_type_code_to_string(double type_code)
+GMEXPORT char* __EXT_NATIVE__photon_common_type_code_to_string(char* __arg_buffer, double __arg_buffer_length)
 {
+    gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};
+
+    // field: type_code, type: enum PhotonCommonTypeCode
+    gm_enums::PhotonCommonTypeCode type_code = gm::wire::codec::readValue<gm_enums::PhotonCommonTypeCode>(__br);
+
     static std::string __result;
-    __result = photon_common_type_code_to_string(static_cast<std::int32_t>(type_code));
+    __result = photon_common_type_code_to_string(type_code);
     return (char*)__result.c_str();
 }
 
