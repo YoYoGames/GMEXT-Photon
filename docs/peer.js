@@ -46,7 +46,7 @@
 
 /**
  * @const PhotonPeerState
- * @desc The low-level peer connection states, returned by ${function.photon_realtime_peer_get_state} and ${function.photon_chat_peer_get_state}.
+ * @desc The low-level peer connection states.
  * @member Disconnected The peer is disconnected.
  * @member Connecting The peer is connecting.
  * @member InitializingApplication The peer is initialising the application layer.

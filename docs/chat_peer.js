@@ -2,8 +2,8 @@
 
 /**
  * @function photon_chat_peer_get_state
- * @desc Returns the low-level peer state of the Chat connection.
- * @returns {Constant.PhotonPeerState} The peer state.
+ * @desc Returns the current state of the Chat connection.
+ * @returns {Real} The connection state.
  * @function_end
  */
 
