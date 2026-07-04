@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Realtime Room Properties - GMEXT-Photon</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Realtime Room Properties";
+        var mkdocs_page_input_path = "realtime_room_properties.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Photon
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Photon Extension</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="setup.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="quick_start_guide.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="common.html">Common</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_player_properties.html">Realtime Player Properties</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Realtime Room Properties</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#set-remove">Set &amp; remove</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#query-get">Query &amp; get</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#compare-and-swap">Compare-and-swap</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_peer.html">Realtime Peer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="chat.html">Chat</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="chat_peer.html">Chat Peer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="voice.html">Voice</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="peer.html">Peer & Network Simulation</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Photon</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Realtime Room Properties</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Photon/edit/master/docs/realtime_room_properties.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="realtime-room-properties"><strong>Realtime Room Properties</strong></h1>
+<p>Room custom properties are shared key/value data attached to the current room and synced to all players. Any player can set them (subject to the room's rules), read them, and use compare-and-swap for safe concurrent updates. Changes are delivered to <a href="realtime.html#photon_realtime_set_callback_room_properties_change">photon_realtime_set_callback_room_properties_change</a>.</p>
+<h2 id="set-remove">Set &amp; remove</h2>
+<p>Set or remove room custom properties:</p>
+<ul>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_set_string">photon_realtime_room_properties_set_string</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_set_i32">photon_realtime_room_properties_set_i32</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_set_f64">photon_realtime_room_properties_set_f64</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_set_bool">photon_realtime_room_properties_set_bool</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_remove">photon_realtime_room_properties_remove</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_clear">photon_realtime_room_properties_clear</a></li>
+</ul>
+<h2 id="query-get">Query &amp; get</h2>
+<p>Read room custom properties:</p>
+<ul>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_has">photon_realtime_room_properties_has</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_get_string">photon_realtime_room_properties_get_string</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_get_i32">photon_realtime_room_properties_get_i32</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_get_f64">photon_realtime_room_properties_get_f64</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_get_bool">photon_realtime_room_properties_get_bool</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_to_string">photon_realtime_room_properties_to_string</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_get_all">photon_realtime_room_properties_get_all</a></li>
+</ul>
+<h2 id="compare-and-swap">Compare-and-swap</h2>
+<p>Atomically update a property only if it still holds an expected value:</p>
+<ul>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_cas_string">photon_realtime_room_properties_cas_string</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_cas_i32">photon_realtime_room_properties_cas_i32</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_cas_f64">photon_realtime_room_properties_cas_f64</a></li>
+<li><a href="realtime_room_properties.html#photon_realtime_room_properties_cas_bool">photon_realtime_room_properties_cas_bool</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_set_string">photon_realtime_room_properties_set_string</h1>
+<p>Sets a string custom property on the current room and syncs it to everyone. Other clients are notified via <a href="realtime.html#photon_realtime_set_callback_room_properties_change">photon_realtime_set_callback_room_properties_change</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_set_string(key, value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The string value to set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the property was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_set_i32">photon_realtime_room_properties_set_i32</h1>
+<p>Sets a 32-bit integer custom property on the current room and syncs it to everyone.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_set_i32(key, value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The integer value to set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the property was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_set_f64">photon_realtime_room_properties_set_f64</h1>
+<p>Sets a 64-bit floating point custom property on the current room and syncs it to everyone.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_set_f64(key, value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value to set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the property was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_set_bool">photon_realtime_room_properties_set_bool</h1>
+<p>Sets a boolean custom property on the current room and syncs it to everyone.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_set_bool(key, value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>The value to set.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the property was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_remove">photon_realtime_room_properties_remove</h1>
+<p>Removes a custom property from the current room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_remove(key)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key to remove.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the property was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_clear">photon_realtime_room_properties_clear</h1>
+<p>Removes all custom properties from the current room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_clear()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the properties were cleared.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_has">photon_realtime_room_properties_has</h1>
+<p>Returns whether the current room has a custom property with the given key.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_has(key)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the property exists.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_get_string">photon_realtime_room_properties_get_string</h1>
+<p>Returns a string custom property of the current room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_get_string(key)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The property value.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_get_i32">photon_realtime_room_properties_get_i32</h1>
+<p>Returns an integer custom property of the current room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_get_i32(key)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The property value.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_get_f64">photon_realtime_room_properties_get_f64</h1>
+<p>Returns a floating point custom property of the current room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_get_f64(key)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The property value.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_get_bool">photon_realtime_room_properties_get_bool</h1>
+<p>Returns a boolean custom property of the current room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_get_bool(key)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>The property value.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_to_string">photon_realtime_room_properties_to_string</h1>
+<p>Returns a human-readable string of all the room's custom properties, useful for debugging.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_to_string()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>A readable dump of the room properties.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_get_all">photon_realtime_room_properties_get_all</h1>
+<p>Returns all of the room's custom properties as a GML struct.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_get_all()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Structs.htm">Struct</a></p>
+</blockquote>
+<p>A struct of all room custom properties.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_cas_string">photon_realtime_room_properties_cas_string</h1>
+<p>Atomically sets a string room property only if its current value equals the expected value (compare-and-swap). If the check fails on the server, <a href="realtime.html#photon_realtime_set_callback_properties_change_failed">photon_realtime_set_callback_properties_change_failed</a> fires. Returns <code>false</code> immediately if not in a room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_cas_string(key, expected_value, new_value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>expected_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The value the property must currently have.</td>
+</tr>
+<tr>
+<td>new_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The value to set if the check passes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the request was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_cas_i32">photon_realtime_room_properties_cas_i32</h1>
+<p>Atomically sets an integer room property only if its current value equals the expected value (compare-and-swap). If the check fails on the server, <a href="realtime.html#photon_realtime_set_callback_properties_change_failed">photon_realtime_set_callback_properties_change_failed</a> fires. Returns <code>false</code> immediately if not in a room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_cas_i32(key, expected_value, new_value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>expected_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value the property must currently have.</td>
+</tr>
+<tr>
+<td>new_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value to set if the check passes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the request was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_cas_f64">photon_realtime_room_properties_cas_f64</h1>
+<p>Atomically sets a floating point room property only if its current value equals the expected value (compare-and-swap). If the check fails on the server, <a href="realtime.html#photon_realtime_set_callback_properties_change_failed">photon_realtime_set_callback_properties_change_failed</a> fires. Returns <code>false</code> immediately if not in a room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_cas_f64(key, expected_value, new_value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>expected_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value the property must currently have.</td>
+</tr>
+<tr>
+<td>new_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The value to set if the check passes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the request was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_realtime_room_properties_cas_bool">photon_realtime_room_properties_cas_bool</h1>
+<p>Atomically sets a boolean room property only if its current value equals the expected value (compare-and-swap). If the check fails on the server, <a href="realtime.html#photon_realtime_set_callback_properties_change_failed">photon_realtime_set_callback_properties_change_failed</a> fires. Returns <code>false</code> immediately if not in a room.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_realtime_room_properties_cas_bool(key, expected_value, new_value)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The property key.</td>
+</tr>
+<tr>
+<td>expected_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>The value the property must currently have.</td>
+</tr>
+<tr>
+<td>new_value</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>The value to set if the check passes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the request was sent.</p>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="realtime_player_properties.html" class="btn btn-neutral float-left" title="Realtime Player Properties"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="realtime_peer.html" class="btn btn-neutral float-right" title="Realtime Peer">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Photon" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="realtime_player_properties.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="realtime_peer.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

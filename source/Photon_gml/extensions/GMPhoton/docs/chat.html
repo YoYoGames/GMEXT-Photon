@@ -1,0 +1,2765 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Chat - GMEXT-Photon</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Chat";
+        var mkdocs_page_input_path = "chat.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Photon
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Photon Extension</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="setup.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="quick_start_guide.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="common.html">Common</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_player_properties.html">Realtime Player Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_room_properties.html">Realtime Room Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_peer.html">Realtime Peer</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Chat</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#lifecycle">Lifecycle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#state-info">State &amp; info</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#channels-messages">Channels &amp; messages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#broadcast-queue">Broadcast queue</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#callbacks">Callbacks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#structs">Structs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="chat_peer.html">Chat Peer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="voice.html">Voice</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="peer.html">Peer & Network Simulation</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Photon</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Chat</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Photon/edit/master/docs/chat.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="chat"><strong>Chat</strong></h1>
+<p>The Chat module connects to the Photon Chat service for channel-based and private text messaging, presence and friend status. It is independent of <a href="realtime.html">Realtime</a>: initialise, connect and service it separately. Connection diagnostics live in <a href="chat_peer.html">Chat Peer</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After connecting you must call <a href="chat.html#photon_chat_service">photon_chat_service</a> every step for the Chat client to send and receive.</p>
+</div>
+<h2 id="lifecycle">Lifecycle</h2>
+<p>Initialise, connect and service the Chat client:</p>
+<ul>
+<li><a href="chat.html#photon_chat_init">photon_chat_init</a></li>
+<li><a href="chat.html#photon_chat_shutdown">photon_chat_shutdown</a></li>
+<li><a href="chat.html#photon_chat_service">photon_chat_service</a></li>
+<li><a href="chat.html#photon_chat_connect">photon_chat_connect</a></li>
+<li><a href="chat.html#photon_chat_disconnect">photon_chat_disconnect</a></li>
+</ul>
+<h2 id="operations">Operations</h2>
+<p>Subscribe to channels, send messages and manage friends:</p>
+<ul>
+<li><a href="chat.html#photon_chat_operation_subscribe">photon_chat_operation_subscribe</a></li>
+<li><a href="chat.html#photon_chat_operation_unsubscribe">photon_chat_operation_unsubscribe</a></li>
+<li><a href="chat.html#photon_chat_operation_publish_message">photon_chat_operation_publish_message</a></li>
+<li><a href="chat.html#photon_chat_operation_send_private_message">photon_chat_operation_send_private_message</a></li>
+<li><a href="chat.html#photon_chat_operation_set_online_status">photon_chat_operation_set_online_status</a></li>
+<li><a href="chat.html#photon_chat_operation_add_friends">photon_chat_operation_add_friends</a></li>
+<li><a href="chat.html#photon_chat_operation_remove_friends">photon_chat_operation_remove_friends</a></li>
+</ul>
+<h2 id="state-info">State &amp; info</h2>
+<p>Query Chat connection state:</p>
+<ul>
+<li><a href="chat.html#photon_chat_is_initialized">photon_chat_is_initialized</a></li>
+<li><a href="chat.html#photon_chat_is_connected">photon_chat_is_connected</a></li>
+<li><a href="chat.html#photon_chat_get_state">photon_chat_get_state</a></li>
+<li><a href="chat.html#photon_chat_get_disconnect_cause">photon_chat_get_disconnect_cause</a></li>
+<li><a href="chat.html#photon_chat_get_user_id">photon_chat_get_user_id</a></li>
+<li><a href="chat.html#photon_chat_get_region">photon_chat_get_region</a></li>
+<li><a href="chat.html#photon_chat_get_server_time">photon_chat_get_server_time</a></li>
+<li><a href="chat.html#photon_chat_get_server_time_offset">photon_chat_get_server_time_offset</a></li>
+<li><a href="chat.html#photon_chat_get_bytes_in">photon_chat_get_bytes_in</a></li>
+<li><a href="chat.html#photon_chat_get_bytes_out">photon_chat_get_bytes_out</a></li>
+</ul>
+<h2 id="channels-messages">Channels &amp; messages</h2>
+<p>Inspect subscribed channels and their cached messages:</p>
+<ul>
+<li><a href="chat.html#photon_chat_get_channel_count">photon_chat_get_channel_count</a></li>
+<li><a href="chat.html#photon_chat_get_channel_name">photon_chat_get_channel_name</a></li>
+<li><a href="chat.html#photon_chat_get_channel_message_count">photon_chat_get_channel_message_count</a></li>
+<li><a href="chat.html#photon_chat_get_channel_message">photon_chat_get_channel_message</a></li>
+<li><a href="chat.html#photon_chat_get_channel_sender">photon_chat_get_channel_sender</a></li>
+</ul>
+<h2 id="broadcast-queue">Broadcast queue</h2>
+<p>Read binary broadcast payloads:</p>
+<ul>
+<li><a href="chat.html#photon_chat_get_broadcast_queue_count">photon_chat_get_broadcast_queue_count</a></li>
+<li><a href="chat.html#photon_chat_clear_broadcast_queue">photon_chat_clear_broadcast_queue</a></li>
+<li><a href="chat.html#photon_chat_peek_next_broadcast_size">photon_chat_peek_next_broadcast_size</a></li>
+<li><a href="chat.html#photon_chat_peek_next_broadcast_channel">photon_chat_peek_next_broadcast_channel</a></li>
+<li><a href="chat.html#photon_chat_receive_one_broadcast_buffer">photon_chat_receive_one_broadcast_buffer</a></li>
+</ul>
+<h2 id="callbacks">Callbacks</h2>
+<p>Register and remove the Chat event callbacks:</p>
+<ul>
+<li><a href="chat.html#photon_chat_set_callback_debug">photon_chat_set_callback_debug</a></li>
+<li><a href="chat.html#photon_chat_set_callback_connected">photon_chat_set_callback_connected</a></li>
+<li><a href="chat.html#photon_chat_set_callback_state_change">photon_chat_set_callback_state_change</a></li>
+<li><a href="chat.html#photon_chat_set_callback_connection_error">photon_chat_set_callback_connection_error</a></li>
+<li><a href="chat.html#photon_chat_set_callback_client_error">photon_chat_set_callback_client_error</a></li>
+<li><a href="chat.html#photon_chat_set_callback_warning">photon_chat_set_callback_warning</a></li>
+<li><a href="chat.html#photon_chat_set_callback_server_error">photon_chat_set_callback_server_error</a></li>
+<li><a href="chat.html#photon_chat_set_callback_disconnected">photon_chat_set_callback_disconnected</a></li>
+<li><a href="chat.html#photon_chat_set_callback_status_update">photon_chat_set_callback_status_update</a></li>
+<li><a href="chat.html#photon_chat_set_callback_get_messages">photon_chat_set_callback_get_messages</a></li>
+<li><a href="chat.html#photon_chat_set_callback_private_message">photon_chat_set_callback_private_message</a></li>
+<li><a href="chat.html#photon_chat_set_callback_receive_broadcast">photon_chat_set_callback_receive_broadcast</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_debug">photon_chat_remove_callback_debug</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_connected">photon_chat_remove_callback_connected</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_state_change">photon_chat_remove_callback_state_change</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_connection_error">photon_chat_remove_callback_connection_error</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_client_error">photon_chat_remove_callback_client_error</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_warning">photon_chat_remove_callback_warning</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_server_error">photon_chat_remove_callback_server_error</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_disconnected">photon_chat_remove_callback_disconnected</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_status_update">photon_chat_remove_callback_status_update</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_get_messages">photon_chat_remove_callback_get_messages</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_private_message">photon_chat_remove_callback_private_message</a></li>
+<li><a href="chat.html#photon_chat_remove_callback_receive_broadcast">photon_chat_remove_callback_receive_broadcast</a></li>
+</ul>
+<h2 id="structs">Structs</h2>
+<p>The Chat module uses the following structs:</p>
+<ul>
+<li><a href="chat.html#photonchatconnectoptions">PhotonChatConnectOptions</a></li>
+<li><a href="chat.html#photonchatmessage">PhotonChatMessage</a></li>
+<li><a href="chat.html#photonchatsubscriberesult">PhotonChatSubscribeResult</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>The Chat module defines the following constants:</p>
+<ul>
+<li><a href="chat.html#photonchatstate">PhotonChatState</a></li>
+<li><a href="chat.html#photonchatdisconnectcause">PhotonChatDisconnectCause</a></li>
+<li><a href="chat.html#photonchatapperrorcode">PhotonChatAppErrorCode</a></li>
+<li><a href="chat.html#photonchatuserstatus">PhotonChatUserStatus</a></li>
+<li><a href="chat.html#photonchatchanneltype">PhotonChatChannelType</a></li>
+<li><a href="chat.html#photonchatoperationcode">PhotonChatOperationCode</a></li>
+<li><a href="chat.html#photonchateventcode">PhotonChatEventCode</a></li>
+<li><a href="chat.html#photonchatparametercode">PhotonChatParameterCode</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_init">photon_chat_init</h1>
+<p>Initialises the Chat client. Call this once before any other Chat function.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_init()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether initialisation succeeded.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_shutdown">photon_chat_shutdown</h1>
+<p>Shuts the Chat client down and releases its resources.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_shutdown()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the client was shut down.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_service">photon_chat_service</h1>
+<p>Dispatches queued incoming and outgoing traffic for the Chat client. This <strong>must</strong> be called every step while connected.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_service()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the client was serviced.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_connect">photon_chat_connect</h1>
+<p>Connects to the Photon Chat service using the given Application ID and application version. The result is delivered to <a href="chat.html#photon_chat_set_callback_connected">photon_chat_set_callback_connected</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_connect(app_id, app_version, options=undefined)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Your Photon Chat Application ID.</td>
+</tr>
+<tr>
+<td>app_version</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A version string of your choosing for your game build.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><a href="chat.html#photonchatconnectoptions">PhotonChatConnectOptions</a></td>
+<td>Optional connection options.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the connection attempt started.</p>
+<p><br></p>
+<p><strong>Example:</strong></p>
+<p><code>gml
+var _app_id = extension_get_option_value("GMPhoton", "appIdChat");
+photon_chat_connect(_app_id, "1.0", new PhotonChatConnectOptions());</code></p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_disconnect">photon_chat_disconnect</h1>
+<p>Disconnects the Chat client. The <a href="chat.html#photon_chat_set_callback_disconnected">photon_chat_set_callback_disconnected</a> callback fires once the disconnect completes.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_disconnect()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the disconnect started.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_operation_subscribe">photon_chat_operation_subscribe</h1>
+<p>Subscribes to one or more chat channels. Messages then arrive via <a href="chat.html#photon_chat_set_callback_get_messages">photon_chat_set_callback_get_messages</a>.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_operation_subscribe(channels, messages_from_history=undefined, callback=undefined)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channels</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel names to subscribe to.</td>
+</tr>
+<tr>
+<td>messages_from_history</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>How many historical messages to fetch per channel (0 for none).</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>Optional callback invoked with the subscription results.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the operation was sent.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>results</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="chat.html#photonchatsubscriberesult">PhotonChatSubscribeResult</a></td>
+<td>The per-channel subscription results.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_operation_unsubscribe">photon_chat_operation_unsubscribe</h1>
+<p>Unsubscribes from one or more chat channels.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_operation_unsubscribe(channels, callback=undefined)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channels</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel names to unsubscribe from.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>Optional callback invoked with the unsubscribed channels.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the operation was sent.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channels</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel names that were unsubscribed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_operation_publish_message">photon_chat_operation_publish_message</h1>
+<p>Publishes a message to a subscribed channel. Subscribers receive it via <a href="chat.html#photon_chat_set_callback_get_messages">photon_chat_set_callback_get_messages</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_operation_publish_message(channel_name, message)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel to publish to.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The message text.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the operation was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_operation_send_private_message">photon_chat_operation_send_private_message</h1>
+<p>Sends a private message to another user. The recipient receives it via <a href="chat.html#photon_chat_set_callback_private_message">photon_chat_set_callback_private_message</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_operation_send_private_message(user_name, message, encrypt=undefined)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The recipient's user ID.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The message text.</td>
+</tr>
+<tr>
+<td>encrypt</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to encrypt the message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the operation was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_operation_set_online_status">photon_chat_operation_set_online_status</h1>
+<p>Sets the local user's online status, optionally with a status message. Friends are notified via <a href="chat.html#photon_chat_set_callback_status_update">photon_chat_set_callback_status_update</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_operation_set_online_status(status, message=undefined)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status</td>
+<td><a href="chat.html#photonchatuserstatus">PhotonChatUserStatus</a></td>
+<td>The status to broadcast.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>An optional status message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the operation was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_operation_add_friends">photon_chat_operation_add_friends</h1>
+<p>Adds users to the local user's friend list to receive their status updates.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_operation_add_friends(user_ids)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_ids</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The user IDs to add.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the operation was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_operation_remove_friends">photon_chat_operation_remove_friends</h1>
+<p>Removes users from the local user's friend list.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_operation_remove_friends(user_ids)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_ids</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The user IDs to remove.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the operation was sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_is_initialized">photon_chat_is_initialized</h1>
+<p>Returns whether the Chat client has been initialised.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_is_initialized()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the client is initialised.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_is_connected">photon_chat_is_connected</h1>
+<p>Returns whether the Chat client is connected.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_is_connected()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the client is connected.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_state">photon_chat_get_state</h1>
+<p>Returns the current Chat client state.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_state()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="chat.html#photonchatstate">PhotonChatState</a></p>
+</blockquote>
+<p>The current state.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_disconnect_cause">photon_chat_get_disconnect_cause</h1>
+<p>Returns the cause of the most recent Chat disconnect.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_disconnect_cause()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="chat.html#photonchatdisconnectcause">PhotonChatDisconnectCause</a></p>
+</blockquote>
+<p>The disconnect cause.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_user_id">photon_chat_get_user_id</h1>
+<p>Returns the local user's ID.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_user_id()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The local user ID.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_region">photon_chat_get_region</h1>
+<p>Returns the region the Chat client is connected to.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_region()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The current region.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_server_time">photon_chat_get_server_time</h1>
+<p>Returns the current Chat server time in milliseconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_server_time()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The server time in milliseconds.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_server_time_offset">photon_chat_get_server_time_offset</h1>
+<p>Returns the offset between local time and Chat server time, in milliseconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_server_time_offset()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The server time offset in milliseconds.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_bytes_in">photon_chat_get_bytes_in</h1>
+<p>Returns the total number of bytes received by the Chat client.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_bytes_in()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of bytes received.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_bytes_out">photon_chat_get_bytes_out</h1>
+<p>Returns the total number of bytes sent by the Chat client.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_bytes_out()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of bytes sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_channel_count">photon_chat_get_channel_count</h1>
+<p>Returns the number of channels of the given type the client is currently subscribed to.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_channel_count(channel_type)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_type</td>
+<td><a href="chat.html#photonchatchanneltype">PhotonChatChannelType</a></td>
+<td>The channel type (public or private).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of channels.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_channel_name">photon_chat_get_channel_name</h1>
+<p>Returns the name of a subscribed channel of the given type by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_channel_name(channel_type, index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_type</td>
+<td><a href="chat.html#photonchatchanneltype">PhotonChatChannelType</a></td>
+<td>The channel type.</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based channel index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The channel name.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_channel_message_count">photon_chat_get_channel_message_count</h1>
+<p>Returns the number of cached messages in the given channel.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_channel_message_count(channel_type, channel_name)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_type</td>
+<td><a href="chat.html#photonchatchanneltype">PhotonChatChannelType</a></td>
+<td>The channel type.</td>
+</tr>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel name.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of cached messages.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_channel_message">photon_chat_get_channel_message</h1>
+<p>Returns a cached message from the given channel by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_channel_message(channel_type, channel_name, index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_type</td>
+<td><a href="chat.html#photonchatchanneltype">PhotonChatChannelType</a></td>
+<td>The channel type.</td>
+</tr>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel name.</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based message index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The message text.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_channel_sender">photon_chat_get_channel_sender</h1>
+<p>Returns the sender of a cached message from the given channel by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_channel_sender(channel_type, channel_name, index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_type</td>
+<td><a href="chat.html#photonchatchanneltype">PhotonChatChannelType</a></td>
+<td>The channel type.</td>
+</tr>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel name.</td>
+</tr>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based message index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The sender's user ID.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_get_broadcast_queue_count">photon_chat_get_broadcast_queue_count</h1>
+<p>Returns the number of buffered binary broadcast messages waiting to be read.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_get_broadcast_queue_count()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of queued broadcasts.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_clear_broadcast_queue">photon_chat_clear_broadcast_queue</h1>
+<p>Clears all buffered binary broadcast messages without reading them.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_clear_broadcast_queue()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the queue was cleared.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_peek_next_broadcast_size">photon_chat_peek_next_broadcast_size</h1>
+<p>Returns the size in bytes of the next buffered broadcast without removing it from the queue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_peek_next_broadcast_size()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The size of the next broadcast in bytes.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_peek_next_broadcast_channel">photon_chat_peek_next_broadcast_channel</h1>
+<p>Returns the channel name of the next buffered broadcast without removing it from the queue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_peek_next_broadcast_channel()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></p>
+</blockquote>
+<p>The channel of the next broadcast.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_receive_one_broadcast_buffer">photon_chat_receive_one_broadcast_buffer</h1>
+<p>Removes the next buffered broadcast from the queue and writes its payload into the given buffer.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_receive_one_broadcast_buffer(out_data, max_bytes, offset)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>out_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the payload into.</td>
+</tr>
+<tr>
+<td>max_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of bytes to write.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset within the buffer to start writing at.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="realtime.html#photonrealtimeeventbufferreceived">PhotonRealtimeEventBufferReceived</a></p>
+</blockquote>
+<p>A struct describing the received broadcast.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_debug">photon_chat_set_callback_debug</h1>
+<p>Registers the callback fired with Chat SDK debug output.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_debug(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call with debug output.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>debug_level</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The debug level of the message.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The debug message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_connected">photon_chat_set_callback_connected</h1>
+<p>Registers the callback fired when the Chat client finishes connecting.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_connected(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on connect.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error_code</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connect result code (<code>0</code> on success).</td>
+</tr>
+<tr>
+<td>error_string</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>A human-readable result message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_state_change">photon_chat_set_callback_state_change</h1>
+<p>Registers the callback fired when the Chat client state changes.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_state_change(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a state change.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>state</td>
+<td><a href="chat.html#photonchatstate">PhotonChatState</a></td>
+<td>The new client state.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_connection_error">photon_chat_set_callback_connection_error</h1>
+<p>Registers the callback fired on a low-level connection error.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_connection_error(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a connection error.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error_code</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The connection error code.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_client_error">photon_chat_set_callback_client_error</h1>
+<p>Registers the callback fired on a client-side error.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_client_error(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a client error.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error_code</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The client error code.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_warning">photon_chat_set_callback_warning</h1>
+<p>Registers the callback fired on a client warning.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_warning(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a warning.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>warning_code</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The warning code.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_server_error">photon_chat_set_callback_server_error</h1>
+<p>Registers the callback fired on a server-reported error.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_server_error(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a server error.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error_code</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The server error code.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_disconnected">photon_chat_set_callback_disconnected</h1>
+<p>Registers the callback fired when the Chat client has disconnected. The callback takes no arguments.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_disconnected(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on disconnect.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_status_update">photon_chat_set_callback_status_update</h1>
+<p>Registers the callback fired when a friend's status changes.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_status_update(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a status update.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The user whose status changed.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="chat.html#photonchatuserstatus">PhotonChatUserStatus</a></td>
+<td>The user's new status.</td>
+</tr>
+<tr>
+<td>got_message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether a status message accompanied the update.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The status message, or empty if none.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_get_messages">photon_chat_set_callback_get_messages</h1>
+<p>Registers the callback fired when messages are received on a subscribed channel.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_get_messages(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call when messages arrive.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel the messages arrived on.</td>
+</tr>
+<tr>
+<td>messages</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Arrays.htm">Array</a> of <a href="chat.html#photonchatmessage">PhotonChatMessage</a></td>
+<td>The received messages.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_private_message">photon_chat_set_callback_private_message</h1>
+<p>Registers the callback fired when a private message is received.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_private_message(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a private message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sender</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The sender's user ID.</td>
+</tr>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The private channel name.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The message text.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_set_callback_receive_broadcast">photon_chat_set_callback_receive_broadcast</h1>
+<p>Registers the callback fired when a binary broadcast is received. The payload is queued; read it with <a href="chat.html#photon_chat_receive_one_broadcast_buffer">photon_chat_receive_one_broadcast_buffer</a>.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_set_callback_receive_broadcast(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a broadcast.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel the broadcast arrived on.</td>
+</tr>
+<tr>
+<td>byte_length</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The size of the broadcast payload in bytes.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_debug">photon_chat_remove_callback_debug</h1>
+<p>Removes the debug callback registered with <a href="chat.html#photon_chat_set_callback_debug">photon_chat_set_callback_debug</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_debug()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_connected">photon_chat_remove_callback_connected</h1>
+<p>Removes the connected callback registered with <a href="chat.html#photon_chat_set_callback_connected">photon_chat_set_callback_connected</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_connected()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_state_change">photon_chat_remove_callback_state_change</h1>
+<p>Removes the state-change callback registered with <a href="chat.html#photon_chat_set_callback_state_change">photon_chat_set_callback_state_change</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_state_change()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_connection_error">photon_chat_remove_callback_connection_error</h1>
+<p>Removes the connection-error callback registered with <a href="chat.html#photon_chat_set_callback_connection_error">photon_chat_set_callback_connection_error</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_connection_error()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_client_error">photon_chat_remove_callback_client_error</h1>
+<p>Removes the client-error callback registered with <a href="chat.html#photon_chat_set_callback_client_error">photon_chat_set_callback_client_error</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_client_error()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_warning">photon_chat_remove_callback_warning</h1>
+<p>Removes the warning callback registered with <a href="chat.html#photon_chat_set_callback_warning">photon_chat_set_callback_warning</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_warning()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_server_error">photon_chat_remove_callback_server_error</h1>
+<p>Removes the server-error callback registered with <a href="chat.html#photon_chat_set_callback_server_error">photon_chat_set_callback_server_error</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_server_error()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_disconnected">photon_chat_remove_callback_disconnected</h1>
+<p>Removes the disconnected callback registered with <a href="chat.html#photon_chat_set_callback_disconnected">photon_chat_set_callback_disconnected</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_disconnected()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_status_update">photon_chat_remove_callback_status_update</h1>
+<p>Removes the status-update callback registered with <a href="chat.html#photon_chat_set_callback_status_update">photon_chat_set_callback_status_update</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_status_update()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_get_messages">photon_chat_remove_callback_get_messages</h1>
+<p>Removes the get-messages callback registered with <a href="chat.html#photon_chat_set_callback_get_messages">photon_chat_set_callback_get_messages</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_get_messages()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_private_message">photon_chat_remove_callback_private_message</h1>
+<p>Removes the private-message callback registered with <a href="chat.html#photon_chat_set_callback_private_message">photon_chat_set_callback_private_message</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_private_message()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_chat_remove_callback_receive_broadcast">photon_chat_remove_callback_receive_broadcast</h1>
+<p>Removes the receive-broadcast callback registered with <a href="chat.html#photon_chat_set_callback_receive_broadcast">photon_chat_set_callback_receive_broadcast</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_chat_remove_callback_receive_broadcast()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatstate">PhotonChatState</h1>
+<p>The states the Chat client moves through, returned by <a href="chat.html#photon_chat_get_state">photon_chat_get_state</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="chat.html#photon_chat_get_state">photon_chat_get_state</a></li>
+<li><a href="chat.html#photon_chat_set_callback_state_change">photon_chat_set_callback_state_change</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Unknown</code></td>
+<td>Unknown state.</td>
+</tr>
+<tr>
+<td><code>Uninitialized</code></td>
+<td>The client has not been initialised.</td>
+</tr>
+<tr>
+<td><code>ConnectingToNameServer</code></td>
+<td>Connecting to the name server.</td>
+</tr>
+<tr>
+<td><code>ConnectedToNameServer</code></td>
+<td>Connected to the name server.</td>
+</tr>
+<tr>
+<td><code>Authenticating</code></td>
+<td>Authenticating.</td>
+</tr>
+<tr>
+<td><code>Authenticated</code></td>
+<td>Authenticated.</td>
+</tr>
+<tr>
+<td><code>DisconnectingFromNameServer</code></td>
+<td>Disconnecting from the name server.</td>
+</tr>
+<tr>
+<td><code>ConnectingToFrontEnd</code></td>
+<td>Connecting to the chat front-end server.</td>
+</tr>
+<tr>
+<td><code>ConnectedToFrontEnd</code></td>
+<td>Connected to the chat front-end server (ready to chat).</td>
+</tr>
+<tr>
+<td><code>Disconnecting</code></td>
+<td>Disconnecting.</td>
+</tr>
+<tr>
+<td><code>Disconnected</code></td>
+<td>Fully disconnected.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatdisconnectcause">PhotonChatDisconnectCause</h1>
+<p>The reasons the Chat client can be disconnected, returned by <a href="chat.html#photon_chat_get_disconnect_cause">photon_chat_get_disconnect_cause</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="chat.html#photon_chat_get_disconnect_cause">photon_chat_get_disconnect_cause</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Unknown</code></td>
+<td>Unknown cause.</td>
+</tr>
+<tr>
+<td><code>None</code></td>
+<td>No disconnect.</td>
+</tr>
+<tr>
+<td><code>ServerUserLimit</code></td>
+<td>The server's user limit was reached.</td>
+</tr>
+<tr>
+<td><code>ExceptionOnConnect</code></td>
+<td>An exception occurred while connecting.</td>
+</tr>
+<tr>
+<td><code>DisconnectByServer</code></td>
+<td>The server closed the connection.</td>
+</tr>
+<tr>
+<td><code>DisconnectByServerLogic</code></td>
+<td>Server-side logic closed the connection.</td>
+</tr>
+<tr>
+<td><code>TimeoutDisconnect</code></td>
+<td>The connection timed out.</td>
+</tr>
+<tr>
+<td><code>Exception</code></td>
+<td>A client-side exception occurred.</td>
+</tr>
+<tr>
+<td><code>InvalidAuthentication</code></td>
+<td>Authentication was invalid.</td>
+</tr>
+<tr>
+<td><code>MaxCcuReached</code></td>
+<td>The application's maximum concurrent-user limit was reached.</td>
+</tr>
+<tr>
+<td><code>InvalidRegion</code></td>
+<td>The requested region was invalid.</td>
+</tr>
+<tr>
+<td><code>OperationNotAllowed</code></td>
+<td>An operation was not allowed in the current state.</td>
+</tr>
+<tr>
+<td><code>CustomAuthenticationFailed</code></td>
+<td>Custom authentication failed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatapperrorcode">PhotonChatAppErrorCode</h1>
+<p>Application-level result codes reported by the Chat service.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ok</code></td>
+<td>The operation succeeded.</td>
+</tr>
+<tr>
+<td><code>OperationDenied</code></td>
+<td>The operation was denied.</td>
+</tr>
+<tr>
+<td><code>OperationInvalid</code></td>
+<td>The operation was invalid.</td>
+</tr>
+<tr>
+<td><code>InternalServerError</code></td>
+<td>An internal server error occurred.</td>
+</tr>
+<tr>
+<td><code>InvalidAuthentication</code></td>
+<td>Authentication was invalid.</td>
+</tr>
+<tr>
+<td><code>GameIdAlreadyExists</code></td>
+<td>The game ID already exists.</td>
+</tr>
+<tr>
+<td><code>GameFull</code></td>
+<td>The game is full.</td>
+</tr>
+<tr>
+<td><code>GameClosed</code></td>
+<td>The game is closed.</td>
+</tr>
+<tr>
+<td><code>AlreadyMatched</code></td>
+<td>Already matched.</td>
+</tr>
+<tr>
+<td><code>ServerFull</code></td>
+<td>The server is full.</td>
+</tr>
+<tr>
+<td><code>UserBlocked</code></td>
+<td>The user is blocked.</td>
+</tr>
+<tr>
+<td><code>NoMatchFound</code></td>
+<td>No match was found.</td>
+</tr>
+<tr>
+<td><code>GameDoesNotExist</code></td>
+<td>The game does not exist.</td>
+</tr>
+<tr>
+<td><code>MaxCcuReached</code></td>
+<td>The maximum concurrent-user limit was reached.</td>
+</tr>
+<tr>
+<td><code>InvalidRegion</code></td>
+<td>The region was invalid.</td>
+</tr>
+<tr>
+<td><code>CustomAuthenticationFailed</code></td>
+<td>Custom authentication failed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatuserstatus">PhotonChatUserStatus</h1>
+<p>The user statuses that can be broadcast with <a href="chat.html#photon_chat_operation_set_online_status">photon_chat_operation_set_online_status</a>.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="chat.html#photon_chat_operation_set_online_status">photon_chat_operation_set_online_status</a></li>
+<li><a href="chat.html#photon_chat_set_callback_status_update">photon_chat_set_callback_status_update</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Offline</code></td>
+<td>The user is offline.</td>
+</tr>
+<tr>
+<td><code>Invisible</code></td>
+<td>The user appears offline to others.</td>
+</tr>
+<tr>
+<td><code>Online</code></td>
+<td>The user is online.</td>
+</tr>
+<tr>
+<td><code>Away</code></td>
+<td>The user is away.</td>
+</tr>
+<tr>
+<td><code>Dnd</code></td>
+<td>The user does not want to be disturbed.</td>
+</tr>
+<tr>
+<td><code>Lfg</code></td>
+<td>The user is looking for a game.</td>
+</tr>
+<tr>
+<td><code>Playing</code></td>
+<td>The user is playing.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatchanneltype">PhotonChatChannelType</h1>
+<p>The chat channel types.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="chat.html#photon_chat_get_channel_count">photon_chat_get_channel_count</a></li>
+<li><a href="chat.html#photon_chat_get_channel_name">photon_chat_get_channel_name</a></li>
+<li><a href="chat.html#photon_chat_get_channel_message_count">photon_chat_get_channel_message_count</a></li>
+<li><a href="chat.html#photon_chat_get_channel_message">photon_chat_get_channel_message</a></li>
+<li><a href="chat.html#photon_chat_get_channel_sender">photon_chat_get_channel_sender</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Public</code></td>
+<td>A public channel (subscribed via <a href="chat.html#photon_chat_operation_subscribe">photon_chat_operation_subscribe</a>).</td>
+</tr>
+<tr>
+<td><code>Private</code></td>
+<td>A private channel (created by private messages).</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatoperationcode">PhotonChatOperationCode</h1>
+<p>The Chat operation codes. Primarily useful for low-level diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Authenticate</code></td>
+<td>Authenticate with the chat service.</td>
+</tr>
+<tr>
+<td><code>Subscribe</code></td>
+<td>Subscribe to channels.</td>
+</tr>
+<tr>
+<td><code>Unsubscribe</code></td>
+<td>Unsubscribe from channels.</td>
+</tr>
+<tr>
+<td><code>Publish</code></td>
+<td>Publish a message.</td>
+</tr>
+<tr>
+<td><code>SendPrivate</code></td>
+<td>Send a private message.</td>
+</tr>
+<tr>
+<td><code>ChannelHistory</code></td>
+<td>Fetch channel history.</td>
+</tr>
+<tr>
+<td><code>UpdateStatus</code></td>
+<td>Update the user's status.</td>
+</tr>
+<tr>
+<td><code>AddFriends</code></td>
+<td>Add friends.</td>
+</tr>
+<tr>
+<td><code>RemoveFriends</code></td>
+<td>Remove friends.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchateventcode">PhotonChatEventCode</h1>
+<p>The Chat event codes. Primarily useful for low-level diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ChatMessages</code></td>
+<td>Channel messages were received.</td>
+</tr>
+<tr>
+<td><code>Users</code></td>
+<td>A user list was received.</td>
+</tr>
+<tr>
+<td><code>PrivateMessage</code></td>
+<td>A private message was received.</td>
+</tr>
+<tr>
+<td><code>FriendList</code></td>
+<td>A friend list was received.</td>
+</tr>
+<tr>
+<td><code>StatusUpdate</code></td>
+<td>A friend status update was received.</td>
+</tr>
+<tr>
+<td><code>Subscribe</code></td>
+<td>A subscribe result was received.</td>
+</tr>
+<tr>
+<td><code>Unsubscribe</code></td>
+<td>An unsubscribe result was received.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatparametercode">PhotonChatParameterCode</h1>
+<p>The Chat protocol parameter codes. Primarily useful for low-level diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Channels</code></td>
+<td>The channels parameter.</td>
+</tr>
+<tr>
+<td><code>Messages</code></td>
+<td>The messages parameter.</td>
+</tr>
+<tr>
+<td><code>Message</code></td>
+<td>A single message parameter.</td>
+</tr>
+<tr>
+<td><code>Senders</code></td>
+<td>The senders parameter.</td>
+</tr>
+<tr>
+<td><code>Sender</code></td>
+<td>A single sender parameter.</td>
+</tr>
+<tr>
+<td><code>ChannelUserCount</code></td>
+<td>The channel user count parameter.</td>
+</tr>
+<tr>
+<td><code>MessageId</code></td>
+<td>A message ID parameter.</td>
+</tr>
+<tr>
+<td><code>MessageIds</code></td>
+<td>A message IDs parameter.</td>
+</tr>
+<tr>
+<td><code>Status</code></td>
+<td>A status parameter.</td>
+</tr>
+<tr>
+<td><code>Friends</code></td>
+<td>The friends parameter.</td>
+</tr>
+<tr>
+<td><code>SkipMessage</code></td>
+<td>The skip-message flag parameter.</td>
+</tr>
+<tr>
+<td><code>HistoryLength</code></td>
+<td>The history-length parameter.</td>
+</tr>
+<tr>
+<td><code>SubscribeResults</code></td>
+<td>The subscribe-results parameter.</td>
+</tr>
+<tr>
+<td><code>Properties</code></td>
+<td>The properties parameter.</td>
+</tr>
+<tr>
+<td><code>ChannelId</code></td>
+<td>A channel ID parameter.</td>
+</tr>
+<tr>
+<td><code>Region</code></td>
+<td>The region parameter.</td>
+</tr>
+<tr>
+<td><code>AppVersion</code></td>
+<td>The application version parameter.</td>
+</tr>
+<tr>
+<td><code>Secret</code></td>
+<td>The authentication secret parameter.</td>
+</tr>
+<tr>
+<td><code>AuthType</code></td>
+<td>The authentication type parameter.</td>
+</tr>
+<tr>
+<td><code>AuthParams</code></td>
+<td>The authentication parameters parameter.</td>
+</tr>
+<tr>
+<td><code>AuthData</code></td>
+<td>The authentication data parameter.</td>
+</tr>
+<tr>
+<td><code>UserId</code></td>
+<td>The user ID parameter.</td>
+</tr>
+<tr>
+<td><code>AppId</code></td>
+<td>The application ID parameter.</td>
+</tr>
+<tr>
+<td><code>Address</code></td>
+<td>The address parameter.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatconnectoptions">PhotonChatConnectOptions</h1>
+<p>Options passed to <a href="chat.html#photon_chat_connect">photon_chat_connect</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="chat.html#photon_chat_connect">photon_chat_connect</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>authentication_values</td>
+<td><a href="realtime.html#photonrealtimeauthenticationvalues">PhotonRealtimeAuthenticationValues</a></td>
+<td>Authentication values for a custom auth provider.</td>
+</tr>
+<tr>
+<td>server_address</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>Override the Photon name server address. Leave unset to use the default cloud.</td>
+</tr>
+<tr>
+<td>use_background_thread</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to use a background send/receive thread. Honored only on Nintendo Switch; ignored on other platforms.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatmessage">PhotonChatMessage</h1>
+<p>A single chat message delivered by <a href="chat.html#photon_chat_set_callback_get_messages">photon_chat_set_callback_get_messages</a>.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="chat.html#photon_chat_set_callback_get_messages">photon_chat_set_callback_get_messages</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sender</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The sender's user ID.</td>
+</tr>
+<tr>
+<td>content</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The message text.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonchatsubscriberesult">PhotonChatSubscribeResult</h1>
+<p>A per-channel result delivered by the <a href="chat.html#photon_chat_operation_subscribe">photon_chat_operation_subscribe</a> callback.</p>
+<p>This struct is referenced by the following functions:</p>
+<ul>
+<li><a href="chat.html#photon_chat_operation_subscribe">photon_chat_operation_subscribe</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_name</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The channel name.</td>
+</tr>
+<tr>
+<td>success</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the subscription to this channel succeeded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="realtime_peer.html" class="btn btn-neutral float-left" title="Realtime Peer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="chat_peer.html" class="btn btn-neutral float-right" title="Chat Peer">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Photon" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="realtime_peer.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="chat_peer.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Peer & Network Simulation - GMEXT-Photon</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Peer \u0026 Network Simulation";
+        var mkdocs_page_input_path = "peer.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Photon
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Photon Extension</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="setup.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="quick_start_guide.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="common.html">Common</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_player_properties.html">Realtime Player Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_room_properties.html">Realtime Room Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_peer.html">Realtime Peer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="chat.html">Chat</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="chat_peer.html">Chat Peer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="voice.html">Voice</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Peer & Network Simulation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#network-simulation">Network simulation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Photon</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Peer & Network Simulation</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Photon/edit/master/docs/peer.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="peer-network-simulation"><strong>Peer &amp; Network Simulation</strong></h1>
+<p>This module holds the QA network-simulation controls and the shared low-level peer constants used across the extension.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Network simulation is a QA/debug aid. It is not supported by the bundled SDK build and the getters report as disabled; treat these functions as no-ops on the shipping platforms.</p>
+</div>
+<h2 id="network-simulation">Network simulation</h2>
+<p>Simulate poor network conditions for testing:</p>
+<ul>
+<li><a href="peer.html#photon_peer_network_sim_get_enabled">photon_peer_network_sim_get_enabled</a></li>
+<li><a href="peer.html#photon_peer_network_sim_set_enabled">photon_peer_network_sim_set_enabled</a></li>
+<li><a href="peer.html#photon_peer_network_sim_set_lag">photon_peer_network_sim_set_lag</a></li>
+<li><a href="peer.html#photon_peer_network_sim_set_jitter">photon_peer_network_sim_set_jitter</a></li>
+<li><a href="peer.html#photon_peer_network_sim_set_packet_loss">photon_peer_network_sim_set_packet_loss</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>The Peer module defines the following shared constants:</p>
+<ul>
+<li><a href="peer.html#photonpeerstate">PhotonPeerState</a></li>
+<li><a href="peer.html#photonpeerconnectionprotocol">PhotonPeerConnectionProtocol</a></li>
+<li><a href="peer.html#photonpeerstatuscode">PhotonPeerStatusCode</a></li>
+<li><a href="peer.html#photonpeercoreerrorcode">PhotonPeerCoreErrorCode</a></li>
+<li><a href="peer.html#photonpeerliteoperationcode">PhotonPeerLiteOperationCode</a></li>
+<li><a href="peer.html#photonpeerliteeventcode">PhotonPeerLiteEventCode</a></li>
+<li><a href="peer.html#photonpeerliteparametercode">PhotonPeerLiteParameterCode</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_peer_network_sim_get_enabled">photon_peer_network_sim_get_enabled</h1>
+<p>Returns whether network simulation (artificial lag, jitter and packet loss) is enabled.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_peer_network_sim_get_enabled()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether network simulation is enabled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_peer_network_sim_set_enabled">photon_peer_network_sim_set_enabled</h1>
+<p>Enables or disables network simulation for testing poor network conditions.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_peer_network_sim_set_enabled(enabled)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to enable network simulation.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the value was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_peer_network_sim_set_lag">photon_peer_network_sim_set_lag</h1>
+<p>Sets the artificial incoming and outgoing lag, in milliseconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_peer_network_sim_set_lag(incoming_ms, outgoing_ms)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>incoming_ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The incoming lag in milliseconds.</td>
+</tr>
+<tr>
+<td>outgoing_ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The outgoing lag in milliseconds.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the values were set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_peer_network_sim_set_jitter">photon_peer_network_sim_set_jitter</h1>
+<p>Sets the artificial incoming and outgoing jitter, in milliseconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_peer_network_sim_set_jitter(incoming_ms, outgoing_ms)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>incoming_ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The incoming jitter in milliseconds.</td>
+</tr>
+<tr>
+<td>outgoing_ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The outgoing jitter in milliseconds.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the values were set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_peer_network_sim_set_packet_loss">photon_peer_network_sim_set_packet_loss</h1>
+<p>Sets the artificial incoming and outgoing packet-loss percentages.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_peer_network_sim_set_packet_loss(incoming_pct, outgoing_pct)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>incoming_pct</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The incoming packet-loss percentage.</td>
+</tr>
+<tr>
+<td>outgoing_pct</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The outgoing packet-loss percentage.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the values were set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonpeerconnectionprotocol">PhotonPeerConnectionProtocol</h1>
+<p>The transport protocols a peer can use.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Udp</code></td>
+<td>UDP transport.</td>
+</tr>
+<tr>
+<td><code>Tcp</code></td>
+<td>TCP transport.</td>
+</tr>
+<tr>
+<td><code>Ws</code></td>
+<td>WebSocket transport.</td>
+</tr>
+<tr>
+<td><code>Wss</code></td>
+<td>Secure WebSocket transport.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonpeerstate">PhotonPeerState</h1>
+<p>The low-level peer connection states.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Disconnected</code></td>
+<td>The peer is disconnected.</td>
+</tr>
+<tr>
+<td><code>Connecting</code></td>
+<td>The peer is connecting.</td>
+</tr>
+<tr>
+<td><code>InitializingApplication</code></td>
+<td>The peer is initialising the application layer.</td>
+</tr>
+<tr>
+<td><code>Connected</code></td>
+<td>The peer is connected.</td>
+</tr>
+<tr>
+<td><code>Disconnecting</code></td>
+<td>The peer is disconnecting.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonpeerstatuscode">PhotonPeerStatusCode</h1>
+<p>Low-level peer status codes. Primarily useful for diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ExceptionOnConnect</code></td>
+<td>An exception occurred while connecting.</td>
+</tr>
+<tr>
+<td><code>Connect</code></td>
+<td>The peer connected.</td>
+</tr>
+<tr>
+<td><code>Disconnect</code></td>
+<td>The peer disconnected.</td>
+</tr>
+<tr>
+<td><code>Exception</code></td>
+<td>A peer exception occurred.</td>
+</tr>
+<tr>
+<td><code>QueueOutgoingReliableWarning</code></td>
+<td>The outgoing reliable queue is filling up.</td>
+</tr>
+<tr>
+<td><code>QueueOutgoingUnreliableWarning</code></td>
+<td>The outgoing unreliable queue is filling up.</td>
+</tr>
+<tr>
+<td><code>SendError</code></td>
+<td>A send error occurred.</td>
+</tr>
+<tr>
+<td><code>QueueOutgoingAcksWarning</code></td>
+<td>The outgoing acknowledgement queue is filling up.</td>
+</tr>
+<tr>
+<td><code>QueueIncomingReliableWarning</code></td>
+<td>The incoming reliable queue is filling up.</td>
+</tr>
+<tr>
+<td><code>QueueIncomingUnreliableWarning</code></td>
+<td>The incoming unreliable queue is filling up.</td>
+</tr>
+<tr>
+<td><code>QueueSentWarning</code></td>
+<td>The sent queue is filling up.</td>
+</tr>
+<tr>
+<td><code>InternalReceiveException</code></td>
+<td>An internal receive exception occurred.</td>
+</tr>
+<tr>
+<td><code>TimeoutDisconnect</code></td>
+<td>The connection timed out.</td>
+</tr>
+<tr>
+<td><code>DisconnectByServer</code></td>
+<td>The server closed the connection.</td>
+</tr>
+<tr>
+<td><code>DisconnectByServerUserLimit</code></td>
+<td>The server closed the connection due to its user limit.</td>
+</tr>
+<tr>
+<td><code>DisconnectByServerLogic</code></td>
+<td>Server-side logic closed the connection.</td>
+</tr>
+<tr>
+<td><code>EncryptionEstablished</code></td>
+<td>Encryption was established.</td>
+</tr>
+<tr>
+<td><code>EncryptionFailedToEstablish</code></td>
+<td>Encryption failed to establish.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonpeercoreerrorcode">PhotonPeerCoreErrorCode</h1>
+<p>Core (protocol-level) error codes. Primarily useful for diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ok</code></td>
+<td>No error.</td>
+</tr>
+<tr>
+<td><code>InternalServerError</code></td>
+<td>An internal server error occurred.</td>
+</tr>
+<tr>
+<td><code>OperationInvalid</code></td>
+<td>The operation was invalid.</td>
+</tr>
+<tr>
+<td><code>OperationDenied</code></td>
+<td>The operation was denied.</td>
+</tr>
+<tr>
+<td><code>ArgumentOutOfRange</code></td>
+<td>An argument was out of range.</td>
+</tr>
+<tr>
+<td><code>InvalidRequestParameters</code></td>
+<td>The request parameters were invalid.</td>
+</tr>
+<tr>
+<td><code>NotReady</code></td>
+<td>The server is not ready.</td>
+</tr>
+<tr>
+<td><code>Overload</code></td>
+<td>The server is overloaded.</td>
+</tr>
+<tr>
+<td><code>Backoff</code></td>
+<td>The client should back off and retry later.</td>
+</tr>
+<tr>
+<td><code>Maintenance</code></td>
+<td>The server is under maintenance.</td>
+</tr>
+<tr>
+<td><code>SendBufferFull</code></td>
+<td>The send buffer is full.</td>
+</tr>
+<tr>
+<td><code>UnexpectedData</code></td>
+<td>Unexpected data was received.</td>
+</tr>
+<tr>
+<td><code>SerializationLimitError</code></td>
+<td>A serialization limit was exceeded.</td>
+</tr>
+<tr>
+<td><code>WrongInitRequestData</code></td>
+<td>The initialization request data was wrong.</td>
+</tr>
+<tr>
+<td><code>ResponseParseError</code></td>
+<td>A response could not be parsed.</td>
+</tr>
+<tr>
+<td><code>CryptoProviderNotSet</code></td>
+<td>The crypto provider was not set.</td>
+</tr>
+<tr>
+<td><code>DecryptionFailure</code></td>
+<td>Decryption failed.</td>
+</tr>
+<tr>
+<td><code>InvalidEncryptionParameters</code></td>
+<td>The encryption parameters were invalid.</td>
+</tr>
+<tr>
+<td><code>IncomingDataRateExceeded</code></td>
+<td>The incoming data rate was exceeded.</td>
+</tr>
+<tr>
+<td><code>IncomingMsgRateExceeded</code></td>
+<td>The incoming message rate was exceeded.</td>
+</tr>
+<tr>
+<td><code>IncomingMaxMsgSizeExceeded</code></td>
+<td>The incoming maximum message size was exceeded.</td>
+</tr>
+<tr>
+<td><code>OperationMaxCountExceeded</code></td>
+<td>The operation count limit was exceeded.</td>
+</tr>
+<tr>
+<td><code>OperationRateExceeded</code></td>
+<td>The operation rate was exceeded.</td>
+</tr>
+<tr>
+<td><code>OperationDataRateExceeded</code></td>
+<td>The operation data rate was exceeded.</td>
+</tr>
+<tr>
+<td><code>OperationBlocked</code></td>
+<td>The operation was blocked.</td>
+</tr>
+<tr>
+<td><code>OperationSizeLimitExceeded</code></td>
+<td>The operation size limit was exceeded.</td>
+</tr>
+<tr>
+<td><code>OperationParametersLimit</code></td>
+<td>The operation parameters limit was exceeded.</td>
+</tr>
+<tr>
+<td><code>MessagesRateExceeded</code></td>
+<td>The message rate was exceeded.</td>
+</tr>
+<tr>
+<td><code>MessagesDataRateExceeded</code></td>
+<td>The message data rate was exceeded.</td>
+</tr>
+<tr>
+<td><code>MessagesBlocked</code></td>
+<td>Messages were blocked.</td>
+</tr>
+<tr>
+<td><code>MessageSizeLimitExceeded</code></td>
+<td>The message size limit was exceeded.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonpeerliteoperationcode">PhotonPeerLiteOperationCode</h1>
+<p>The Lite protocol operation codes. Primarily useful for diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Join</code></td>
+<td>Join a room.</td>
+</tr>
+<tr>
+<td><code>Leave</code></td>
+<td>Leave a room.</td>
+</tr>
+<tr>
+<td><code>RaiseEvent</code></td>
+<td>Raise an event.</td>
+</tr>
+<tr>
+<td><code>SetProperties</code></td>
+<td>Set properties.</td>
+</tr>
+<tr>
+<td><code>GetProperties</code></td>
+<td>Get properties.</td>
+</tr>
+<tr>
+<td><code>ChangeGroups</code></td>
+<td>Change interest groups.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonpeerliteeventcode">PhotonPeerLiteEventCode</h1>
+<p>The Lite protocol event codes. Primarily useful for diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Join</code></td>
+<td>A player joined.</td>
+</tr>
+<tr>
+<td><code>Leave</code></td>
+<td>A player left.</td>
+</tr>
+<tr>
+<td><code>PropertiesChanged</code></td>
+<td>Properties changed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonpeerliteparametercode">PhotonPeerLiteParameterCode</h1>
+<p>The Lite protocol parameter codes. Primarily useful for diagnostics.</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GameId</code></td>
+<td>The game ID parameter.</td>
+</tr>
+<tr>
+<td><code>ActorNr</code></td>
+<td>The actor number parameter.</td>
+</tr>
+<tr>
+<td><code>TargetActorNr</code></td>
+<td>The target actor number parameter.</td>
+</tr>
+<tr>
+<td><code>ActorList</code></td>
+<td>The actor list parameter.</td>
+</tr>
+<tr>
+<td><code>Properties</code></td>
+<td>The properties parameter.</td>
+</tr>
+<tr>
+<td><code>Broadcast</code></td>
+<td>The broadcast flag parameter.</td>
+</tr>
+<tr>
+<td><code>ActorProperties</code></td>
+<td>The actor properties parameter.</td>
+</tr>
+<tr>
+<td><code>GameProperties</code></td>
+<td>The game properties parameter.</td>
+</tr>
+<tr>
+<td><code>Cache</code></td>
+<td>The cache parameter.</td>
+</tr>
+<tr>
+<td><code>ReceiverGroup</code></td>
+<td>The receiver group parameter.</td>
+</tr>
+<tr>
+<td><code>Data</code></td>
+<td>The data parameter.</td>
+</tr>
+<tr>
+<td><code>Code</code></td>
+<td>The code parameter.</td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td>The group parameter.</td>
+</tr>
+<tr>
+<td><code>Remove</code></td>
+<td>The remove parameter.</td>
+</tr>
+<tr>
+<td><code>Add</code></td>
+<td>The add parameter.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="voice.html" class="btn btn-neutral float-left" title="Voice"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Photon" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="voice.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

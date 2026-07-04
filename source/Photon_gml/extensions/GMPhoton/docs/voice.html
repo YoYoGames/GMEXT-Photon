@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Voice - GMEXT-Photon</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+        <link href="assets/css/gmext_style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Voice";
+        var mkdocs_page_input_path = "voice.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/gml.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> GMEXT-Photon
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="home.html">Photon Extension</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="setup.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="quick_start_guide.html">None</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="common.html">Common</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_player_properties.html">Realtime Player Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_room_properties.html">Realtime Room Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="realtime_peer.html">Realtime Peer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="chat.html">Chat</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="chat_peer.html">Chat Peer</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Voice</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#lifecycle">Lifecycle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#channel-player-membership">Channel &amp; player membership</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#local-voice">Local voice</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#remote-voice">Remote voice</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#remote-player-mixing">Remote player mixing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#statistics-tuning">Statistics &amp; tuning</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#callbacks">Callbacks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#constants">Constants</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="peer.html">Peer & Network Simulation</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">GMEXT-Photon</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Voice</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/YoYoGames/GMEXT-Photon/edit/master/docs/voice.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><a id="top"></a></p>
+<h1 id="voice"><strong>Voice</strong></h1>
+<p>The Voice module carries real-time audio between players on top of a connected <a href="realtime.html">Realtime</a> client. Create a local voice to transmit captured audio, receive remote voices from the frame queue, and mix or mute remote players locally.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Voice runs alongside Realtime. Connect and service the Realtime client, and also call <a href="voice.html#photon_voice_service">photon_voice_service</a> every step.</p>
+</div>
+<h2 id="lifecycle">Lifecycle</h2>
+<p>Initialise and service the Voice client:</p>
+<ul>
+<li><a href="voice.html#photon_voice_init">photon_voice_init</a></li>
+<li><a href="voice.html#photon_voice_shutdown">photon_voice_shutdown</a></li>
+<li><a href="voice.html#photon_voice_service">photon_voice_service</a></li>
+<li><a href="voice.html#photon_voice_is_initialized">photon_voice_is_initialized</a></li>
+</ul>
+<h2 id="channel-player-membership">Channel &amp; player membership</h2>
+<p>Notify the voice system about room, channel and player events:</p>
+<ul>
+<li><a href="voice.html#photon_voice_notify_joined_room">photon_voice_notify_joined_room</a></li>
+<li><a href="voice.html#photon_voice_on_join_channel">photon_voice_on_join_channel</a></li>
+<li><a href="voice.html#photon_voice_on_leave_channel">photon_voice_on_leave_channel</a></li>
+<li><a href="voice.html#photon_voice_on_join_all_channels">photon_voice_on_join_all_channels</a></li>
+<li><a href="voice.html#photon_voice_on_leave_all_channels">photon_voice_on_leave_all_channels</a></li>
+<li><a href="voice.html#photon_voice_on_player_join">photon_voice_on_player_join</a></li>
+<li><a href="voice.html#photon_voice_on_player_leave">photon_voice_on_player_leave</a></li>
+</ul>
+<h2 id="local-voice">Local voice</h2>
+<p>Create and drive an outgoing voice stream:</p>
+<ul>
+<li><a href="voice.html#photon_voice_create_local_voice">photon_voice_create_local_voice</a></li>
+<li><a href="voice.html#photon_voice_remove_local_voice">photon_voice_remove_local_voice</a></li>
+<li><a href="voice.html#photon_voice_push_frame_buffer">photon_voice_push_frame_buffer</a></li>
+<li><a href="voice.html#photon_voice_local_voice_set_transmit">photon_voice_local_voice_set_transmit</a></li>
+<li><a href="voice.html#photon_voice_local_voice_get_transmit">photon_voice_local_voice_get_transmit</a></li>
+</ul>
+<h2 id="remote-voice">Remote voice</h2>
+<p>Read incoming audio frames and inspect remote streams:</p>
+<ul>
+<li><a href="voice.html#photon_voice_get_frame_queue_count">photon_voice_get_frame_queue_count</a></li>
+<li><a href="voice.html#photon_voice_clear_frame_queue">photon_voice_clear_frame_queue</a></li>
+<li><a href="voice.html#photon_voice_peek_next_frame_size">photon_voice_peek_next_frame_size</a></li>
+<li><a href="voice.html#photon_voice_peek_next_frame_player_id">photon_voice_peek_next_frame_player_id</a></li>
+<li><a href="voice.html#photon_voice_peek_next_frame_voice_id">photon_voice_peek_next_frame_voice_id</a></li>
+<li><a href="voice.html#photon_voice_receive_frame_buffer">photon_voice_receive_frame_buffer</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_count">photon_voice_get_remote_voice_count</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_player_id">photon_voice_get_remote_voice_player_id</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_id">photon_voice_get_remote_voice_id</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_codec">photon_voice_get_remote_voice_codec</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_sample_rate">photon_voice_get_remote_voice_sample_rate</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_channels">photon_voice_get_remote_voice_channels</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_is_speaking">photon_voice_get_remote_voice_is_speaking</a></li>
+</ul>
+<h2 id="remote-player-mixing">Remote player mixing</h2>
+<p>Mute and set the volume of remote players locally:</p>
+<ul>
+<li><a href="voice.html#photon_voice_set_remote_player_muted">photon_voice_set_remote_player_muted</a></li>
+<li><a href="voice.html#photon_voice_get_remote_player_muted">photon_voice_get_remote_player_muted</a></li>
+<li><a href="voice.html#photon_voice_set_remote_player_volume">photon_voice_set_remote_player_volume</a></li>
+<li><a href="voice.html#photon_voice_get_remote_player_volume">photon_voice_get_remote_player_volume</a></li>
+</ul>
+<h2 id="statistics-tuning">Statistics &amp; tuning</h2>
+<p>Inspect voice statistics and tune behaviour:</p>
+<ul>
+<li><a href="voice.html#photon_voice_get_frames_sent">photon_voice_get_frames_sent</a></li>
+<li><a href="voice.html#photon_voice_get_frames_received">photon_voice_get_frames_received</a></li>
+<li><a href="voice.html#photon_voice_get_frames_lost">photon_voice_get_frames_lost</a></li>
+<li><a href="voice.html#photon_voice_get_round_trip_time">photon_voice_get_round_trip_time</a></li>
+<li><a href="voice.html#photon_voice_get_round_trip_time_variance">photon_voice_get_round_trip_time_variance</a></li>
+<li><a href="voice.html#photon_voice_get_debug_lost_percent">photon_voice_get_debug_lost_percent</a></li>
+<li><a href="voice.html#photon_voice_set_debug_lost_percent">photon_voice_set_debug_lost_percent</a></li>
+<li><a href="voice.html#photon_voice_get_speaking_threshold_ms">photon_voice_get_speaking_threshold_ms</a></li>
+<li><a href="voice.html#photon_voice_set_speaking_threshold_ms">photon_voice_set_speaking_threshold_ms</a></li>
+</ul>
+<h2 id="callbacks">Callbacks</h2>
+<p>Register and remove the Voice event callbacks:</p>
+<ul>
+<li><a href="voice.html#photon_voice_set_callback_remote_voice_added">photon_voice_set_callback_remote_voice_added</a></li>
+<li><a href="voice.html#photon_voice_set_callback_remote_voice_removed">photon_voice_set_callback_remote_voice_removed</a></li>
+<li><a href="voice.html#photon_voice_set_callback_speaking_changed">photon_voice_set_callback_speaking_changed</a></li>
+<li><a href="voice.html#photon_voice_set_callback_debug">photon_voice_set_callback_debug</a></li>
+<li><a href="voice.html#photon_voice_remove_callback_remote_voice_added">photon_voice_remove_callback_remote_voice_added</a></li>
+<li><a href="voice.html#photon_voice_remove_callback_remote_voice_removed">photon_voice_remove_callback_remote_voice_removed</a></li>
+<li><a href="voice.html#photon_voice_remove_callback_speaking_changed">photon_voice_remove_callback_speaking_changed</a></li>
+<li><a href="voice.html#photon_voice_remove_callback_debug">photon_voice_remove_callback_debug</a></li>
+</ul>
+<h2 id="constants">Constants</h2>
+<p>The Voice module defines the following constants:</p>
+<ul>
+<li><a href="voice.html#photonvoicecodec">PhotonVoiceCodec</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_init">photon_voice_init</h1>
+<p>Initialises the Voice client. Voice runs on top of a connected <a href="realtime.html">Realtime</a> client, so connect Realtime first.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_init()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether initialisation succeeded.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_shutdown">photon_voice_shutdown</h1>
+<p>Shuts the Voice client down and releases its resources.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_shutdown()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the client was shut down.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_service">photon_voice_service</h1>
+<p>Dispatches queued voice traffic. This <strong>must</strong> be called every step while using voice.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_service()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the client was serviced.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_is_initialized">photon_voice_is_initialized</h1>
+<p>Returns whether the Voice client has been initialised.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_is_initialized()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the client is initialised.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_notify_joined_room">photon_voice_notify_joined_room</h1>
+<p>Notifies the voice system that the Realtime client has joined a room, so voice transport can start.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_notify_joined_room()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the notification was handled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_on_join_channel">photon_voice_on_join_channel</h1>
+<p>Notifies the voice system that the local client joined the given voice channel.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_on_join_channel(channel_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the notification was handled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_on_leave_channel">photon_voice_on_leave_channel</h1>
+<p>Notifies the voice system that the local client left the given voice channel.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_on_leave_channel(channel_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the notification was handled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_on_join_all_channels">photon_voice_on_join_all_channels</h1>
+<p>Notifies the voice system that the local client joined all voice channels.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_on_join_all_channels()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the notification was handled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_on_leave_all_channels">photon_voice_on_leave_all_channels</h1>
+<p>Notifies the voice system that the local client left all voice channels.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_on_leave_all_channels()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the notification was handled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_on_player_join">photon_voice_on_player_join</h1>
+<p>Notifies the voice system that a player joined the given voice channel.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_on_player_join(channel_id, player_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel ID.</td>
+</tr>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The player ID that joined.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the notification was handled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_on_player_leave">photon_voice_on_player_leave</h1>
+<p>Notifies the voice system that a player left the given voice channel.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_on_player_leave(channel_id, player_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel ID.</td>
+</tr>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The player ID that left.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the notification was handled.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_create_local_voice">photon_voice_create_local_voice</h1>
+<p>Creates a local outgoing voice stream on the given channel and returns its voice ID. Feed it audio frames with <a href="voice.html#photon_voice_push_frame_buffer">photon_voice_push_frame_buffer</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_create_local_voice(channel_id, codec, sample_rate, channels, bitrate, frames_per_packet)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel to transmit on.</td>
+</tr>
+<tr>
+<td>codec</td>
+<td><a href="voice.html#photonvoicecodec">PhotonVoiceCodec</a></td>
+<td>The codec to encode with.</td>
+</tr>
+<tr>
+<td>sample_rate</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The audio sample rate in Hz.</td>
+</tr>
+<tr>
+<td>channels</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of audio channels.</td>
+</tr>
+<tr>
+<td>bitrate</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The target bitrate.</td>
+</tr>
+<tr>
+<td>frames_per_packet</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>How many frames to bundle per network packet.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The new local voice ID, or a negative value on failure.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_remove_local_voice">photon_voice_remove_local_voice</h1>
+<p>Removes a local voice stream created with <a href="voice.html#photon_voice_create_local_voice">photon_voice_create_local_voice</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_remove_local_voice(voice_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>voice_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The local voice ID to remove.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the voice was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_push_frame_buffer">photon_voice_push_frame_buffer</h1>
+<p>Pushes a buffer of audio samples into a local voice stream for encoding and transmission.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_push_frame_buffer(voice_id, data, bytes)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>voice_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The local voice ID.</td>
+</tr>
+<tr>
+<td>data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer holding the audio samples.</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The number of bytes to read from the buffer.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the frame was pushed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_frame_queue_count">photon_voice_get_frame_queue_count</h1>
+<p>Returns the number of received audio frames waiting to be read from the queue.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_frame_queue_count()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of queued frames.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_clear_frame_queue">photon_voice_clear_frame_queue</h1>
+<p>Clears all received audio frames from the queue without reading them.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_clear_frame_queue()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the queue was cleared.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_peek_next_frame_size">photon_voice_peek_next_frame_size</h1>
+<p>Returns the size in bytes of the next queued audio frame without removing it.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_peek_next_frame_size()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The size of the next frame in bytes.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_peek_next_frame_player_id">photon_voice_peek_next_frame_player_id</h1>
+<p>Returns the player ID of the next queued audio frame without removing it.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_peek_next_frame_player_id()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The player ID of the next frame.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_peek_next_frame_voice_id">photon_voice_peek_next_frame_voice_id</h1>
+<p>Returns the voice ID of the next queued audio frame without removing it.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_peek_next_frame_voice_id()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The voice ID of the next frame.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_receive_frame_buffer">photon_voice_receive_frame_buffer</h1>
+<p>Removes the next received audio frame from the queue and writes its decoded samples into the given buffer.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_receive_frame_buffer(out_data, max_bytes, offset)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>out_data</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Buffers/Buffers.htm">Buffer</a></td>
+<td>The buffer to write the samples into.</td>
+</tr>
+<tr>
+<td>max_bytes</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The maximum number of bytes to write.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The offset within the buffer to start writing at.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="realtime.html#photonrealtimeeventbufferreceived">PhotonRealtimeEventBufferReceived</a></p>
+</blockquote>
+<p>A struct describing the received frame.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_voice_count">photon_voice_get_remote_voice_count</h1>
+<p>Returns the number of remote voice streams currently being received.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_voice_count()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of remote voices.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_voice_player_id">photon_voice_get_remote_voice_player_id</h1>
+<p>Returns the player ID of a remote voice stream by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_voice_player_id(index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based remote-voice index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The player ID.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_voice_id">photon_voice_get_remote_voice_id</h1>
+<p>Returns the voice ID of a remote voice stream by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_voice_id(index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based remote-voice index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The voice ID.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_voice_codec">photon_voice_get_remote_voice_codec</h1>
+<p>Returns the codec of a remote voice stream by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_voice_codec(index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based remote-voice index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="voice.html#photonvoicecodec">PhotonVoiceCodec</a></p>
+</blockquote>
+<p>The codec.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_voice_sample_rate">photon_voice_get_remote_voice_sample_rate</h1>
+<p>Returns the sample rate of a remote voice stream by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_voice_sample_rate(index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based remote-voice index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The sample rate in Hz.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_voice_channels">photon_voice_get_remote_voice_channels</h1>
+<p>Returns the channel count of a remote voice stream by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_voice_channels(index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based remote-voice index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of audio channels.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_voice_is_speaking">photon_voice_get_remote_voice_is_speaking</h1>
+<p>Returns whether a remote voice stream is currently speaking, by index.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_voice_is_speaking(index)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The zero-based remote-voice index.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the remote voice is speaking.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_frames_sent">photon_voice_get_frames_sent</h1>
+<p>Returns the total number of audio frames sent.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_frames_sent()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of frames sent.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_frames_received">photon_voice_get_frames_received</h1>
+<p>Returns the total number of audio frames received.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_frames_received()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of frames received.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_frames_lost">photon_voice_get_frames_lost</h1>
+<p>Returns the total number of audio frames lost.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_frames_lost()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The number of frames lost.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_round_trip_time">photon_voice_get_round_trip_time</h1>
+<p>Returns the voice transport's round-trip time, in milliseconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_round_trip_time()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The round-trip time in milliseconds.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_round_trip_time_variance">photon_voice_get_round_trip_time_variance</h1>
+<p>Returns the variance of the voice transport's round-trip time, in milliseconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_round_trip_time_variance()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The round-trip time variance.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_callback_remote_voice_added">photon_voice_set_callback_remote_voice_added</h1>
+<p>Registers the callback fired when a new remote voice stream is added.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_callback_remote_voice_added(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call when a remote voice is added.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote player's ID.</td>
+</tr>
+<tr>
+<td>voice_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote voice ID.</td>
+</tr>
+<tr>
+<td>codec</td>
+<td><a href="voice.html#photonvoicecodec">PhotonVoiceCodec</a></td>
+<td>The codec of the remote voice.</td>
+</tr>
+<tr>
+<td>sample_rate</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The sample rate of the remote voice.</td>
+</tr>
+<tr>
+<td>channels</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The channel count of the remote voice.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_callback_remote_voice_removed">photon_voice_set_callback_remote_voice_removed</h1>
+<p>Registers the callback fired when a remote voice stream is removed.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_callback_remote_voice_removed(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call when a remote voice is removed.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote player's ID.</td>
+</tr>
+<tr>
+<td>voice_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote voice ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_callback_speaking_changed">photon_voice_set_callback_speaking_changed</h1>
+<p>Registers the callback fired when a remote voice starts or stops speaking.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_callback_speaking_changed(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call on a speaking-state change.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote player's ID.</td>
+</tr>
+<tr>
+<td>voice_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote voice ID.</td>
+</tr>
+<tr>
+<td>is_speaking</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the remote voice is now speaking.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_callback_debug">photon_voice_set_callback_debug</h1>
+<p>Registers the callback fired with Voice SDK debug output.</p>
+<p>This function operates asynchronously, which means that it does not immediately return the requested result. Instead, upon completion of the task, it will trigger the <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_callback_debug(callback)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Script_Functions.htm">Function</a></td>
+<td>The function to call with debug output.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was set.</p>
+<p><br></p>
+<p><strong>Triggers:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Method_Variables.htm">Callback</a></p>
+</blockquote>
+<p>The callback is invoked with the following arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>debug_level</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The debug level of the message.</td>
+</tr>
+<tr>
+<td>message</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">String</a></td>
+<td>The debug message.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_remove_callback_remote_voice_added">photon_voice_remove_callback_remote_voice_added</h1>
+<p>Removes the remote-voice-added callback registered with <a href="voice.html#photon_voice_set_callback_remote_voice_added">photon_voice_set_callback_remote_voice_added</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_remove_callback_remote_voice_added()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_remove_callback_remote_voice_removed">photon_voice_remove_callback_remote_voice_removed</h1>
+<p>Removes the remote-voice-removed callback registered with <a href="voice.html#photon_voice_set_callback_remote_voice_removed">photon_voice_set_callback_remote_voice_removed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_remove_callback_remote_voice_removed()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_remove_callback_speaking_changed">photon_voice_remove_callback_speaking_changed</h1>
+<p>Removes the speaking-changed callback registered with <a href="voice.html#photon_voice_set_callback_speaking_changed">photon_voice_set_callback_speaking_changed</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_remove_callback_speaking_changed()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_remove_callback_debug">photon_voice_remove_callback_debug</h1>
+<p>Removes the debug callback registered with <a href="voice.html#photon_voice_set_callback_debug">photon_voice_set_callback_debug</a>.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_remove_callback_debug()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the callback was removed.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_local_voice_set_transmit">photon_voice_local_voice_set_transmit</h1>
+<p>Enables or disables transmission for a local voice stream (for example to implement push-to-talk).</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_local_voice_set_transmit(voice_id, enabled)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>voice_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The local voice ID.</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether the stream should transmit.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the value was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_local_voice_get_transmit">photon_voice_local_voice_get_transmit</h1>
+<p>Returns whether a local voice stream is currently transmitting.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_local_voice_get_transmit(voice_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>voice_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The local voice ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the stream is transmitting.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_remote_player_muted">photon_voice_set_remote_player_muted</h1>
+<p>Mutes or unmutes a remote player locally.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_remote_player_muted(player_id, muted)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote player ID.</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></td>
+<td>Whether to mute the player.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the value was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_player_muted">photon_voice_get_remote_player_muted</h1>
+<p>Returns whether a remote player is muted locally.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_player_muted(player_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote player ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the player is muted.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_remote_player_volume">photon_voice_set_remote_player_volume</h1>
+<p>Sets the local playback volume for a remote player.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_remote_player_volume(player_id, volume)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote player ID.</td>
+</tr>
+<tr>
+<td>volume</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The playback volume.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the value was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_remote_player_volume">photon_voice_get_remote_player_volume</h1>
+<p>Returns the local playback volume for a remote player.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_remote_player_volume(player_id)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>player_id</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The remote player ID.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The playback volume.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_debug_lost_percent">photon_voice_get_debug_lost_percent</h1>
+<p>Returns the artificial packet-loss percentage used for debugging.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_debug_lost_percent()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The debug packet-loss percentage.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_debug_lost_percent">photon_voice_set_debug_lost_percent</h1>
+<p>Sets an artificial packet-loss percentage for debugging voice resilience.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_debug_lost_percent(percent)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>percent</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The packet-loss percentage to simulate.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the value was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_get_speaking_threshold_ms">photon_voice_get_speaking_threshold_ms</h1>
+<p>Returns the speaking-detection threshold, in milliseconds.</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_get_speaking_threshold_ms()</code></p>
+</blockquote>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></p>
+</blockquote>
+<p>The speaking threshold in milliseconds.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photon_voice_set_speaking_threshold_ms">photon_voice_set_speaking_threshold_ms</h1>
+<p>Sets the speaking-detection threshold: how long audio must be present before a voice is considered "speaking".</p>
+<p><br></p>
+<p><strong>Syntax:</strong></p>
+<blockquote>
+<p><code>gml
+photon_voice_set_speaking_threshold_ms(ms)</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ms</td>
+<td><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Real</a></td>
+<td>The threshold in milliseconds.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Returns:</strong></p>
+<blockquote>
+<p><a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Data_Types.htm">Boolean</a></p>
+</blockquote>
+<p>Whether the value was set.</p>
+<p><br></p>
+<hr />
+<p align="right"><a href="#top">Back To Top</a></p>
+
+<h1 id="photonvoicecodec">PhotonVoiceCodec</h1>
+<p>The codecs a voice stream can use. Audio uses Opus; the video codecs are listed for completeness.</p>
+<p>These constants are referenced by the following functions:</p>
+<ul>
+<li><a href="voice.html#photon_voice_create_local_voice">photon_voice_create_local_voice</a></li>
+<li><a href="voice.html#photon_voice_get_remote_voice_codec">photon_voice_get_remote_voice_codec</a></li>
+<li><a href="voice.html#photon_voice_set_callback_remote_voice_added">photon_voice_set_callback_remote_voice_added</a></li>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>No codec.</td>
+</tr>
+<tr>
+<td><code>AudioOpus</code></td>
+<td>The Opus audio codec.</td>
+</tr>
+<tr>
+<td><code>VideoVp8</code></td>
+<td>The VP8 video codec.</td>
+</tr>
+<tr>
+<td><code>VideoVp9</code></td>
+<td>The VP9 video codec.</td>
+</tr>
+<tr>
+<td><code>VideoAv1</code></td>
+<td>The AV1 video codec.</td>
+</tr>
+<tr>
+<td><code>VideoH264</code></td>
+<td>The H.264 video codec.</td>
+</tr>
+<tr>
+<td><code>VideoH265</code></td>
+<td>The H.265 video codec.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="chat_peer.html" class="btn btn-neutral float-left" title="Chat Peer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="peer.html" class="btn btn-neutral float-right" title="Peer & Network Simulation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p><p align="center">GameMaker 2026</p></p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/YoYoGames/GMEXT-Photon" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="chat_peer.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="peer.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+      <script src="assets/js/gmext_script.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
