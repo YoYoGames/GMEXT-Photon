@@ -1,0 +1,1911 @@
+[gml_api]
+module GMPhoton;
+
+// -----------------------------------------------------------------------------
+// Structs
+// -----------------------------------------------------------------------------
+
+[global]
+class `[[PhotonRealtimeEventBufferReceived]]` prototype Object
+{
+    [field] property ok : bool { get; set; }
+    [field] property player_number : int32 { get; set; }
+    [field] property event_code : int32 { get; set; }
+    [field] property bytes_written : uint32 { get; set; }
+}
+
+[global]
+class `[[PhotonRealtimeJoinRandomOptions]]` prototype Object
+{
+    [field, type_hint = `real?`]
+    property max_players : gmval { get; set; }
+    [field, type_hint = `PhotonRealtimeMatchmakingMode?`]
+    property matchmaking_mode : gmval { get; set; }
+    [field, type_hint = `string?`]
+    property lobby_name : gmval { get; set; }
+    [field, type_hint = `PhotonRealtimeLobbyType?`]
+    property lobby_type : gmval { get; set; }
+    [field, type_hint = `string?`]
+    property sql_filter : gmval { get; set; }
+    [field, type_hint = `string[]`]
+    property expected_users : gmval { get; set; }
+}
+
+[global]
+class `[[PhotonRealtimeRoomOptions]]` prototype Object
+{
+    [field, type_hint = `real?`]
+    property max_players : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property is_visible : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property is_open : gmval { get; set; }
+    [field, type_hint = `string?`]
+    property lobby_name : gmval { get; set; }
+    [field, type_hint = `PhotonRealtimeLobbyType?`]
+    property lobby_type : gmval { get; set; }
+    [field, type_hint = `real?`]
+    property player_ttl : gmval { get; set; }
+    [field, type_hint = `real?`]
+    property empty_room_ttl : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property suppress_room_events : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property publish_user_id : gmval { get; set; }
+    [field, type_hint = `string[]`]
+    property lobby_keys : gmval { get; set; }
+    [field, type_hint = `string[]`]
+    property expected_users : gmval { get; set; }
+}
+
+[global]
+class `[[PhotonRealtimeJoinRoomOptions]]` prototype Object
+{
+    [field, type_hint = `bool?`]
+    property rejoin : gmval { get; set; }
+    [field, type_hint = `real?`]
+    property cache_slice_index : gmval { get; set; }
+}
+
+[global]
+class `[[PhotonRealtimeRaiseEventOptions]]` prototype Object
+{
+    [field, type_hint = `PhotonRealtimeReceiverGroup?`]
+    property receiver_group : gmval { get; set; }
+    [field, type_hint = `int32?`]
+    property interest_group : gmval { get; set; }
+    [field, type_hint = `PhotonRealtimeEventCache?`]
+    property event_cache : gmval { get; set; }
+    [field, type_hint = `int32?`]
+    property channel_id : gmval { get; set; }
+    [field, type_hint = `int32?`]
+    property cache_slice_index : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property encrypt : gmval { get; set; }
+    /// Target specific player numbers. Empty array broadcasts to receiver_group (default: Others).
+    [field, type_hint = `int32[]`]
+    property target_players : gmval { get; set; }
+}
+
+[global]
+class `[[PhotonRealtimeAuthenticationValues]]` prototype Object
+{
+    /// Unique identifier for this player. Used by Photon for matchmaking and friend lookup.
+    [field, type_hint = `string?`]
+    property user_id : gmval { get; set; }
+    /// Authentication provider. Defaults to PhotonRealtimeCustomAuthType.None.
+    [field, type_hint = `PhotonRealtimeCustomAuthType?`]
+    property auth_type : gmval { get; set; }
+    /// Token/parameters string passed to the authentication provider.
+    [field, type_hint = `string?`]
+    property parameters : gmval { get; set; }
+}
+
+[global]
+class `[[PhotonRealtimeConnectOptions]]` prototype Object
+{
+    [field, type_hint = `PhotonRealtimeAuthenticationValues?`]
+    property authentication_values : gmval { get; set; }
+    /// Display name visible to other players. Separate from user_id in authentication_values.
+    [field, type_hint = `string?`]
+    property username : gmval { get; set; }
+    /// Override the Photon name server address. Leave unset to use the default cloud.
+    [field, type_hint = `string?`]
+    property server_address : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property try_use_datagram_encryption : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property use_background_thread : gmval { get; set; }
+}
+
+[global]
+class `[[PhotonChatConnectOptions]]` prototype Object
+{
+    [field, type_hint = `PhotonRealtimeAuthenticationValues?`]
+    property authentication_values : gmval { get; set; }
+    /// Override the Photon name server address. Leave unset to use the default cloud.
+    [field, type_hint = `string?`]
+    property server_address : gmval { get; set; }
+    [field, type_hint = `bool?`]
+    property use_background_thread : gmval { get; set; }
+}
+
+/// Friend info entry delivered by photon_realtime_set_callback_find_friends_response.
+/// arg0 — array of [[PhotonRealtimeFriendInfo]]
+[global]
+class `[[PhotonRealtimeFriendInfo]]` prototype Object
+{
+    [field] property user_id    : string { get; set; }
+    [field] property is_online  : bool   { get; set; }
+    [field] property room       : string { get; set; }
+    [field] property is_in_room : bool   { get; set; }
+}
+
+/// Snapshot of a single room in the lobby browser list.
+/// The photon_realtime_set_callback_get_room_list_response callback receives two arrays:
+///   arg0 — array of [[PhotonRealtimeRoomInfo]] (rooms added/updated)
+///   arg1 — array of string (room names that were removed)
+[global]
+class `[[PhotonRealtimeRoomInfo]]` prototype Object
+{
+    [field] property name : string { get; set; }
+    [field] property player_count : int32 { get; set; }
+    [field] property max_players : int32 { get; set; }
+    [field] property is_open : bool { get; set; }
+    /// Custom room properties exposed to the lobby, as a GML struct.
+    [field] property custom_properties : object { get; set; }
+}
+
+/// Lobby statistics entry delivered by onLobbyStatsResponse / onLobbyStatsUpdate.
+[global]
+class `[[PhotonRealtimeLobbyStats]]` prototype Object
+{
+    [field] property name : string { get; set; }
+    [field] property type : int32 { get; set; }
+    [field] property peer_count : int32 { get; set; }
+    [field] property room_count : int32 { get; set; }
+}
+
+/// A single chat channel message delivered by onGetMessages.
+[global]
+class `[[PhotonChatMessage]]` prototype Object
+{
+    [field] property sender : string { get; set; }
+    [field] property content : string { get; set; }
+}
+
+/// Result of a single channel subscribe attempt delivered by subscribeReturn.
+[global]
+class `[[PhotonChatSubscribeResult]]` prototype Object
+{
+    [field] property channel_name : string { get; set; }
+    [field] property success : bool { get; set; }
+}
+
+// -----------------------------------------------------------------------------
+// Lifecycle
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_init(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_shutdown(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_service(): bool;
+
+// -----------------------------------------------------------------------------
+// Connection
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_connect(app_id: string, app_version: string, [type_hint = `PhotonRealtimeConnectOptions?`] options: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_disconnect(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_select_region(region: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_reconnect_and_rejoin(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_fetch_server_timestamp(): bool;
+
+// -----------------------------------------------------------------------------
+// Lobby / Rooms
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_operation_join_lobby(lobby_name: string, [type_hint=`PhotonRealtimeLobbyType`] lobby_type: gmval, [type_hint=`func?`]callback: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_operation_leave_lobby([type_hint=`func?`]callback: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_operation_create_room(room_name: string, [type_hint = `PhotonRealtimeRoomOptions`] options, custom_properties: object, [type_hint=`func?`]callback: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_operation_join_or_create_room(room_name: string, [type_hint = `PhotonRealtimeRoomOptions`] options, custom_properties: object, [type_hint=`int32?`] cache_slice_index: gmval, [type_hint=`func?`]callback: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_operation_join_room(room_name: string, [type_hint = `PhotonRealtimeJoinRoomOptions`] options, [type_hint=`func?`]callback: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_operation_join_random_room([type_hint = `PhotonRealtimeJoinRandomOptions`] options, expected_properties: object, [type_hint=`func?`]callback: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_operation_leave_room(will_come_back: bool, send_authentication_cookie: bool, [type_hint=`func?`]callback: gmval): bool;
+
+/// Try to join a random room matching random_options/expected_properties; if none found,
+/// create a room named room_name with options/custom_properties.
+/// Fires the same callback as photon_realtime_operation_join_or_create_room.
+[global, bind = typed_gml]
+function photon_realtime_operation_join_random_or_create_room(room_name: string, [type_hint = `PhotonRealtimeRoomOptions`] options, custom_properties: object, [type_hint = `PhotonRealtimeJoinRandomOptions`] random_options, expected_properties: object, [type_hint=`func?`]callback: gmval): bool;
+
+/// Request a room list from a specific SQL lobby. Fires the callback with (rooms[], removed[]).
+[global, bind = typed_gml]
+function photon_realtime_operation_get_room_list(lobby_name: string, sql_filter: string, [type_hint=`func?`]callback: gmval): bool;
+
+/// Request lobby stats for all tracked lobbies. Fires the callback with (stats[]).
+[global, bind = typed_gml]
+function photon_realtime_operation_lobby_stats([type_hint=`func?`]callback: gmval): bool;
+
+/// Find friends by user ID array. Fires the callback with (friends[]).
+[global, bind = typed_gml]
+function photon_realtime_operation_find_friends([type_hint=`string[]`] friends: gmval, [type_hint=`func?`]callback: gmval): bool;
+
+/// Send an HTTP WebRPC to the server.
+/// Callback: (error_code, error_string, uri_path, result_code, response_data_struct).
+[global, bind = typed_gml]
+function photon_realtime_operation_web_rpc(uri_path: string, [type_hint=`func?`]callback: gmval): bool;
+
+/// Change the interest groups this client receives events from.
+/// Pass empty arrays to remove/add nothing.
+[global, bind = typed_gml]
+function photon_realtime_operation_change_groups(
+    [type_hint = `int32[]?`] groups_to_remove: gmval,
+    [type_hint = `int32[]?`] groups_to_add: gmval
+): bool;
+
+/// Send additional data for a multi-step custom authentication flow. Call from inside photon_realtime_set_callback_custom_authentication_step.
+[global, bind = typed_gml]
+function photon_realtime_operation_custom_auth_next_step([type_hint = `PhotonRealtimeAuthenticationValues`] authentication: gmval): bool;
+
+// -----------------------------------------------------------------------------
+// Events
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_operation_raise_event_string(reliable: bool, payload: string, event_code: int32, [type_hint = `PhotonRealtimeRaiseEventOptions?`] options: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_operation_raise_event_buffer(
+    reliable: bool,
+    [type_hint=buffer] data: gmval,
+    bytes: uint32,
+    event_code: int32,
+    [type_hint = `PhotonRealtimeRaiseEventOptions?`] options: gmval
+): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_get_buffer_event_queue_count(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_clear_buffer_event_queue(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_peek_next_buffer_event_size(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peek_next_buffer_event_code(): int32;
+
+[global, bind = typed_gml, type_hint=`PhotonRealtimeEventBufferReceived`]
+function photon_realtime_receive_one_event_buffer(
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
+): gmval;
+
+// -----------------------------------------------------------------------------
+// State getters
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_is_initialized(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_is_connected(): bool;
+
+/// Returns true when connected to a game server and inside a game room.
+[global, bind = typed_gml]
+function photon_realtime_is_in_game_room(): bool;
+
+/// Returns true when inside any room (game room or lobby room).
+[global, bind = typed_gml]
+function photon_realtime_is_in_room(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_is_in_lobby(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_get_current_room_name(): string;
+
+[global, bind = typed_gml]
+function photon_realtime_get_local_player_number(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_server_time_offset(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_server_time(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_bytes_in(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_bytes_out(): int32;
+
+[global, bind = typed_gml, type_hint=`PhotonRealtimeState`]
+function photon_realtime_get_state(): gmval;
+
+[global, bind = typed_gml]
+function photon_realtime_get_round_trip_time(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_round_trip_time_variance(): int32;
+
+[global, bind = typed_gml, type_hint=`PhotonRealtimeDisconnectCause`]
+function photon_realtime_get_disconnected_cause(): gmval;
+
+[global, bind = typed_gml]
+function photon_realtime_get_user_id(): string;
+
+[global, bind = typed_gml]
+function photon_realtime_get_count_players_ingame(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_count_games_running(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_count_players_online(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_master_server_address(): string;
+
+[global, bind = typed_gml]
+function photon_realtime_get_region(): string;
+
+[global, bind = typed_gml]
+function photon_realtime_get_region_with_best_ping(): string;
+
+[global, bind = typed_gml]
+function photon_realtime_get_friend_list_age(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_disconnect_timeout(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_set_disconnect_timeout(milliseconds: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_get_ping_interval(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_set_ping_interval(milliseconds: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_get_auto_join_lobby(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_auto_join_lobby(enabled: bool): bool;
+
+// -----------------------------------------------------------------------------
+// Current room state getters
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_get_room_player_count(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_room_max_players(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_room_is_open(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_get_room_is_visible(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_get_master_client_number(): int32;
+
+/// Promote a player to master client. Only the current master client can call this.
+[global, bind = typed_gml]
+function photon_realtime_set_master_client(player_number: int32): bool;
+
+// -----------------------------------------------------------------------------
+// Lobby room list getters (valid while in a lobby)
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_get_room_list_count(): int32;
+
+/// Returns a [[PhotonRealtimeRoomInfo]] struct for the room at index in the lobby list.
+[global, bind = typed_gml, type_hint=`PhotonRealtimeRoomInfo`]
+function photon_realtime_get_room_info_by_index(index: int32): gmval;
+
+// -----------------------------------------------------------------------------
+// Player list getters
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_get_player_count(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_get_player_number_by_index(index: int32): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_player_get_name(player_number: int32): string;
+
+[global, bind = typed_gml]
+function photon_realtime_player_get_user_id(player_number: int32): string;
+
+[global, bind = typed_gml]
+function photon_realtime_player_is_inactive(player_number: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_is_master_client(player_number: int32): bool;
+
+/// Returns an array of all player numbers currently in the room (local + remote).
+[global, bind = typed_gml]
+function photon_realtime_get_player_numbers(): gmval;
+
+// -----------------------------------------------------------------------------
+// Callback registration
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_debug(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_connected(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_disconnected(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_connection_error(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_client_error(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_server_error(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_warning(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_join_room_event(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_leave_room_event(callback: func): bool;
+
+[global, bind = typed_gml]
+/// callback(player_number, event_code, text_payload, is_buffer)
+/// When is_buffer is true, fetch the bytes with photon_realtime_receive_one_buffer_event().
+function photon_realtime_set_callback_custom_event(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_room_properties_change(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_player_properties_change(callback: func): bool;
+
+/// Fired when the lobby room list changes. No arguments — use the getters to read the updated list:
+///   photon_realtime_get_room_list_count(), photon_realtime_get_room_info_by_index(i)
+[global, bind = typed_gml]
+function photon_realtime_set_callback_room_list_update(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_app_stats_update(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_lobby_stats_update(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_cache_slice_changed(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_master_client_changed(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_properties_change_failed(callback: func): bool;
+
+[global, bind = typed_gml]
+/// Callback receives one structured response-data argument.
+function photon_realtime_set_callback_custom_authentication_step(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_available_regions(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_secret_receival(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_direct_connection_established(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_direct_connection_failed(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_set_callback_direct_message(callback: func): bool;
+
+[global, bind = typed_gml]
+/// Callback: (operation_code, return_code, debug_message, parameters_struct).
+function photon_realtime_set_callback_custom_operation_response(callback: func): bool;
+
+// -----------------------------------------------------------------------------
+// Callback removal
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_debug(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_connected(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_disconnected(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_connection_error(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_client_error(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_server_error(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_warning(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_join_room_event(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_leave_room_event(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_custom_event(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_room_properties_change(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_player_properties_change(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_room_list_update(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_app_stats_update(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_lobby_stats_update(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_cache_slice_changed(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_master_client_changed(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_properties_change_failed(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_custom_authentication_step(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_available_regions(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_secret_receival(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_direct_connection_established(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_direct_connection_failed(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_direct_message(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_remove_callback_custom_operation_response(): bool;
+
+// -----------------------------------------------------------------------------
+// Room custom properties
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_set_string(key: string, value: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_set_i32(key: string, value: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_set_f64(key: string, value: real): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_set_bool(key: string, value: bool): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_remove(key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_clear(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_has(key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_get_string(key: string): string;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_get_i32(key: string): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_get_f64(key: string): real;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_get_bool(key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_to_string(): string;
+
+/// Returns all current room custom properties as a GML struct.
+/// Keys are property names; values preserve their native type (string, int, real, bool).
+[global, bind = typed_gml]
+function photon_realtime_room_properties_get_all(): gmval;
+
+/// CAS (Check-And-Set): set key=new_value only if it currently equals expected_value.
+/// Returns false immediately if not in a room; the server fires properties_change_failed if CAS fails.
+[global, bind = typed_gml]
+function photon_realtime_room_properties_cas_string(key: string, expected_value: string, new_value: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_cas_i32(key: string, expected_value: int32, new_value: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_cas_f64(key: string, expected_value: real, new_value: real): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_room_properties_cas_bool(key: string, expected_value: bool, new_value: bool): bool;
+
+// -----------------------------------------------------------------------------
+// Local player custom properties
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_set_local_string(key: string, value: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_set_local_i32(key: string, value: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_set_local_f64(key: string, value: real): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_set_local_bool(key: string, value: bool): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_remove_local(key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_clear_local(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_has_local(key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_local_string(key: string): string;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_local_i32(key: string): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_local_f64(key: string): real;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_local_bool(key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_to_string_local(): string;
+
+/// Returns all local player custom properties as a GML struct.
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_local_all(): gmval;
+
+
+// -----------------------------------------------------------------------------
+// Remote player cached custom properties
+// -----------------------------------------------------------------------------
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_has_remote(player_number: int32, key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_remote_string(player_number: int32, key: string): string;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_remote_i32(player_number: int32, key: string): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_remote_f64(player_number: int32, key: string): real;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_remote_bool(player_number: int32, key: string): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_player_properties_to_string_remote(player_number: int32): string;
+
+/// Returns all custom properties for a remote player as a GML struct.
+[global, bind = typed_gml]
+function photon_realtime_player_properties_get_remote_all(player_number: int32): gmval;
+
+[global, bind = typed_gml]
+function photon_realtime_peek_next_buffer_event_player_number(): int32;
+
+// =============================================================================
+// Enums — LoadBalancing-cpp
+// =============================================================================
+
+[global, bind = typed_gml]
+enum PhotonRealtimeState : int32 {
+    Unknown                             = -1,
+    Uninitialized                       =  0,
+    PeerCreated                         =  1,
+    ConnectingToNameserver              =  2,
+    ConnectedToNameserver               =  3,
+    DisconnectingFromNameserver         =  4,
+    Connecting                          =  5,
+    Connected                           =  6,
+    WaitingForCustomAuthNextStep        =  7,
+    Authenticated                       =  8,
+    JoinedLobby                         =  9,
+    DisconnectingFromMasterserver       = 10,
+    ConnectingToGameserver              = 11,
+    ConnectedToGameserver               = 12,
+    AuthenticatedOnGameServer           = 13,
+    Joining                             = 14,
+    Joined                              = 15,
+    Leaving                             = 16,
+    Left                                = 17,
+    DisconnectingFromGameserver         = 18,
+    ConnectingToMasterserver            = 19,
+    ConnectedComingFromGameserver       = 20,
+    AuthenticatedComingFromGameserver   = 21,
+    Disconnecting                       = 22,
+    Disconnected                        = 23,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeLobbyType : int32 {
+    Default          = 0,
+    SqlLobby         = 2,
+    AsyncRandomLobby = 3,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeMatchmakingMode : int32 {
+    FillRoom       = 0,
+    SerialMatching = 1,
+    RandomMatching = 2,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeDirectMode : int32 {
+    None           = 0,
+    AllToOthers    = 1,
+    MasterToOthers = 2,
+    AllToAll       = 3,
+    MasterToAll    = 4,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeDisconnectCause : int32 {
+    Unknown                     = -1,
+    None                        =  0,
+    ServerUserLimit             =  1,
+    ExceptionOnConnect          =  2,
+    DisconnectByServer          =  3,
+    DisconnectByServerLogic     =  4,
+    TimeoutDisconnect           =  5,
+    Exception                   =  6,
+    InvalidAuthentication       =  7,
+    MaxCcuReached               =  8,
+    InvalidRegion               =  9,
+    OperationNotAllowed         = 10,
+    CustomAuthenticationFailed  = 11,
+    ClientVersionTooOld         = 12,
+    ClientVersionInvalid        = 13,
+    DashboardVersionInvalid     = 14,
+    AuthenticationTicketExpired = 15,
+    OperationLimit              = 16,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeRegionSelectionMode : int32 {
+    Default = 0,
+    Select  = 1,
+    Best    = 2,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeServerType : int32 {
+    NameServer   = 0,
+    MasterServer = 1,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeCustomAuthType : int32 {
+    Custom         =   0,
+    Steam          =   1,
+    Facebook       =   2,
+    Oculus         =   3,
+    PlayStation4   =   4,
+    Xbox           =   5,
+    Viveport       =  10,
+    NintendoSwitch =  11,
+    PlayStation5   =  12,
+    Epic           =  13,
+    FacebookGaming =  15,
+    None           = 255,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeReceiverGroup : int32 {
+    Others       = 0,
+    All          = 1,
+    MasterClient = 2,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeEventCache : int32 {
+    DoNotCache                       =  0,
+    MergeCache                       =  1,
+    ReplaceCache                     =  2,
+    RemoveCache                      =  3,
+    AddToRoomCache                   =  4,
+    AddToRoomCacheGlobal             =  5,
+    RemoveFromRoomCache              =  6,
+    RemoveFromRoomCacheForActorsLeft =  7,
+    SliceIncIndex                    = 10,
+    SliceSetIndex                    = 11,
+    SlicePurgeIndex                  = 12,
+    SlicePurgeUpToIndex              = 13,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeLBOperationCode : int32 {
+    Leave          = 254,
+    RaiseEvent     = 253,
+    SetProperties  = 252,
+    GetProperties  = 251,
+    ChangeGroups   = 248,
+    AuthOnce       = 231,
+    Authenticate   = 230,
+    JoinLobby      = 229,
+    LeaveLobby     = 228,
+    CreateRoom     = 227,
+    JoinRoom       = 226,
+    JoinRandomRoom = 225,
+    FindFriends    = 222,
+    LobbyStats     = 221,
+    GetRegions     = 220,
+    Rpc            = 219,
+    GetRoomList    = 217,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeLBEventCode : int32 {
+    Join              = 255,
+    Leave             = 254,
+    PropertiesChanged = 253,
+    ErrorInfo         = 251,
+    CacheSliceChanged = 250,
+    RoomList          = 230,
+    RoomListUpdate    = 229,
+    AppStats          = 226,
+    LobbyStats        = 224,
+    Auth              = 223,
+    PunchMsg          = 220,
+    VoiceFrameData    = 203, ///< Reserved for Photon Voice audio frames. Custom event codes must be <= MaxCustomEvCode.
+    VoiceData         = 202, ///< Reserved for Photon Voice info. Custom event codes must be <= MaxCustomEvCode.
+    MaxCustomEvCode   = 200,
+}
+
+[global, bind = typed_gml]
+enum PhotonRealtimeAppErrorCode : int32 {
+    Ok                            =     0,
+    InvalidAuthentication         = 32767,
+    GameIdAlreadyExists           = 32766,
+    GameFull                      = 32765,
+    GameClosed                    = 32764,
+    AlreadyMatched                = 32763,
+    ServerFull                    = 32762,
+    UserBlocked                   = 32761,
+    NoMatchFound                  = 32760,
+    GameDoesNotExist              = 32758,
+    MaxCcuReached                 = 32757,
+    InvalidRegion                 = 32756,
+    CustomAuthenticationFailed    = 32755,
+    AuthTicketExpired             = 32753,
+    PluginReportedError           = 32752,
+    PluginMismatch                = 32751,
+    JoinFailedPeerAlreadyJoined   = 32750,
+    JoinFailedFoundInactiveJoiner = 32749,
+    JoinFailedRejoinNotFound      = 32748,
+    JoinFailedFoundExcludedUserId = 32747,
+    JoinFailedFoundActiveJoiner   = 32746,
+    HttpLimitReached              = 32745,
+    ExternalHttpCallFailed        = 32744,
+    OperationLimitReached         = 32743,
+    SlotError                     = 32742,
+    InvalidEncryptionParameters   = 32741,
+    ClientVersionTooOld           = 32667,
+    ClientVersionInvalid          = 32666,
+    DashboardVersionInvalid       = 32665,
+}
+
+// =============================================================================
+// Enums — Common-cpp
+// =============================================================================
+
+[global, bind = typed_gml]
+enum PhotonCommonDebugLevel : int32 {
+    Off      = 0,
+    Errors   = 1,
+    Warnings = 2,
+    Info     = 3,
+    All      = 4,
+}
+
+[global, bind = typed_gml]
+enum PhotonCommonSerializationProtocol : int32 {
+    Protocol16 = 0,
+    Protocol18 = 1,
+}
+
+[global, bind = typed_gml]
+enum PhotonCommonTypeCode : int32 {
+    Byte          =  98,
+    Short         = 107,
+    Integer       = 105,
+    Long          = 108,
+    Float         = 102,
+    Double        = 100,
+    Boolean       = 111,
+    String        = 115,
+    Hashtable     = 104,
+    Dictionary    =  68,
+    Object        = 122,
+    Array         = 121,
+    ByteArray     = 120,
+    PhotonCommand = 112,
+    Null          =  42,
+    Custom        =  99,
+    Unknown       =   0,
+    Invalid       = 255,
+}
+
+[global, bind = typed_gml]
+enum PhotonCommonInternalLogLevel : int32 {
+    Off          = 0,
+    Fatal        = 1,
+    Error        = 2,
+    Warning      = 3,
+    Info         = 4,
+    Debug        = 5,
+    DebugVerbose = 6,
+}
+
+// =============================================================================
+// Enums — Photon-cpp (peer layer)
+// =============================================================================
+
+[global, bind = typed_gml]
+enum PhotonPeerConnectionProtocol : int32 {
+    Udp = 0,
+    Tcp = 1,
+    Ws  = 4,
+    Wss = 5,
+}
+
+[global, bind = typed_gml]
+enum PhotonPeerState : int32 {
+    Disconnected            = 0,
+    Connecting              = 1,
+    InitializingApplication = 2,
+    Connected               = 3,
+    Disconnecting           = 4,
+}
+
+[global, bind = typed_gml]
+enum PhotonPeerStatusCode : int32 {
+    ExceptionOnConnect             = 1023,
+    Connect                        = 1024,
+    Disconnect                     = 1025,
+    Exception                      = 1026,
+    QueueOutgoingReliableWarning   = 1027,
+    QueueOutgoingUnreliableWarning = 1029,
+    SendError                      = 1030,
+    QueueOutgoingAcksWarning       = 1031,
+    QueueIncomingReliableWarning   = 1033,
+    QueueIncomingUnreliableWarning = 1035,
+    QueueSentWarning               = 1037,
+    InternalReceiveException       = 1039,
+    TimeoutDisconnect              = 1040,
+    DisconnectByServer             = 1041,
+    DisconnectByServerUserLimit    = 1042,
+    DisconnectByServerLogic        = 1043,
+    EncryptionEstablished          = 1048,
+    EncryptionFailedToEstablish    = 1049,
+}
+
+[global, bind = typed_gml]
+enum PhotonPeerCoreErrorCode : int32 {
+    Ok                         =   0,
+    InternalServerError        =  -1,
+    OperationInvalid           =  -2,
+    OperationDenied            =  -3,
+    ArgumentOutOfRange         =  -4,
+    InvalidRequestParameters   =  -6,
+    NotReady                   =  -7,
+    Overload                   =  -8,
+    Backoff                    =  -9,
+    Maintenance                = -10,
+    SendBufferFull             = -11,
+    UnexpectedData             = -12,
+    SerializationLimitError    = -13,
+    WrongInitRequestData       = -14,
+    ResponseParseError         = -15,
+    CryptoProviderNotSet       = -16,
+    DecryptionFailure          = -17,
+    InvalidEncryptionParameters= -18,
+    IncomingDataRateExceeded   = -30,
+    IncomingMsgRateExceeded    = -31,
+    IncomingMaxMsgSizeExceeded = -32,
+    OperationMaxCountExceeded  = -34,
+    OperationRateExceeded      = -35,
+    OperationDataRateExceeded  = -36,
+    OperationBlocked           = -37,
+    OperationSizeLimitExceeded = -38,
+    OperationParametersLimit   = -39,
+    MessagesRateExceeded       = -40,
+    MessagesDataRateExceeded   = -41,
+    MessagesBlocked            = -42,
+    MessageSizeLimitExceeded   = -43,
+}
+
+[global, bind = typed_gml]
+enum PhotonPeerLiteOperationCode : int32 {
+    Join           = 255,
+    Leave          = 254,
+    RaiseEvent     = 253,
+    SetProperties  = 252,
+    GetProperties  = 251,
+    ChangeGroups   = 248,
+}
+
+[global, bind = typed_gml]
+enum PhotonPeerLiteEventCode : int32 {
+    Join              = 255,
+    Leave             = 254,
+    PropertiesChanged = 253,
+}
+
+[global, bind = typed_gml]
+enum PhotonPeerLiteParameterCode : int32 {
+    GameId          = 255,
+    ActorNr         = 254,
+    TargetActorNr   = 253,
+    ActorList       = 252,
+    Properties      = 251,
+    Broadcast       = 250,
+    ActorProperties = 249,
+    GameProperties  = 248,
+    Cache           = 247,
+    ReceiverGroup   = 246,
+    Data            = 245,
+    Code            = 244,
+    Group           = 240,
+    Remove          = 239,
+    Add             = 238,
+}
+
+// =============================================================================
+// Enums — Chat-cpp
+// =============================================================================
+
+[global, bind = typed_gml]
+enum PhotonChatAppErrorCode : int32 {
+    Ok                       =     0,
+    OperationDenied          =    -3,
+    OperationInvalid         =    -2,
+    InternalServerError      =    -1,
+    InvalidAuthentication    = 32767,
+    GameIdAlreadyExists      = 32766,
+    GameFull                 = 32765,
+    GameClosed               = 32764,
+    AlreadyMatched           = 32763,
+    ServerFull               = 32762,
+    UserBlocked              = 32761,
+    NoMatchFound             = 32760,
+    GameDoesNotExist         = 32758,
+    MaxCcuReached            = 32757,
+    InvalidRegion            = 32756,
+    CustomAuthenticationFailed = 32755,
+}
+
+[global, bind = typed_gml]
+enum PhotonChatState : int32 {
+    Unknown                    = -1,
+    Uninitialized              = 0,
+    ConnectingToNameServer     = 1,
+    ConnectedToNameServer      = 2,
+    Authenticating             = 3,
+    Authenticated              = 4,
+    DisconnectingFromNameServer= 5,
+    ConnectingToFrontEnd       = 6,
+    ConnectedToFrontEnd        = 7,
+    Disconnecting              = 8,
+    Disconnected               = 9,
+}
+
+[global, bind = typed_gml]
+enum PhotonChatDisconnectCause : int32 {
+    Unknown                    = -1,
+    None                       =  0,
+    ServerUserLimit            =  1,
+    ExceptionOnConnect         =  2,
+    DisconnectByServer         =  3,
+    DisconnectByServerLogic    =  4,
+    TimeoutDisconnect          =  5,
+    Exception                  =  6,
+    InvalidAuthentication      =  7,
+    MaxCcuReached              =  8,
+    InvalidRegion              =  9,
+    OperationNotAllowed        = 10,
+    CustomAuthenticationFailed = 11,
+}
+
+
+[global, bind = typed_gml]
+enum PhotonChatOperationCode : int32 {
+    Authenticate   = 230,
+    Subscribe      =   0,
+    Unsubscribe    =   1,
+    Publish        =   2,
+    SendPrivate    =   3,
+    ChannelHistory =   4,
+    UpdateStatus   =   5,
+    AddFriends     =   6,
+    RemoveFriends  =   7,
+}
+
+[global, bind = typed_gml]
+enum PhotonChatEventCode : int32 {
+    ChatMessages   = 0,
+    Users          = 1,
+    PrivateMessage = 2,
+    FriendList     = 3,
+    StatusUpdate   = 4,
+    Subscribe      = 5,
+    Unsubscribe    = 6,
+}
+
+[global, bind = typed_gml]
+enum PhotonChatParameterCode : int32 {
+    Channels         =   0,
+    Messages         =   2,
+    Message          =   3,
+    Senders          =   4,
+    Sender           =   5,
+    ChannelUserCount =   6,
+    MessageId            =   8,
+    MessageIds           =   9,
+    Status           =  10,
+    Friends          =  11,
+    SkipMessage      =  12,
+    HistoryLength    =  14,
+    SubscribeResults =  15,
+    Properties       =  22,
+    ChannelId        =  29,
+    Region           = 210,
+    AppVersion       = 220,
+    Secret           = 221,
+    AuthType         = 217,
+    AuthParams       = 216,
+    AuthData         = 214,
+    UserId           = 225,
+    AppId            = 224,
+    Address          = 230,
+}
+
+/// Predefined status values for photon_chat_operation_set_online_status.
+/// Custom values >= 2 are also valid (any int >= 2 is treated as "online").
+[global, bind = typed_gml]
+enum PhotonChatUserStatus : int32 {
+    Offline   = 0, ///< Offline. Used automatically when disconnected.
+    Invisible = 1, ///< Appears offline to friends but can still chat.
+    Online    = 2, ///< Online and available.
+    Away      = 3, ///< Online but not available.
+    Dnd       = 4, ///< Do not disturb.
+    Lfg       = 5, ///< Looking for game/group.
+    Playing   = 6, ///< In a game room.
+}
+
+// =============================================================================
+// Enums — PhotonVoice-cpp
+// =============================================================================
+
+[global, bind = typed_gml]
+enum PhotonVoiceCodec : int32 {
+    None      =  0,
+    AudioOpus = 11,
+    VideoVp8  = 21,
+    VideoVp9  = 22,
+    VideoAv1  = 23,
+    VideoH264 = 31,
+    VideoH265 = 32,
+}
+
+// =============================================================================
+// Chat-cpp — Lifecycle
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_init(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_shutdown(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_service(): bool;
+
+// =============================================================================
+// Chat-cpp — Connection
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_connect(app_id: string, app_version: string, [type_hint = `PhotonChatConnectOptions?`] options: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_chat_disconnect(): bool;
+
+// =============================================================================
+// Chat-cpp — Channel operations
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_operation_subscribe([type_hint=`string[]`] channels: gmval, [type_hint=`int32?`] messages_from_history: gmval, [type_hint=`func?`]callback: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_chat_operation_unsubscribe([type_hint=`string[]`] channels: gmval, [type_hint=`func?`]callback: gmval): bool;
+
+// =============================================================================
+// Chat-cpp — Messaging
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_operation_publish_message(channel_name: string, message: string): bool;
+
+[global, bind = typed_gml]
+function photon_chat_operation_send_private_message(user_name: string, message: string, [type_hint = `bool?`] encrypt: gmval): bool;
+
+// =============================================================================
+// Chat-cpp — User status
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_operation_set_online_status([type_hint = `PhotonChatUserStatus`] status: int32, [type_hint = `string?`] message: gmval): bool;
+
+// =============================================================================
+// Chat-cpp — Friends
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_operation_add_friends([type_hint=`string[]`] user_ids: gmval): bool;
+
+[global, bind = typed_gml]
+function photon_chat_operation_remove_friends([type_hint=`string[]`] user_ids: gmval): bool;
+
+// =============================================================================
+// Chat-cpp — State getters
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_is_initialized(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_is_connected(): bool;
+
+[global, bind = typed_gml, type_hint=`PhotonChatState`]
+function photon_chat_get_state(): gmval;
+
+[global, bind = typed_gml, type_hint=`PhotonChatDisconnectCause`]
+function photon_chat_get_disconnect_cause(): gmval;
+
+[global, bind = typed_gml]
+function photon_chat_get_user_id(): string;
+
+[global, bind = typed_gml]
+function photon_chat_get_region(): string;
+
+[global, bind = typed_gml]
+function photon_chat_get_server_time(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_get_server_time_offset(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_get_bytes_in(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_get_bytes_out(): int32;
+
+// =============================================================================
+// Chat-cpp — Channel type
+// =============================================================================
+
+[global, bind = typed_gml]
+enum PhotonChatChannelType : int32 {
+    Public  = 0, ///< Channels subscribed via opSubscribe.
+    Private = 1, ///< Direct-message channels (peer-to-peer).
+}
+
+// =============================================================================
+// Chat-cpp — Channel data
+// =============================================================================
+
+/// Returns a safe default when Chat background-thread mode is active; use Chat callbacks instead.
+[global, bind = typed_gml]
+function photon_chat_get_channel_count([type_hint = `PhotonChatChannelType`] channel_type: int32): int32;
+
+/// Returns a safe default when Chat background-thread mode is active; use Chat callbacks instead.
+[global, bind = typed_gml]
+function photon_chat_get_channel_name([type_hint = `PhotonChatChannelType`] channel_type: int32, index: int32): string;
+
+/// Returns a safe default when Chat background-thread mode is active; use Chat callbacks instead.
+[global, bind = typed_gml]
+function photon_chat_get_channel_message_count([type_hint = `PhotonChatChannelType`] channel_type: int32, channel_name: string): int32;
+
+/// Returns a safe default when Chat background-thread mode is active; use Chat callbacks instead.
+[global, bind = typed_gml]
+function photon_chat_get_channel_message([type_hint = `PhotonChatChannelType`] channel_type: int32, channel_name: string, index: int32): string;
+
+/// Returns a safe default when Chat background-thread mode is active; use Chat callbacks instead.
+[global, bind = typed_gml]
+function photon_chat_get_channel_sender([type_hint = `PhotonChatChannelType`] channel_type: int32, channel_name: string, index: int32): string;
+
+// =============================================================================
+// Chat-cpp — Callback registration
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_debug(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_connected(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_state_change(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_connection_error(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_client_error(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_warning(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_server_error(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_disconnected(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_status_update(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_get_messages(callback: func): bool;
+
+[global, bind = typed_gml]
+function photon_chat_set_callback_private_message(callback: func): bool;
+
+[global, bind = typed_gml]
+/// callback(channel_name, byte_length). The complete payload is retained in the
+/// broadcast queue and can be copied with photon_chat_receive_one_broadcast_buffer().
+function photon_chat_set_callback_receive_broadcast(callback: func): bool;
+
+// =============================================================================
+// Chat-cpp — Incoming broadcast buffer queue
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_get_broadcast_queue_count(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_clear_broadcast_queue(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_peek_next_broadcast_size(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peek_next_broadcast_channel(): string;
+
+[global, bind = typed_gml, type_hint=`PhotonRealtimeEventBufferReceived`]
+function photon_chat_receive_one_broadcast_buffer(
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
+): gmval;
+
+// =============================================================================
+// Chat-cpp — Callback removal
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_debug(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_connected(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_state_change(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_connection_error(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_client_error(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_warning(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_server_error(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_disconnected(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_status_update(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_get_messages(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_private_message(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_remove_callback_receive_broadcast(): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Lifecycle
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_init(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_shutdown(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_service(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_is_initialized(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_notify_joined_room(): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Transport channel events
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_on_join_channel(channel_id: int32): bool;
+
+[global, bind = typed_gml]
+function photon_voice_on_leave_channel(channel_id: int32): bool;
+
+[global, bind = typed_gml]
+function photon_voice_on_join_all_channels(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_on_leave_all_channels(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_on_player_join(channel_id: int32, player_id: int32): bool;
+
+[global, bind = typed_gml]
+function photon_voice_on_player_leave(channel_id: int32, player_id: int32): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Local voice management
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_create_local_voice(
+    channel_id: int32,
+    [type_hint = `PhotonVoiceCodec`] codec: int32,
+    sample_rate: int32,
+    channels: int32,
+    bitrate: int32,
+    frames_per_packet: int32
+): int32;
+
+[global, bind = typed_gml]
+function photon_voice_remove_local_voice(voice_id: int32): bool;
+
+[global, bind = typed_gml]
+function photon_voice_push_frame_buffer(voice_id: int32, [type_hint=buffer] data: gmval, bytes: uint32): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Incoming frame queue
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_get_frame_queue_count(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_clear_frame_queue(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_peek_next_frame_size(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_peek_next_frame_player_id(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_peek_next_frame_voice_id(): int32;
+
+[global, bind = typed_gml, type_hint=`PhotonRealtimeEventBufferReceived`]
+function photon_voice_receive_frame_buffer(
+    [type_hint=buffer] out_data: gmval,
+    max_bytes: uint32,
+    offset: uint32
+): gmval;
+
+// =============================================================================
+// PhotonVoice-cpp — Remote voice list
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_get_remote_voice_count(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_get_remote_voice_player_id(index: int32): int32;
+
+[global, bind = typed_gml]
+function photon_voice_get_remote_voice_id(index: int32): int32;
+
+[global, bind = typed_gml,type_hint = `PhotonVoiceCodec`]
+function photon_voice_get_remote_voice_codec(index: int32):  gmval;
+
+[global, bind = typed_gml]
+function photon_voice_get_remote_voice_sample_rate(index: int32): int32;
+
+[global, bind = typed_gml]
+function photon_voice_get_remote_voice_channels(index: int32): int32;
+
+/// Returns true if a decoded PCM frame was received from this remote voice
+/// within the last 200 ms. Useful for activity indicators / speaking detection.
+[global, bind = typed_gml]
+function photon_voice_get_remote_voice_is_speaking(index: int32): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Stats
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_get_frames_sent(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_get_frames_received(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_get_frames_lost(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_get_round_trip_time(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_get_round_trip_time_variance(): int32;
+
+// =============================================================================
+// PhotonVoice-cpp — Callbacks
+// =============================================================================
+
+/// Fired when a remote player's voice stream is first discovered.
+/// Callback signature: function(player_id, voice_id, codec, sample_rate, channels)
+[global, bind = typed_gml]
+function photon_voice_set_callback_remote_voice_added(callback: func): bool;
+
+/// Fired when a remote player's voice stream is removed (player left or stopped).
+/// Callback signature: function(player_id, voice_id)
+[global, bind = typed_gml]
+function photon_voice_set_callback_remote_voice_removed(callback: func): bool;
+
+/// Fired when a remote player transitions between speaking and silent.
+/// Threshold is controlled by photon_voice_set_speaking_threshold_ms().
+/// Callback signature: function(player_id, voice_id, is_speaking)
+[global, bind = typed_gml]
+function photon_voice_set_callback_speaking_changed(callback: func): bool;
+
+/// Fired with SDK-internal voice log messages (requires EG_LOGGING build flag).
+/// Callback signature: function(debug_level, message)
+[global, bind = typed_gml]
+function photon_voice_set_callback_debug(callback: func): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Callback removal
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_remove_callback_remote_voice_added(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_remove_callback_remote_voice_removed(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_remove_callback_speaking_changed(): bool;
+
+[global, bind = typed_gml]
+function photon_voice_remove_callback_debug(): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Local voice transmit control
+// =============================================================================
+
+/// Enable or disable transmission for a specific local voice stream.
+/// Silences the microphone without destroying the voice or disconnecting.
+[global, bind = typed_gml]
+function photon_voice_local_voice_set_transmit(voice_id: int32, enabled: bool): bool;
+
+/// Returns whether transmission is currently enabled for a local voice stream.
+[global, bind = typed_gml]
+function photon_voice_local_voice_get_transmit(voice_id: int32): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Remote player mute / volume
+// Mute and volume are applied locally before frames reach the GML queue.
+// Muted players produce no frames; volume != 1.0 scales the PCM samples.
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_set_remote_player_muted(player_id: int32, muted: bool): bool;
+
+[global, bind = typed_gml]
+function photon_voice_get_remote_player_muted(player_id: int32): bool;
+
+/// Sets a PCM volume multiplier for a remote player (0.0 = silence, 1.0 = unity, 2.0 = double).
+[global, bind = typed_gml]
+function photon_voice_set_remote_player_volume(player_id: int32, volume: real): bool;
+
+[global, bind = typed_gml]
+function photon_voice_get_remote_player_volume(player_id: int32): real;
+
+// =============================================================================
+// PhotonVoice-cpp — Debug
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_voice_get_debug_lost_percent(): int32;
+
+[global, bind = typed_gml]
+function photon_voice_set_debug_lost_percent(percent: int32): bool;
+
+// =============================================================================
+// PhotonVoice-cpp — Speaking threshold
+// =============================================================================
+
+/// Returns the silence timeout in milliseconds used by the speaking-detection
+/// system. A remote voice is considered speaking if a PCM frame arrived within
+/// this window. Default: 200 ms.
+[global, bind = typed_gml]
+function photon_voice_get_speaking_threshold_ms(): int32;
+
+/// Sets the silence timeout in milliseconds for speaking detection.
+/// Lower values make speaking-end detection more responsive but more sensitive
+/// to network jitter. Raise it if players flicker between speaking/silent.
+[global, bind = typed_gml]
+function photon_voice_set_speaking_threshold_ms(ms: int32): bool;
+
+// =============================================================================
+// Realtime (LoadBalancing) — peer-layer transport diagnostics
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_state(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_round_trip_time(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_round_trip_time_variance(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_bytes_in(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_bytes_out(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_queued_incoming_commands(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_queued_outgoing_commands(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_debug_output_level(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_set_debug_output_level(level: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_disconnect_timeout(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_set_disconnect_timeout(timeout_ms: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_time_ping_interval(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_set_time_ping_interval(interval_ms: int32): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_crc_enabled(): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_set_crc_enabled(enabled: bool): bool;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_packet_loss_by_crc(): int32;
+
+[global, bind = typed_gml]
+function photon_realtime_peer_get_timestamp_of_last_socket_receive(): int32;
+
+/// Resets the cumulative bytes-in / bytes-out traffic counters to zero (Realtime).
+[global, bind = typed_gml]
+function photon_realtime_peer_reset_traffic_stats(): bool;
+
+// =============================================================================
+// Chat — peer-layer transport diagnostics
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_state(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_round_trip_time(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_round_trip_time_variance(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_bytes_in(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_bytes_out(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_queued_incoming_commands(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_queued_outgoing_commands(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_debug_output_level(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_set_debug_output_level(level: int32): bool;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_disconnect_timeout(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_set_disconnect_timeout(timeout_ms: int32): bool;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_time_ping_interval(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_set_time_ping_interval(interval_ms: int32): bool;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_crc_enabled(): bool;
+
+[global, bind = typed_gml]
+function photon_chat_peer_set_crc_enabled(enabled: bool): bool;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_packet_loss_by_crc(): int32;
+
+[global, bind = typed_gml]
+function photon_chat_peer_get_timestamp_of_last_socket_receive(): int32;
+
+/// Resets the cumulative bytes-in / bytes-out traffic counters to zero (Chat).
+[global, bind = typed_gml]
+function photon_chat_peer_reset_traffic_stats(): bool;
+
+// =============================================================================
+// Photon-cpp (peer layer) — Network simulation (debug / QA only)
+// The currently bundled Photon C++ SDK does not expose network simulation.
+// These compatibility stubs always return false.
+// =============================================================================
+
+/// Unsupported by the currently bundled Photon C++ SDK. Always returns false.
+[global, bind = typed_gml]
+function photon_peer_network_sim_get_enabled(): bool;
+
+/// Unsupported by the currently bundled Photon C++ SDK. Always returns false.
+[global, bind = typed_gml]
+function photon_peer_network_sim_set_enabled(enabled: bool): bool;
+
+/// Sets artificial inbound and outbound lag in milliseconds.
+/// Unsupported by the currently bundled Photon C++ SDK. Always returns false.
+[global, bind = typed_gml]
+function photon_peer_network_sim_set_lag(incoming_ms: int32, outgoing_ms: int32): bool;
+
+/// Sets artificial inbound and outbound jitter in milliseconds.
+/// Unsupported by the currently bundled Photon C++ SDK. Always returns false.
+[global, bind = typed_gml]
+function photon_peer_network_sim_set_jitter(incoming_ms: int32, outgoing_ms: int32): bool;
+
+/// Sets artificial inbound and outbound packet-loss percentage (0–100).
+/// Unsupported by the currently bundled Photon C++ SDK. Always returns false.
+[global, bind = typed_gml]
+function photon_peer_network_sim_set_packet_loss(incoming_pct: int32, outgoing_pct: int32): bool;
+
+// =============================================================================
+// Common-cpp — Debug / Protocol
+// =============================================================================
+
+[global, bind = typed_gml]
+function photon_common_set_debug_level(level: int32): bool;
+
+[global, bind = typed_gml]
+function photon_common_get_debug_level(): int32;
+
+[global, bind = typed_gml]
+function photon_common_get_serialization_protocol(): int32;
+
+[global, bind = typed_gml]
+function photon_common_type_code_to_string(type_code: int32): string;
+
+[global, bind = typed_gml]
+function photon_common_get_sdk_version(): string;
+
+// =============================================================================
+// Common-cpp — State name helpers
+// Converts numeric state / disconnect-cause codes to human-readable strings.
+// Useful for debug overlays without maintaining a string table in GML.
+// =============================================================================
+
+/// Converts a LoadBalancing client state integer to a readable name string.
+[global, bind = typed_gml]
+function photon_common_client_state_to_string(state: int32): string;
+
+/// Converts a disconnect-cause integer to a readable name string.
+[global, bind = typed_gml]
+function photon_common_disconnect_cause_to_string(cause: int32): string;
+

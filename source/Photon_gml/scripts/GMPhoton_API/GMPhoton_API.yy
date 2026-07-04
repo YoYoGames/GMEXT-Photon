@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"GMPhoton_API",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"GMPhoton_API",
+  "parent":{
+    "name":"Photon",
+    "path":"folders/Photon.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

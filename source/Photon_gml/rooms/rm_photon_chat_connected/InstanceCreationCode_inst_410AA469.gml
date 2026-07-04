@@ -1,0 +1,2 @@
+
+text = "Channel_2"

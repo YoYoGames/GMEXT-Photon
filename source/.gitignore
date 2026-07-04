@@ -1,0 +1,18 @@
+# VS and VSC folders
+**/.vs/
+**/.vsc/
+
+# Common extensions
+**/*.exp
+**/*.ilk
+**/*.lib
+**/*.pdb
+**/*.exe
+
+# Compilation folders
+**/bin/
+**/obj/
+**/out/build/
+
+# Don't push the SDK
+photon_sdk

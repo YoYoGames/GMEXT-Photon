@@ -1,0 +1,45 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# MacOS non-sense
+*.DS_store
+*.xcuserstate
+output/
+
+# Windows user files
+*.vcxproj.user
+*.vcxproj.filters
+
+# Build-step script backups
+*.bak
+*.sh-e
+
+# GameMaker project options (per-developer, not shared)
+source/Photon_gml/options/

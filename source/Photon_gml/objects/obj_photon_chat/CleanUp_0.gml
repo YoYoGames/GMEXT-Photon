@@ -1,0 +1,13 @@
+
+photon_chat_remove_callback_debug()
+photon_chat_remove_callback_state_change()
+photon_chat_remove_callback_connected()
+photon_chat_remove_callback_client_error()
+photon_chat_remove_callback_warning()
+photon_chat_remove_callback_server_error()
+photon_chat_remove_callback_disconnected()
+photon_chat_remove_callback_get_messages()
+photon_chat_remove_callback_private_message()
+photon_chat_remove_callback_status_update()
+
+photon_chat_shutdown();
