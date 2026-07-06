@@ -1,3 +1,5 @@
+@title Setup
+
 # Setup
 
 This guide covers installing the Photon extension and configuring it for your project.

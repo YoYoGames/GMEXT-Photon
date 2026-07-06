@@ -1,3 +1,5 @@
+@title Quick Start Guide
+
 # Quick Start Guide
 
 This guide walks through a minimal Realtime connection: initialise the client, register callbacks, connect, and join a room. It assumes you have already configured your **Realtime App ID** (see ${page.setup}).
