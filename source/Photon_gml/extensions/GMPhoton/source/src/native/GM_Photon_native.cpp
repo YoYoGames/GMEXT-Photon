@@ -3,6 +3,8 @@
 #include <LoadBalancing-cpp/inc/Client.h>
 #include <LoadBalancing-cpp/inc/Listener.h>
 #include <LoadBalancing-cpp/inc/ConnectOptions.h>
+#include <LoadBalancing-cpp/inc/ClientConstructOptions.h>
+#include <LoadBalancing-cpp/inc/Enums/RegionSelectionMode.h>
 #include <LoadBalancing-cpp/inc/AuthenticationValues.h>
 #include <LoadBalancing-cpp/inc/RoomOptions.h>
 #include <LoadBalancing-cpp/inc/RaiseEventOptions.h>
@@ -64,6 +66,16 @@ static bool g_photon_connected   = false;
 static std::string g_current_region;
 static std::string g_current_room_name;
 static int g_local_player_number = 0;
+
+// A region requested via photon_realtime_select_region() before/while connecting.
+// The SDK only honors selectRegion() when the Client was constructed with
+// RegionSelectionMode::SELECT, and only once it pauses the connect flow to call
+// onAvailableRegions(). Recording the desired region here lets rebuild_client()
+// opt into SELECT mode and lets onAvailableRegions() apply it automatically,
+// so callers can keep calling select_region() before connect() as before.
+static std::string g_pending_selected_region;
+static bool        g_has_pending_selected_region      = false;
+static bool        g_region_selected_since_available  = false;
 
 // =============================================================================
 // Buffered incoming event queue
@@ -626,12 +638,18 @@ static bool photon_realtime_rebuild_client(const std::string& app_id, const std:
 
         extern LB::Listener& photon_get_listener_instance();
 
+        LB::ClientConstructOptions ctorOpts;
+        if(g_has_pending_selected_region)
+            ctorOpts.setRegionSelectionMode(LB::RegionSelectionMode::SELECT);
+
         g_photon_client = std::make_unique<LB::Client>(
             photon_get_listener_instance(),
             photon_realtime_to_jstring(app_id),
-            photon_realtime_to_jstring(app_version)
+            photon_realtime_to_jstring(app_version),
+            ctorOpts
         );
 
+        g_region_selected_since_available = false;
         g_photon_client->setAutoJoinLobby(false);
         return true;
     }
@@ -1154,14 +1172,27 @@ public:
 
     void onAvailableRegions(const C::JVector<C::JString>& availableRegions, const C::JVector<C::JString>& availableRegionServers) override
     {
-        if(!g_callback_available_regions) return;
-        gm::wire::ArrayStream regions_stream;
-        for(unsigned int i = 0; i < availableRegions.getSize(); ++i)
-            regions_stream << photon_realtime_from_jstring(availableRegions[i]);
-        gm::wire::ArrayStream servers_stream;
-        for(unsigned int i = 0; i < availableRegionServers.getSize(); ++i)
-            servers_stream << photon_realtime_from_jstring(availableRegionServers[i]);
-        g_callback_available_regions.call(regions_stream, servers_stream);
+        g_region_selected_since_available = false;
+
+        if(g_callback_available_regions)
+        {
+            gm::wire::ArrayStream regions_stream;
+            for(unsigned int i = 0; i < availableRegions.getSize(); ++i)
+                regions_stream << photon_realtime_from_jstring(availableRegions[i]);
+            gm::wire::ArrayStream servers_stream;
+            for(unsigned int i = 0; i < availableRegionServers.getSize(); ++i)
+                servers_stream << photon_realtime_from_jstring(availableRegionServers[i]);
+            g_callback_available_regions.call(regions_stream, servers_stream);
+        }
+
+        // If the GML callback above didn't already pick a region via
+        // photon_realtime_select_region(), apply whatever region was requested
+        // earlier (e.g. before connect() was called) to resume the connect flow.
+        if(!g_region_selected_since_available && g_has_pending_selected_region && g_photon_client)
+        {
+            g_region_selected_since_available = true;
+            g_photon_client->selectRegion(photon_realtime_to_jstring(g_pending_selected_region));
+        }
     }
 
     void onSecretReceival(const C::JString& secret) override
@@ -1328,10 +1359,16 @@ bool photon_realtime_disconnect()
 
 bool photon_realtime_select_region(std::string_view region)
 {
-    if(!photon_realtime_has_client())
-        return false;
+    g_pending_selected_region     = std::string(region);
+    g_has_pending_selected_region = !g_pending_selected_region.empty();
 
-    return g_photon_client->selectRegion(photon_realtime_to_jstring(std::string(region)));
+    // No client yet (e.g. called before connect()) — the desired region is
+    // remembered and will be applied once the client pauses at onAvailableRegions().
+    if(!photon_realtime_has_client())
+        return true;
+
+    g_region_selected_since_available = true;
+    return g_photon_client->selectRegion(photon_realtime_to_jstring(g_pending_selected_region));
 }
 
 bool photon_realtime_reconnect_and_rejoin()

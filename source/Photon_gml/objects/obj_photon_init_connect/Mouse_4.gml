@@ -1,8 +1,7 @@
 
 
 
-//TODO?????
-//photon_select_region(obj_photon_init_connect_region.code)
+photon_realtime_select_region(obj_photon_init_connect_region.code)
 
 
 photon_realtime_set_callback_connected(function(_error_code, _error_string, _region) {

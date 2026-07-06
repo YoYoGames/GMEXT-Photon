@@ -2210,9 +2210,6 @@ function __PhotonChatConnectOptions_decode(_buffer, _offset)
  */
 function photon_realtime_connect(_app_id, _app_version, _options)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _app_id, type: String
@@ -2262,9 +2259,6 @@ function photon_realtime_connect(_app_id, _app_version, _options)
  */
 function photon_realtime_operation_join_lobby(_lobby_name, _lobby_type, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2303,9 +2297,6 @@ function photon_realtime_operation_join_lobby(_lobby_name, _lobby_type, _callbac
  */
 function photon_realtime_operation_leave_lobby(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2337,9 +2328,6 @@ function photon_realtime_operation_leave_lobby(_callback)
  */
 function photon_realtime_operation_create_room(_room_name, _options, _custom_properties, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     static __decoders = __GMPhoton_get_decoders();
@@ -2387,9 +2375,6 @@ function photon_realtime_operation_create_room(_room_name, _options, _custom_pro
  */
 function photon_realtime_operation_join_or_create_room(_room_name, _options, _custom_properties, _cache_slice_index, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     static __decoders = __GMPhoton_get_decoders();
@@ -2447,9 +2432,6 @@ function photon_realtime_operation_join_or_create_room(_room_name, _options, _cu
  */
 function photon_realtime_operation_join_room(_room_name, _options, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2489,9 +2471,6 @@ function photon_realtime_operation_join_room(_room_name, _options, _callback)
  */
 function photon_realtime_operation_join_random_room(_options, _expected_properties, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     static __decoders = __GMPhoton_get_decoders();
@@ -2532,9 +2511,6 @@ function photon_realtime_operation_join_random_room(_options, _expected_properti
  */
 function photon_realtime_operation_leave_room(_will_come_back, _send_authentication_cookie, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2576,9 +2552,6 @@ function photon_realtime_operation_leave_room(_will_come_back, _send_authenticat
  */
 function photon_realtime_operation_join_random_or_create_room(_room_name, _options, _custom_properties, _random_options, _expected_properties, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     static __decoders = __GMPhoton_get_decoders();
@@ -2632,9 +2605,6 @@ function photon_realtime_operation_join_random_or_create_room(_room_name, _optio
  */
 function photon_realtime_operation_get_room_list(_lobby_name, _sql_filter, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2673,9 +2643,6 @@ function photon_realtime_operation_get_room_list(_lobby_name, _sql_filter, _call
  */
 function photon_realtime_operation_lobby_stats(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2705,9 +2672,6 @@ function photon_realtime_operation_lobby_stats(_callback)
  */
 function photon_realtime_operation_find_friends(_friends, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2748,9 +2712,6 @@ function photon_realtime_operation_find_friends(_friends, _callback)
  */
 function photon_realtime_operation_web_rpc(_uri_path, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -2785,9 +2746,6 @@ function photon_realtime_operation_web_rpc(_uri_path, _callback)
  */
 function photon_realtime_operation_change_groups(_groups_to_remove, _groups_to_add)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _groups_to_remove, type: optional<Int32[]>
@@ -2837,9 +2795,6 @@ function photon_realtime_operation_change_groups(_groups_to_remove, _groups_to_a
  */
 function photon_realtime_operation_custom_auth_next_step(_authentication)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _authentication, type: struct PhotonRealtimeAuthenticationValues
@@ -2860,9 +2815,6 @@ function photon_realtime_operation_custom_auth_next_step(_authentication)
  */
 function photon_realtime_operation_raise_event_string(_reliable, _payload, _event_code, _options)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _reliable, type: Bool
@@ -2905,9 +2857,6 @@ function photon_realtime_operation_raise_event_string(_reliable, _payload, _even
  */
 function photon_realtime_operation_raise_event_buffer(_reliable, _data, _bytes, _event_code, _options)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _reliable, type: Bool
@@ -2963,9 +2912,6 @@ function photon_realtime_operation_raise_event_buffer(_reliable, _data, _bytes, 
  */
 function photon_realtime_receive_one_event_buffer(_out_data, _max_bytes, _offset)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _out_data, type: Buffer
@@ -3027,9 +2973,6 @@ function photon_realtime_receive_one_event_buffer(_out_data, _max_bytes, _offset
  */
 function photon_realtime_get_state()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_get_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -3050,9 +2993,6 @@ function photon_realtime_get_state()
  */
 function photon_realtime_get_disconnected_cause()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_get_disconnected_cause(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -3131,9 +3071,6 @@ function photon_realtime_get_disconnected_cause()
  */
 function photon_realtime_get_room_info_by_index(_index)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_get_room_info_by_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -3166,9 +3103,6 @@ function photon_realtime_get_room_info_by_index(_index)
  */
 function photon_realtime_get_player_numbers()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_get_player_numbers(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -3189,9 +3123,6 @@ function photon_realtime_get_player_numbers()
  */
 function photon_realtime_set_callback_debug(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3212,9 +3143,6 @@ function photon_realtime_set_callback_debug(_callback)
  */
 function photon_realtime_set_callback_connected(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3235,9 +3163,6 @@ function photon_realtime_set_callback_connected(_callback)
  */
 function photon_realtime_set_callback_disconnected(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3258,9 +3183,6 @@ function photon_realtime_set_callback_disconnected(_callback)
  */
 function photon_realtime_set_callback_connection_error(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3281,9 +3203,6 @@ function photon_realtime_set_callback_connection_error(_callback)
  */
 function photon_realtime_set_callback_client_error(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3304,9 +3223,6 @@ function photon_realtime_set_callback_client_error(_callback)
  */
 function photon_realtime_set_callback_server_error(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3327,9 +3243,6 @@ function photon_realtime_set_callback_server_error(_callback)
  */
 function photon_realtime_set_callback_warning(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3350,9 +3263,6 @@ function photon_realtime_set_callback_warning(_callback)
  */
 function photon_realtime_set_callback_join_room_event(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3373,9 +3283,6 @@ function photon_realtime_set_callback_join_room_event(_callback)
  */
 function photon_realtime_set_callback_leave_room_event(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3396,9 +3303,6 @@ function photon_realtime_set_callback_leave_room_event(_callback)
  */
 function photon_realtime_set_callback_custom_event(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3419,9 +3323,6 @@ function photon_realtime_set_callback_custom_event(_callback)
  */
 function photon_realtime_set_callback_room_properties_change(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3442,9 +3343,6 @@ function photon_realtime_set_callback_room_properties_change(_callback)
  */
 function photon_realtime_set_callback_player_properties_change(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3465,9 +3363,6 @@ function photon_realtime_set_callback_player_properties_change(_callback)
  */
 function photon_realtime_set_callback_room_list_update(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3488,9 +3383,6 @@ function photon_realtime_set_callback_room_list_update(_callback)
  */
 function photon_realtime_set_callback_app_stats_update(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3511,9 +3403,6 @@ function photon_realtime_set_callback_app_stats_update(_callback)
  */
 function photon_realtime_set_callback_lobby_stats_update(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3534,9 +3423,6 @@ function photon_realtime_set_callback_lobby_stats_update(_callback)
  */
 function photon_realtime_set_callback_cache_slice_changed(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3557,9 +3443,6 @@ function photon_realtime_set_callback_cache_slice_changed(_callback)
  */
 function photon_realtime_set_callback_master_client_changed(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3580,9 +3463,6 @@ function photon_realtime_set_callback_master_client_changed(_callback)
  */
 function photon_realtime_set_callback_properties_change_failed(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3603,9 +3483,6 @@ function photon_realtime_set_callback_properties_change_failed(_callback)
  */
 function photon_realtime_set_callback_custom_authentication_step(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3626,9 +3503,6 @@ function photon_realtime_set_callback_custom_authentication_step(_callback)
  */
 function photon_realtime_set_callback_available_regions(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3649,9 +3523,6 @@ function photon_realtime_set_callback_available_regions(_callback)
  */
 function photon_realtime_set_callback_secret_receival(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3672,9 +3543,6 @@ function photon_realtime_set_callback_secret_receival(_callback)
  */
 function photon_realtime_set_callback_direct_connection_established(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3695,9 +3563,6 @@ function photon_realtime_set_callback_direct_connection_established(_callback)
  */
 function photon_realtime_set_callback_direct_connection_failed(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3718,9 +3583,6 @@ function photon_realtime_set_callback_direct_connection_failed(_callback)
  */
 function photon_realtime_set_callback_direct_message(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3741,9 +3603,6 @@ function photon_realtime_set_callback_direct_message(_callback)
  */
 function photon_realtime_set_callback_custom_operation_response(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -3874,9 +3733,6 @@ function photon_realtime_set_callback_custom_operation_response(_callback)
  */
 function photon_realtime_room_properties_get_all()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_room_properties_get_all(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -3939,9 +3795,6 @@ function photon_realtime_room_properties_get_all()
  */
 function photon_realtime_player_properties_get_local_all()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_player_properties_get_local_all(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -3975,9 +3828,6 @@ function photon_realtime_player_properties_get_local_all()
  */
 function photon_realtime_player_properties_get_remote_all(_player_number)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_player_properties_get_remote_all(_player_number, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -4007,9 +3857,6 @@ function photon_realtime_player_properties_get_remote_all(_player_number)
  */
 function photon_chat_connect(_app_id, _app_version, _options)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _app_id, type: String
@@ -4050,9 +3897,6 @@ function photon_chat_connect(_app_id, _app_version, _options)
  */
 function photon_chat_operation_subscribe(_channels, _messages_from_history, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4105,9 +3949,6 @@ function photon_chat_operation_subscribe(_channels, _messages_from_history, _cal
  */
 function photon_chat_operation_unsubscribe(_channels, _callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4152,9 +3993,6 @@ function photon_chat_operation_unsubscribe(_channels, _callback)
  */
 function photon_chat_operation_send_private_message(_user_name, _message, _encrypt)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _user_name, type: String
@@ -4191,9 +4029,6 @@ function photon_chat_operation_send_private_message(_user_name, _message, _encry
  */
 function photon_chat_operation_set_online_status(_status, _message)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _status, type: enum PhotonChatUserStatus
@@ -4225,9 +4060,6 @@ function photon_chat_operation_set_online_status(_status, _message)
  */
 function photon_chat_operation_add_friends(_user_ids)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _user_ids, type: String[]
@@ -4252,9 +4084,6 @@ function photon_chat_operation_add_friends(_user_ids)
  */
 function photon_chat_operation_remove_friends(_user_ids)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _user_ids, type: String[]
@@ -4284,9 +4113,6 @@ function photon_chat_operation_remove_friends(_user_ids)
  */
 function photon_chat_get_state()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_chat_get_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -4301,9 +4127,6 @@ function photon_chat_get_state()
  */
 function photon_chat_get_disconnect_cause()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_chat_get_disconnect_cause(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -4337,9 +4160,6 @@ function photon_chat_get_disconnect_cause()
  */
 function photon_chat_get_channel_count(_channel_type)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channel_type, type: enum PhotonChatChannelType
@@ -4359,9 +4179,6 @@ function photon_chat_get_channel_count(_channel_type)
  */
 function photon_chat_get_channel_name(_channel_type, _index)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channel_type, type: enum PhotonChatChannelType
@@ -4385,9 +4202,6 @@ function photon_chat_get_channel_name(_channel_type, _index)
  */
 function photon_chat_get_channel_message_count(_channel_type, _channel_name)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channel_type, type: enum PhotonChatChannelType
@@ -4413,9 +4227,6 @@ function photon_chat_get_channel_message_count(_channel_type, _channel_name)
  */
 function photon_chat_get_channel_message(_channel_type, _channel_name, _index)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channel_type, type: enum PhotonChatChannelType
@@ -4445,9 +4256,6 @@ function photon_chat_get_channel_message(_channel_type, _channel_name, _index)
  */
 function photon_chat_get_channel_sender(_channel_type, _channel_name, _index)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channel_type, type: enum PhotonChatChannelType
@@ -4475,9 +4283,6 @@ function photon_chat_get_channel_sender(_channel_type, _channel_name, _index)
  */
 function photon_chat_set_callback_debug(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4498,9 +4303,6 @@ function photon_chat_set_callback_debug(_callback)
  */
 function photon_chat_set_callback_connected(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4521,9 +4323,6 @@ function photon_chat_set_callback_connected(_callback)
  */
 function photon_chat_set_callback_state_change(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4544,9 +4343,6 @@ function photon_chat_set_callback_state_change(_callback)
  */
 function photon_chat_set_callback_connection_error(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4567,9 +4363,6 @@ function photon_chat_set_callback_connection_error(_callback)
  */
 function photon_chat_set_callback_client_error(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4590,9 +4383,6 @@ function photon_chat_set_callback_client_error(_callback)
  */
 function photon_chat_set_callback_warning(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4613,9 +4403,6 @@ function photon_chat_set_callback_warning(_callback)
  */
 function photon_chat_set_callback_server_error(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4636,9 +4423,6 @@ function photon_chat_set_callback_server_error(_callback)
  */
 function photon_chat_set_callback_disconnected(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4659,9 +4443,6 @@ function photon_chat_set_callback_disconnected(_callback)
  */
 function photon_chat_set_callback_status_update(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4682,9 +4463,6 @@ function photon_chat_set_callback_status_update(_callback)
  */
 function photon_chat_set_callback_get_messages(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4705,9 +4483,6 @@ function photon_chat_set_callback_get_messages(_callback)
  */
 function photon_chat_set_callback_private_message(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4728,9 +4503,6 @@ function photon_chat_set_callback_private_message(_callback)
  */
 function photon_chat_set_callback_receive_broadcast(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -4765,9 +4537,6 @@ function photon_chat_set_callback_receive_broadcast(_callback)
  */
 function photon_chat_receive_one_broadcast_buffer(_out_data, _max_bytes, _offset)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _out_data, type: Buffer
@@ -4871,9 +4640,6 @@ function photon_chat_receive_one_broadcast_buffer(_out_data, _max_bytes, _offset
  */
 function photon_voice_create_local_voice(_channel_id, _codec, _sample_rate, _channels, _bitrate, _frames_per_packet)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channel_id, type: Int32
@@ -4917,9 +4683,6 @@ function photon_voice_create_local_voice(_channel_id, _codec, _sample_rate, _cha
  */
 function photon_voice_push_frame_buffer(_voice_id, _data, _bytes)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _voice_id, type: Int32
@@ -4962,9 +4725,6 @@ function photon_voice_push_frame_buffer(_voice_id, _data, _bytes)
  */
 function photon_voice_receive_frame_buffer(_out_data, _max_bytes, _offset)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _out_data, type: Buffer
@@ -5003,9 +4763,6 @@ function photon_voice_receive_frame_buffer(_out_data, _max_bytes, _offset)
  */
 function photon_voice_get_remote_voice_codec(_index)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_voice_get_remote_voice_codec(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -5045,9 +4802,6 @@ function photon_voice_get_remote_voice_codec(_index)
  */
 function photon_voice_set_callback_remote_voice_added(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -5068,9 +4822,6 @@ function photon_voice_set_callback_remote_voice_added(_callback)
  */
 function photon_voice_set_callback_remote_voice_removed(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -5091,9 +4842,6 @@ function photon_voice_set_callback_remote_voice_removed(_callback)
  */
 function photon_voice_set_callback_speaking_changed(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -5114,9 +4862,6 @@ function photon_voice_set_callback_speaking_changed(_callback)
  */
 function photon_voice_set_callback_debug(_callback)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
@@ -5199,9 +4944,6 @@ function photon_voice_set_callback_debug(_callback)
  */
 function photon_realtime_peer_get_debug_output_level()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_realtime_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -5217,9 +4959,6 @@ function photon_realtime_peer_get_debug_output_level()
  */
 function photon_realtime_peer_set_debug_output_level(_level)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _level, type: enum PhotonCommonDebugLevel
@@ -5285,9 +5024,6 @@ function photon_realtime_peer_set_debug_output_level(_level)
  */
 function photon_chat_peer_get_debug_output_level()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_chat_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -5303,9 +5039,6 @@ function photon_chat_peer_get_debug_output_level()
  */
 function photon_chat_peer_set_debug_output_level(_level)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _level, type: enum PhotonCommonDebugLevel
@@ -5366,9 +5099,6 @@ function photon_chat_peer_set_debug_output_level(_level)
  */
 function photon_common_set_debug_level(_level)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _level, type: enum PhotonCommonDebugLevel
@@ -5386,9 +5116,6 @@ function photon_common_set_debug_level(_level)
  */
 function photon_common_get_debug_level()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_common_get_debug_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -5403,9 +5130,6 @@ function photon_common_get_debug_level()
  */
 function photon_common_get_serialization_protocol()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __ret_buffer = __ext_core_get_ret_buffer();
 
     var _return_value = __photon_common_get_serialization_protocol(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
@@ -5421,9 +5145,6 @@ function photon_common_get_serialization_protocol()
  */
 function photon_common_type_code_to_string(_type_code)
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _type_code, type: enum PhotonCommonTypeCode
@@ -5468,15 +5189,6 @@ function __GMPhoton_get_decoders()
 /// @ignore
 function __GMPhoton_get_dispatcher()
 {
-    static __available = __GMPhoton_is_available();
-    if (!__available) return;
-
     static __dispatcher = new __GMNativeFunctionDispatcher(__GMPhoton_invocation_handler, __GMPhoton_get_decoders());
     return __dispatcher;
-}
-/// @ignore
-function __GMPhoton_is_available()
-{
-    static __available = extension_exists("GMPhoton");
-    return __available;
 }
