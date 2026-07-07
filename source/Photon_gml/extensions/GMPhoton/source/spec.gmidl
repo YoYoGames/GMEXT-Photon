@@ -1281,6 +1281,10 @@ function photon_chat_service(): bool;
 // Chat-cpp — Connection
 // =============================================================================
 
+/// Sets the Chat (Name Server) region to connect to. Must be called before photon_chat_connect().
+[global, bind = typed_gml]
+function photon_chat_select_region(region: string): bool;
+
 [global, bind = typed_gml]
 function photon_chat_connect(app_id: string, app_version: string, [type_hint = `PhotonChatConnectOptions?`] options: gmval): bool;
 

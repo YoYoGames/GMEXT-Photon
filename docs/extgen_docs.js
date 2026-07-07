@@ -1125,6 +1125,13 @@
  */
 
 /**
+ * @function_partial photon_chat_select_region
+ * @param {String} region
+ * @returns {Bool}
+ * @function_end
+ */
+
+/**
  * @function_partial photon_chat_connect
  * @param {String} app_id
  * @param {String} app_version

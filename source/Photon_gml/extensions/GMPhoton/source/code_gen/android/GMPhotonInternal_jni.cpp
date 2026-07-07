@@ -1637,6 +1637,14 @@ static jdouble __JNI_WRAPPER__photon_chat_service_2B288E18606E(JNIEnv* /* env */
     return static_cast<jdouble>(__ret);
 }
 
+// photon_chat_select_region JNI wrapper signature: (Ljava/lang/String;)D
+static jdouble __JNI_WRAPPER__photon_chat_select_region_2BB25675AE73(JNIEnv* env, jclass /* GMPhotonBridge */, jstring region)
+{
+    UtfChars __pin_region(env, region);
+    double __ret = __EXT_NATIVE__photon_chat_select_region((char *)__pin_region.c_str());
+    return static_cast<jdouble>(__ret);
+}
+
 // photon_chat_connect JNI wrapper signature: (Ljava/nio/ByteBuffer;D)D
 static jdouble __JNI_WRAPPER__photon_chat_connect_AEAC1922AF5D(JNIEnv* env, jclass /* GMPhotonBridge */, jobject __arg_buffer, jdouble __arg_buffer_length)
 {
@@ -3170,6 +3178,7 @@ extern "C" {
             { "__EXT_JNI__photon_chat_init", "()D", (void*)__JNI_WRAPPER__photon_chat_init_C4F1F4B7D66C },
             { "__EXT_JNI__photon_chat_shutdown", "()D", (void*)__JNI_WRAPPER__photon_chat_shutdown_3F6A808CD57F },
             { "__EXT_JNI__photon_chat_service", "()D", (void*)__JNI_WRAPPER__photon_chat_service_2B288E18606E },
+            { "__EXT_JNI__photon_chat_select_region", "(Ljava/lang/String;)D", (void*)__JNI_WRAPPER__photon_chat_select_region_2BB25675AE73 },
             { "__EXT_JNI__photon_chat_connect", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_chat_connect_AEAC1922AF5D },
             { "__EXT_JNI__photon_chat_disconnect", "()D", (void*)__JNI_WRAPPER__photon_chat_disconnect_A87443EC23FB },
             { "__EXT_JNI__photon_chat_operation_subscribe", "(Ljava/nio/ByteBuffer;D)D", (void*)__JNI_WRAPPER__photon_chat_operation_subscribe_6A260D022450 },

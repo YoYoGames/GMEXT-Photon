@@ -173,6 +173,7 @@ GMEXPORT double __EXT_NATIVE__photon_realtime_peek_next_buffer_event_player_numb
 GMEXPORT double __EXT_NATIVE__photon_chat_init();
 GMEXPORT double __EXT_NATIVE__photon_chat_shutdown();
 GMEXPORT double __EXT_NATIVE__photon_chat_service();
+GMEXPORT double __EXT_NATIVE__photon_chat_select_region(char* region);
 GMEXPORT double __EXT_NATIVE__photon_chat_connect(char* __arg_buffer, double __arg_buffer_length);
 GMEXPORT double __EXT_NATIVE__photon_chat_disconnect();
 GMEXPORT double __EXT_NATIVE__photon_chat_operation_subscribe(char* __arg_buffer, double __arg_buffer_length);

@@ -1428,6 +1428,12 @@ GMEXPORT double __EXT_NATIVE__photon_chat_service()
     return static_cast<double>(__result);
 }
 
+GMEXPORT double __EXT_NATIVE__photon_chat_select_region(char* region)
+{
+    auto&& __result = photon_chat_select_region(region);
+    return static_cast<double>(__result);
+}
+
 GMEXPORT double __EXT_NATIVE__photon_chat_connect(char* __arg_buffer, double __arg_buffer_length)
 {
     gm::byteio::BufferReader __br{__arg_buffer, static_cast<size_t>(__arg_buffer_length)};

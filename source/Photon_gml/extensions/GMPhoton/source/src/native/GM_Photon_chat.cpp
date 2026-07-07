@@ -49,6 +49,11 @@ static std::atomic<bool> g_chat_connected{false};
 static std::atomic<bool> g_chat_background_thread{false};
 static std::mutex g_chat_broadcast_mutex;
 
+// Region requested via photon_chat_select_region(). Unlike Realtime, Chat::Client
+// has no SELECT-mode pause/callback flow — setRegion() just needs to be called on
+// the client instance before connect(), so we apply it in photon_chat_connect().
+static std::string g_chat_pending_region;
+
 
 // =============================================================================
 // Callback registry
@@ -435,6 +440,20 @@ bool photon_chat_service()
 // Connection
 // =============================================================================
 
+bool photon_chat_select_region(std::string_view region)
+{
+    g_chat_pending_region = std::string(region);
+
+    // Chat-cpp has no SELECT-mode pause/callback flow like Realtime — setRegion()
+    // just needs to have been called on the Client instance before connect().
+    // If a client already exists (e.g. selecting a region between reconnects),
+    // apply it immediately; otherwise it will be applied in photon_chat_connect().
+    if(chat_has_client())
+        g_chat_client->setRegion(chat_to_jstring(g_chat_pending_region));
+
+    return true;
+}
+
 bool photon_chat_connect(std::string_view app_id, std::string_view app_version, const std::optional<gm_structs::PhotonChatConnectOptions>& options)
 {
 
@@ -454,6 +473,9 @@ bool photon_chat_connect(std::string_view app_id, std::string_view app_version, 
             chat_to_jstring(std::string(app_id)),
             chat_to_jstring(std::string(app_version))
         );
+
+        if(!g_chat_pending_region.empty())
+            g_chat_client->setRegion(chat_to_jstring(g_chat_pending_region));
     }
     catch(...)
     {

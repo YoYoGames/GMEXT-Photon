@@ -167,6 +167,7 @@
 - (double)__EXT_NATIVE__photon_chat_init;
 - (double)__EXT_NATIVE__photon_chat_shutdown;
 - (double)__EXT_NATIVE__photon_chat_service;
+- (double)__EXT_NATIVE__photon_chat_select_region:(char*)region;
 - (double)__EXT_NATIVE__photon_chat_connect:(char*)__arg_buffer arg1:(double)__arg_buffer_length;
 - (double)__EXT_NATIVE__photon_chat_disconnect;
 - (double)__EXT_NATIVE__photon_chat_operation_subscribe:(char*)__arg_buffer arg1:(double)__arg_buffer_length;

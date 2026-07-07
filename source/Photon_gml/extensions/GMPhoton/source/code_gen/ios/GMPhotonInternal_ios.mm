@@ -744,6 +744,10 @@ static void GMInjectSelectorsIntoSubclass(Class subclass, Class base)
 {
     return __EXT_NATIVE__photon_chat_service();
 }
+- (double)__EXT_NATIVE__photon_chat_select_region:(char*)region
+{
+    return __EXT_NATIVE__photon_chat_select_region(region);
+}
 - (double)__EXT_NATIVE__photon_chat_connect:(char*)__arg_buffer arg1:(double)__arg_buffer_length
 {
     return __EXT_NATIVE__photon_chat_connect(__arg_buffer, __arg_buffer_length);

@@ -1169,6 +1169,7 @@ std::int32_t photon_realtime_peek_next_buffer_event_player_number();
 bool photon_chat_init();
 bool photon_chat_shutdown();
 bool photon_chat_service();
+bool photon_chat_select_region(std::string_view region);
 bool photon_chat_connect(std::string_view app_id, std::string_view app_version, const std::optional<gm_structs::PhotonChatConnectOptions>& options);
 bool photon_chat_disconnect();
 bool photon_chat_operation_subscribe(const std::vector<std::string_view>& channels, std::optional<std::int32_t> messages_from_history, const std::optional<gm::wire::GMFunction>& callback);

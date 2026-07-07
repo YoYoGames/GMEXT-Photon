@@ -3849,6 +3849,9 @@ function photon_realtime_player_properties_get_remote_all(_player_number)
 // Skipping function photon_chat_service (no wrapper is required)
 
 
+// Skipping function photon_chat_select_region (no wrapper is required)
+
+
 /**
  * @param {String} _app_id
  * @param {String} _app_version

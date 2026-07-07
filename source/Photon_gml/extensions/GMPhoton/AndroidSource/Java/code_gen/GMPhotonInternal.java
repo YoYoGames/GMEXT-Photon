@@ -668,6 +668,10 @@ public class GMPhotonInternal extends RunnerSocial {
     {
         return __EXT_JNI__photon_chat_service();
     }
+    public double __EXT_NATIVE__photon_chat_select_region(String region)
+    {
+        return __EXT_JNI__photon_chat_select_region(region);
+    }
     public double __EXT_NATIVE__photon_chat_connect(ByteBuffer __arg_buffer, double __arg_buffer_length)
     {
         return __EXT_JNI__photon_chat_connect(__arg_buffer, __arg_buffer_length);

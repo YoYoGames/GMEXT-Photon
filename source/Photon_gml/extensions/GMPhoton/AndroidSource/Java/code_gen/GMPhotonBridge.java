@@ -183,6 +183,7 @@ public final class GMPhotonBridge {
     public static native double __EXT_JNI__photon_chat_init();
     public static native double __EXT_JNI__photon_chat_shutdown();
     public static native double __EXT_JNI__photon_chat_service();
+    public static native double __EXT_JNI__photon_chat_select_region(String region);
     public static native double __EXT_JNI__photon_chat_connect(ByteBuffer __arg_buffer, double __arg_buffer_length);
     public static native double __EXT_JNI__photon_chat_disconnect();
     public static native double __EXT_JNI__photon_chat_operation_subscribe(ByteBuffer __arg_buffer, double __arg_buffer_length);
