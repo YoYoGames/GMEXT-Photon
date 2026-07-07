@@ -360,7 +360,7 @@
   ],
   "license":"",
   "maccompilerflags":"",
-  "maclinkerflags":"\"-ObjC\",\"-Xlinker\",\"-alias_list\",\"-Xlinker\",\"$(SRCROOT)/photon_aliases.txt\" -ObjC",
+  "maclinkerflags":"\"-ObjC\",\"-Xlinker\",\"-alias_list\",\"-Xlinker\",\"$(SRCROOT)/photon_aliases.txt\"",
   "macsourcedir":"",
   "name":"GMPhoton",
   "options":[
