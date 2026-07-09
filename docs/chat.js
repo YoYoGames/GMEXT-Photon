@@ -24,6 +24,14 @@
  */
 
 /**
+ * @function photon_chat_select_region
+ * @desc Selects the Chat (Name Server) region to connect to (for example `"eu"`, `"us"`, `"asia"`). Call before ${function.photon_chat_connect} — unlike Realtime, Chat has no available-regions callback to pick from.
+ * @param {String} region The region token to use.
+ * @returns {Bool} Whether the region was recorded.
+ * @function_end
+ */
+
+/**
  * @function photon_chat_connect
  * @desc Connects to the Photon Chat service using the given Application ID and application version. The result is delivered to ${function.photon_chat_set_callback_connected}.
  * @param {String} app_id Your Photon Chat Application ID.
@@ -693,6 +701,7 @@
  * @ref photon_chat_init
  * @ref photon_chat_shutdown
  * @ref photon_chat_service
+ * @ref photon_chat_select_region
  * @ref photon_chat_connect
  * @ref photon_chat_disconnect
  * @section_end
