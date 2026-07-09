@@ -32,6 +32,9 @@ To compile the native bridge locally you will need the Photon C++ SDKs. They are
 > [!IMPORTANT]
 > The Photon SDKs cannot be redistributed. You must download them directly from Exit Games and agree to their terms before use.
 
+> [!IMPORTANT]
+> This extension requires Photon C++ SDK **v5.0.14.3**. Using a different SDK version is not supported and may not compile or behave correctly against the native bridge.
+
 **Important**
 
 The public API surface is defined in `source/Photon_gml/extensions/GMPhoton/source/spec.gmidl` and the GML wrappers, extension manifest entries, C++ bridge stubs and documentation stubs are generated from it via the **extgen** tool. Do not edit any generated file directly (`extensions/GMPhoton/source/code_gen/`, `docs/extgen_docs.js`); regenerate them from the spec instead.
