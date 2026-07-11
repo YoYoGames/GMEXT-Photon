@@ -16,6 +16,9 @@ call %Utils% optionGetValue "versionLTS"    RUNTIME_VERSION_LTS
 
 :: SDK Paths
 call %Utils% optionGetValue "sdkPathiOS" SDK_IOS
+call %Utils% optionGetValue "ps4SdkPath" PS4_SDK_PATH
+call %Utils% optionGetValue "ps5SdkPath" PS5_SDK_PATH
+call %Utils% optionGetValue "switchSdkPath" SWITCH_SDK_PATH
 
 :: Checks IDE and Runtime versions (legacy runtime only; GMRT is version-agnostic here)
 if "%YYTARGET_runtime%" == "GMRT" (
@@ -82,15 +85,27 @@ exit /b 0
     :: how FMOD's console AutoBuild configs are decoupled from the game build config.
     :: Requires a one-time CMakeUserPresets.json set up per templates/CMakeUserPresets.json.template.
     set "CMAKE_PRESET=ps4-release"
+    set "SDK_PATH_OPT=%PS4_SDK_PATH%"
     if "%YYPLATFORM_name%"=="PlayStation 5" set "CMAKE_PRESET=ps5-release"
+    if "%YYPLATFORM_name%"=="PlayStation 5" set "SDK_PATH_OPT=%PS5_SDK_PATH%"
 
     call "%YYPREF_visual_studio_path%"
 
     where cmake >nul 2>nul
     if errorlevel 1 call %Utils% logError "cmake was not found on PATH. Install CMake to build %YYPLATFORM_name%."
 
+    :: ps4SdkPath/ps5SdkPath are optional (absolute, or relative to the project .yyp root). If set,
+    :: resolve and pass through as -DSDK_ROOT so third_party/CMakeLists.txt uses it; otherwise leave
+    :: it unset so that file's own hardcoded default (photon_sdk/Photon-PS4|PS5 next to the extension)
+    :: applies, same as before this option existed.
+    if not "%SDK_PATH_OPT%"=="" call %Utils% pathResolveExisting "%YYprojectDir%" "%SDK_PATH_OPT%" SDK_ROOT_RESOLVED
+
     pushd "%EXTENSION_DIR%source"
-    cmake --preset %CMAKE_PRESET%
+    if "%SDK_PATH_OPT%"=="" (
+        cmake --preset %CMAKE_PRESET%
+    ) else (
+        cmake --preset %CMAKE_PRESET% -DSDK_ROOT="%SDK_ROOT_RESOLVED%"
+    )
     if errorlevel 1 call %Utils% logError "CMake configure failed for %CMAKE_PRESET%. Check CMakeUserPresets.json is set up (see templates/CMakeUserPresets.json.template)."
     cmake --build --preset %CMAKE_PRESET% --target GMPhoton
     if errorlevel 1 call %Utils% logError "CMake build failed for %CMAKE_PRESET%."
@@ -106,8 +121,17 @@ exit /b 0
     where cmake >nul 2>nul
     if errorlevel 1 call %Utils% logError "cmake was not found on PATH. Install CMake to build Nintendo Switch."
 
+    :: switchSdkPath is optional (absolute, or relative to the project .yyp root) — points directly at
+    :: whichever photon_sdk/Photon-NintendoSwitch/NintendoSDK_* folder to use, letting the developer pick
+    :: the SDK version too. If unset, third_party/CMakeLists.txt's own hardcoded default applies.
+    if not "%SWITCH_SDK_PATH%"=="" call %Utils% pathResolveExisting "%YYprojectDir%" "%SWITCH_SDK_PATH%" SDK_ROOT_RESOLVED
+
     pushd "%EXTENSION_DIR%source"
-    cmake --preset switch-release
+    if "%SWITCH_SDK_PATH%"=="" (
+        cmake --preset switch-release
+    ) else (
+        cmake --preset switch-release -DSDK_ROOT="%SDK_ROOT_RESOLVED%"
+    )
     if errorlevel 1 call %Utils% logError "CMake configure failed for switch-release. Check CMakeUserPresets.json is set up (see templates/CMakeUserPresets.json.template)."
     cmake --build --preset switch-release --target GMPhoton
     if errorlevel 1 call %Utils% logError "CMake build failed for switch-release."
