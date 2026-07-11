@@ -410,10 +410,7 @@ bool photon_chat_init()
 bool photon_chat_shutdown()
 {
     if(g_chat_client)
-    {
-        try { g_chat_client->disconnect(); }
-        catch(...) {}
-    }
+        g_chat_client->disconnect();
 
     g_chat_client.reset();
     {
@@ -460,28 +457,18 @@ bool photon_chat_connect(std::string_view app_id, std::string_view app_version, 
     if(!g_chat_initialized)
         return false;
 
-    try
-    {
-        if(g_chat_client && g_chat_connected)
-        {
-            try { g_chat_client->disconnect(); }
-            catch(...) {}
-        }
-        g_chat_client.reset();
-        g_chat_client = std::make_unique<Chat::Client>(
-            g_chat_listener_instance,
-            chat_to_jstring(std::string(app_id)),
-            chat_to_jstring(std::string(app_version))
-        );
+    if(g_chat_client && g_chat_connected)
+        g_chat_client->disconnect();
 
-        if(!g_chat_pending_region.empty())
-            g_chat_client->setRegion(chat_to_jstring(g_chat_pending_region));
-    }
-    catch(...)
-    {
-        g_chat_client.reset();
-        return false;
-    }
+    g_chat_client.reset();
+    g_chat_client = std::make_unique<Chat::Client>(
+        g_chat_listener_instance,
+        chat_to_jstring(std::string(app_id)),
+        chat_to_jstring(std::string(app_version))
+    );
+
+    if(!g_chat_pending_region.empty())
+        g_chat_client->setRegion(chat_to_jstring(g_chat_pending_region));
 
     Chat::AuthenticationValues auth;
     C::JString nameServer;
@@ -506,23 +493,16 @@ bool photon_chat_connect(std::string_view app_id, std::string_view app_version, 
     }
 
     g_chat_connected = false;
-    try
+    if(hasNameServerOverride)
     {
-        if(hasNameServerOverride)
-        {
-            g_chat_background_thread = useBackgroundThread;
-            return g_chat_client->connect(auth, nameServer, useBackgroundThread);
-        }
+        g_chat_background_thread = useBackgroundThread;
+        return g_chat_client->connect(auth, nameServer, useBackgroundThread);
+    }
 
-        g_chat_background_thread = false;
-        // Omit the address entirely so Chat-cpp uses the SDK's own default name server.
-        // Do not duplicate the SDK's private M_NAMESERVER literal in the wrapper.
-        return g_chat_client->connect(auth);
-    }
-    catch(...)
-    {
-        return false;
-    }
+    g_chat_background_thread = false;
+    // Omit the address entirely so Chat-cpp uses the SDK's own default name server.
+    // Do not duplicate the SDK's private M_NAMESERVER literal in the wrapper.
+    return g_chat_client->connect(auth);
 }
 
 bool photon_chat_disconnect()
@@ -530,8 +510,7 @@ bool photon_chat_disconnect()
     if(!chat_has_client())
         return false;
 
-    try { g_chat_client->disconnect(); }
-    catch(...) { return false; }
+    g_chat_client->disconnect();
     return true;
 }
 

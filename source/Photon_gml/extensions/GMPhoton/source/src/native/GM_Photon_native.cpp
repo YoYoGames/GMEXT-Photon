@@ -632,32 +632,24 @@ static void photon_realtime_reset_connection_state()
 
 static bool photon_realtime_rebuild_client(const std::string& app_id, const std::string& app_version)
 {
-    try
-    {
-        g_photon_client.reset();
+    g_photon_client.reset();
 
-        extern LB::Listener& photon_get_listener_instance();
+    extern LB::Listener& photon_get_listener_instance();
 
-        LB::ClientConstructOptions ctorOpts;
-        if(g_has_pending_selected_region)
-            ctorOpts.setRegionSelectionMode(LB::RegionSelectionMode::SELECT);
+    LB::ClientConstructOptions ctorOpts;
+    if(g_has_pending_selected_region)
+        ctorOpts.setRegionSelectionMode(LB::RegionSelectionMode::SELECT);
 
-        g_photon_client = std::make_unique<LB::Client>(
-            photon_get_listener_instance(),
-            photon_realtime_to_jstring(app_id),
-            photon_realtime_to_jstring(app_version),
-            ctorOpts
-        );
+    g_photon_client = std::make_unique<LB::Client>(
+        photon_get_listener_instance(),
+        photon_realtime_to_jstring(app_id),
+        photon_realtime_to_jstring(app_version),
+        ctorOpts
+    );
 
-        g_region_selected_since_available = false;
-        g_photon_client->setAutoJoinLobby(false);
-        return true;
-    }
-    catch(...)
-    {
-        g_photon_client.reset();
-        return false;
-    }
+    g_region_selected_since_available = false;
+    g_photon_client->setAutoJoinLobby(false);
+    return true;
 }
 
 static inline bool photon_realtime_try_extract_byte_array(const C::Object& eventContent, std::vector<nByte>& out_bytes)
@@ -1287,10 +1279,7 @@ bool photon_realtime_init()
 bool photon_realtime_shutdown()
 {
     if(g_photon_client)
-    {
-        try { g_photon_client->disconnect(); }
-        catch(...) {}
-    }
+        g_photon_client->disconnect();
 
     g_photon_client.reset();
     photon_realtime_reset_connection_state();
