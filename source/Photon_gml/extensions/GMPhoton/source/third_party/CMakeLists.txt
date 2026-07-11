@@ -10,15 +10,31 @@ add_library(ext_third_party INTERFACE)
 #
 # Each platform requires its own Photon C++ SDK download, placed under:
 #   photon_sdk/
-#     Photon-Windows/       (Windows)
-#     photon-macosx/        (macOS)
-#     photon-linux/         (Linux)
-#     photon-androidndk/    (Android)
-#     photon-ios/           (iOS / tvOS)
+#     Photon-Windows/                             (Windows)
+#     photon-macosx/                              (macOS)
+#     photon-linux/                                (Linux)
+#     photon-androidndk/                           (Android)
+#     photon-ios/                                  (iOS / tvOS)
+#     Photon-PS4/                                  (PS4 / ORBIS)
+#     Photon-PS5/                                  (PS5 / Prospero)
+#     Photon-NintendoSwitch/NintendoSDK_20_5_21/   (Switch / NX64 — override SDK_ROOT
+#                                                    to point at NintendoSDK_21_4_2 instead)
 #
 # Override at configure time with: -DSDK_ROOT=<path>
+#
+# EXTGEN_IS_SWITCH / EXTGEN_IS_PS4 / EXTGEN_IS_PS5 are computed in the parent
+# CMakeLists.txt (before add_subdirectory(third_party)) and inherited here.
+# They must be checked before WIN32: Switch builds run through the Visual
+# Studio generator with CMAKE_SYSTEM_NAME left as "Windows", so WIN32 is TRUE
+# there too.
 # -----------------------------------------------------------------------------
-if(WIN32)
+if(EXTGEN_IS_SWITCH)
+    set(_SDK_DEFAULT "${CMAKE_CURRENT_LIST_DIR}/../../../../../photon_sdk/Photon-NintendoSwitch/NintendoSDK_20_5_21")
+elseif(EXTGEN_IS_PS4)
+    set(_SDK_DEFAULT "${CMAKE_CURRENT_LIST_DIR}/../../../../../photon_sdk/Photon-PS4")
+elseif(EXTGEN_IS_PS5)
+    set(_SDK_DEFAULT "${CMAKE_CURRENT_LIST_DIR}/../../../../../photon_sdk/Photon-PS5")
+elseif(WIN32)
     set(_SDK_DEFAULT "${CMAKE_CURRENT_LIST_DIR}/../../../../../photon_sdk/Photon-Windows")
 elseif(ANDROID)
     set(_SDK_DEFAULT "${CMAKE_CURRENT_LIST_DIR}/../../../../../photon_sdk/photon-androidndk")
@@ -85,10 +101,164 @@ target_compile_definitions(ext_third_party INTERFACE
 )
 
 # =============================================================================
+# Nintendo Switch (NX64)
+# Layout: {Module}-cpp/lib/lib{Module}-cpp_{cfg}_NX64.a
+# =============================================================================
+if(EXTGEN_IS_SWITCH)
+
+    set(_TAG "${_CFG}_NX64")
+
+    set(PHOTON_COMMON_LIB        "${SDK_ROOT}/Common-cpp/lib/libCommon-cpp_${_TAG}.a"           CACHE FILEPATH "Common-cpp library")
+    set(PHOTON_PHOTON_LIB        "${SDK_ROOT}/Photon-cpp/lib/libPhoton-cpp_${_TAG}.a"           CACHE FILEPATH "Photon-cpp library")
+    set(PHOTON_LOADBALANCING_LIB "${SDK_ROOT}/LoadBalancing-cpp/lib/libLoadBalancing-cpp_${_TAG}.a" CACHE FILEPATH "LoadBalancing-cpp library")
+    set(PHOTON_CHAT_LIB          "${SDK_ROOT}/Chat-cpp/lib/libChat-cpp_${_TAG}.a"               CACHE FILEPATH "Chat-cpp library")
+    set(PHOTON_VOICE_LIB         "${SDK_ROOT}/PhotonVoice-cpp/lib/libPhotonVoice-cpp_${_TAG}.a" CACHE FILEPATH "PhotonVoice-cpp library")
+    set(PHOTON_OPUS_LIB          "${SDK_ROOT}/PhotonVoice-cpp/opus/switch/switch/lib/libopus_egpv_${_TAG}.a" CACHE FILEPATH "Opus library")
+
+    foreach(_lib PHOTON_COMMON_LIB PHOTON_PHOTON_LIB PHOTON_LOADBALANCING_LIB
+                 PHOTON_CHAT_LIB PHOTON_VOICE_LIB PHOTON_OPUS_LIB)
+        if(NOT EXISTS "${${_lib}}")
+            message(FATAL_ERROR "[photon] Missing library: ${${_lib}}\n"
+                "  Set -D${_lib}=<path> or point -DSDK_ROOT= at the correct SDK folder.")
+        endif()
+    endforeach()
+
+    target_link_libraries(ext_third_party INTERFACE
+        "${PHOTON_COMMON_LIB}"
+        "${PHOTON_PHOTON_LIB}"
+        "${PHOTON_LOADBALANCING_LIB}"
+        "${PHOTON_CHAT_LIB}"
+        "${PHOTON_VOICE_LIB}"
+        "${PHOTON_OPUS_LIB}"
+    )
+
+    # Photon's Switch build also needs the Nintendo SDK's own websocket/TLS
+    # libraries — these come from the Nintendo SDK itself, not from photon_sdk/,
+    # and are resolved via the NintendoSdkLibSuffix MSBuild macro imported by
+    # Directory.Build.props. Verified against the 'release|NX64' ItemDefinitionGroup
+    # in photon_sdk/Photon-NintendoSwitch/NintendoSDK_20_5_21/Demos/demo_loadBalancing
+    # (the real hardware/lld config group — a separate, older 'release|x64' group in
+    # the same file also lists libz, but NX64/lld does not need it, so it's omitted).
+    # "-l:" (exact filename, GNU/lld syntax) so CMake passes these through
+    # unmodified instead of guessing a ".lib" suffix — bare names produced
+    # "-llibnn_websocket.a.lib" and failed with "unable to find library".
+    target_link_libraries(ext_third_party INTERFACE
+        "-l:libnn_websocket$(NintendoSdkLibSuffix)"
+        "-l:libopenssl$(NintendoSdkLibSuffix)"
+    )
+
+# =============================================================================
+# PS4 (ORBIS)
+# Layout: {Module}-cpp/lib/lib{Module}-cpp_{cfg}_ps4_ORBIS.a
+# =============================================================================
+elseif(EXTGEN_IS_PS4)
+
+    set(_TAG "${_CFG}_ps4_ORBIS")
+
+    set(PHOTON_COMMON_LIB        "${SDK_ROOT}/Common-cpp/lib/libCommon-cpp_${_TAG}.a"           CACHE FILEPATH "Common-cpp library")
+    set(PHOTON_PHOTON_LIB        "${SDK_ROOT}/Photon-cpp/lib/libPhoton-cpp_${_TAG}.a"           CACHE FILEPATH "Photon-cpp library")
+    set(PHOTON_LOADBALANCING_LIB "${SDK_ROOT}/LoadBalancing-cpp/lib/libLoadBalancing-cpp_${_TAG}.a" CACHE FILEPATH "LoadBalancing-cpp library")
+    set(PHOTON_CHAT_LIB          "${SDK_ROOT}/Chat-cpp/lib/libChat-cpp_${_TAG}.a"               CACHE FILEPATH "Chat-cpp library")
+    set(PHOTON_VOICE_LIB         "${SDK_ROOT}/PhotonVoice-cpp/lib/libPhotonVoice-cpp_${_TAG}.a" CACHE FILEPATH "PhotonVoice-cpp library")
+    set(PHOTON_OPUS_LIB          "${SDK_ROOT}/PhotonVoice-cpp/opus/ps4/ps4/lib/libopus_egpv_${_TAG}.a" CACHE FILEPATH "Opus library")
+    set(PHOTON_CRYPTO_LIB        "${SDK_ROOT}/3rdparty/lib/ps4/libcrypto_${_TAG}.a"             CACHE FILEPATH "Photon bundled OpenSSL crypto")
+
+    foreach(_lib PHOTON_COMMON_LIB PHOTON_PHOTON_LIB PHOTON_LOADBALANCING_LIB
+                 PHOTON_CHAT_LIB PHOTON_VOICE_LIB PHOTON_OPUS_LIB PHOTON_CRYPTO_LIB)
+        if(NOT EXISTS "${${_lib}}")
+            message(FATAL_ERROR "[photon] Missing library: ${${_lib}}\n"
+                "  Set -D${_lib}=<path> or point -DSDK_ROOT= at the correct SDK folder.")
+        endif()
+    endforeach()
+
+    target_link_libraries(ext_third_party INTERFACE
+        "${PHOTON_COMMON_LIB}"
+        "${PHOTON_PHOTON_LIB}"
+        "${PHOTON_LOADBALANCING_LIB}"
+        "${PHOTON_CHAT_LIB}"
+        "${PHOTON_VOICE_LIB}"
+        "${PHOTON_OPUS_LIB}"
+        "${PHOTON_CRYPTO_LIB}"
+    )
+
+    # The ORBIS platform toolset does not auto-link the Sce* system modules
+    # Common/Photon/LoadBalancing/Chat-cpp need (character-set conversion,
+    # sockets, TLS, HTTP/2, sysmodule loading, user service, PSN auth).
+    # This list is the bundled demo's AdditionalDependencies
+    # (photon_sdk/Photon-PS4/Demos/demo_loadBalancing) with the UI/graphics-only
+    # entries dropped (SceFont/SceFontFt, SceGnm/SceGnmDriver/SceGpuAddress,
+    # SceImeDialog, ScePad, SceVideoOut, SceDbgEnC) — confirmed against the PS5
+    # demo, which needs the same networking subset without any graphics libs.
+    # Raw "-l" flags (not bare names) so CMake passes them through unmodified
+    # instead of guessing a ".lib" suffix for this non-standard VS platform.
+    target_link_libraries(ext_third_party INTERFACE
+        "-lSceCes"
+        "-lSceCesCs_stub_weak"
+        "-lSceNet_stub_weak"
+        "-lSceNetCtl_stub_weak"
+        "-lScePosix_stub_weak"
+        "-lSceSysmodule_stub_weak"
+        "-lSceUserService_stub_weak"
+        "-lSceNpAuth_stub_weak"
+        "-lSceHttp2_stub_weak"
+        "-lSceSsl_stub_weak"
+    )
+
+# =============================================================================
+# PS5 (Prospero)
+# Layout: {Module}-cpp/lib/lib{Module}-cpp_{cfg}_ps5_Prospero.a
+# =============================================================================
+elseif(EXTGEN_IS_PS5)
+
+    set(_TAG "${_CFG}_ps5_Prospero")
+
+    set(PHOTON_COMMON_LIB        "${SDK_ROOT}/Common-cpp/lib/libCommon-cpp_${_TAG}.a"           CACHE FILEPATH "Common-cpp library")
+    set(PHOTON_PHOTON_LIB        "${SDK_ROOT}/Photon-cpp/lib/libPhoton-cpp_${_TAG}.a"           CACHE FILEPATH "Photon-cpp library")
+    set(PHOTON_LOADBALANCING_LIB "${SDK_ROOT}/LoadBalancing-cpp/lib/libLoadBalancing-cpp_${_TAG}.a" CACHE FILEPATH "LoadBalancing-cpp library")
+    set(PHOTON_CHAT_LIB          "${SDK_ROOT}/Chat-cpp/lib/libChat-cpp_${_TAG}.a"               CACHE FILEPATH "Chat-cpp library")
+    set(PHOTON_VOICE_LIB         "${SDK_ROOT}/PhotonVoice-cpp/lib/libPhotonVoice-cpp_${_TAG}.a" CACHE FILEPATH "PhotonVoice-cpp library")
+    set(PHOTON_OPUS_LIB          "${SDK_ROOT}/PhotonVoice-cpp/opus/ps5/ps5/lib/libopus_egpv_${_TAG}.a" CACHE FILEPATH "Opus library")
+    set(PHOTON_CRYPTO_LIB        "${SDK_ROOT}/3rdparty/lib/ps5/libcrypto_${_TAG}.a"             CACHE FILEPATH "Photon bundled OpenSSL crypto")
+
+    foreach(_lib PHOTON_COMMON_LIB PHOTON_PHOTON_LIB PHOTON_LOADBALANCING_LIB
+                 PHOTON_CHAT_LIB PHOTON_VOICE_LIB PHOTON_OPUS_LIB PHOTON_CRYPTO_LIB)
+        if(NOT EXISTS "${${_lib}}")
+            message(FATAL_ERROR "[photon] Missing library: ${${_lib}}\n"
+                "  Set -D${_lib}=<path> or point -DSDK_ROOT= at the correct SDK folder.")
+        endif()
+    endforeach()
+
+    target_link_libraries(ext_third_party INTERFACE
+        "${PHOTON_COMMON_LIB}"
+        "${PHOTON_PHOTON_LIB}"
+        "${PHOTON_LOADBALANCING_LIB}"
+        "${PHOTON_CHAT_LIB}"
+        "${PHOTON_VOICE_LIB}"
+        "${PHOTON_OPUS_LIB}"
+        "${PHOTON_CRYPTO_LIB}"
+    )
+
+    # Same reasoning as PS4 above. This exact list is the PS5 demo's own
+    # AdditionalDependencies (photon_sdk/Photon-PS5/Demos/demo_loadBalancing),
+    # which already excludes graphics/UI libs — nothing to trim here.
+    target_link_libraries(ext_third_party INTERFACE
+        "-lSceCes"
+        "-lSceCesCs_stub_weak"
+        "-lSceNet_stub_weak"
+        "-lSceNetCtl_stub_weak"
+        "-lScePosix_stub_weak"
+        "-lSceSysmodule_stub_weak"
+        "-lSceUserService_stub_weak"
+        "-lSceNpAuth_stub_weak"
+        "-lSceHttp2_stub_weak"
+        "-lSceSsl_stub_weak"
+    )
+
+# =============================================================================
 # WINDOWS
 # Layout: {Module}-cpp/lib/{Module}-cpp_vc17_{cfg}_windows_md_x64.lib
 # =============================================================================
-if(WIN32)
+elseif(WIN32)
 
     set(_TAG "vc17_${_CFG}_windows_md_x64")
 

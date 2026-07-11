@@ -1,0 +1,7 @@
+# Console platform final binaries — copied here from source/out/build/ by the
+# CMake post-build steps (cmake/ps4|ps5|switch/extgen_post_build.cmake).
+# Rebuilt from source per platform; not committed.
+*.prx
+*.nro
+*.nrr
+*.nrs
