@@ -66,8 +66,14 @@ setupiOS() {
 }
 
 # ----------------------------------------------------------------------------------------------------
+setupPlaystation() {
+    # PS4/PS5 are only ever built from a Windows host (see post_build_step.bat) — nothing to do here.
+    :
+}
+
+# ----------------------------------------------------------------------------------------------------
 setupSwitch() {
-    # Nothing to do here
+    # Nintendo Switch is only ever built from a Windows host (see post_build_step.bat) — nothing to do here.
     :
 }
 

@@ -25,7 +25,10 @@ if "%YYTARGET_runtime%" == "GMRT" (
 )
 
 :: Call setup method depending on the platform
-:: NOTE: the setup method can be (:setupWindows, :setupMacOS, :setupLinux, :setupAndroid, :setupiOS, :setupSwitch)
+:: NOTE: the setup method can be (:setupWindows, :setupMacOS, :setupLinux, :setupAndroid, :setupiOS,
+::       :setupPlaystation, :setupSwitch). PlayStation covers both PS4 and PS5: "call :setup%YYPLATFORM_name%"
+:: with YYPLATFORM_name="PlayStation 4"/"PlayStation 5" is parsed by cmd as "call :setupPlaystation 4"/"5"
+:: (batch splits on the first space, passing the rest as an argument) — same trick GMEXT-FMOD uses.
 call :setup%YYPLATFORM_name%
 
 exit %ERRORLEVEL%
@@ -71,6 +74,42 @@ exit /b 0
 exit /b 0
 
 :: ----------------------------------------------------------------------------------------------------
+:setupPlaystation
+    :: Unlike Windows/macOS/Linux/Android (which ship a precompiled GMPhoton binary), PS4/PS5 binaries
+    :: are never committed (see GMPhoton/.gitignore) — they must be built from source via the CMake
+    :: project in source/ before the IDE's packaging step can pick up GMPhoton_ps4.prx/_ps5.prx.
+    :: Always builds the "release" preset regardless of the game's own Debug/Release config, matching
+    :: how FMOD's console AutoBuild configs are decoupled from the game build config.
+    :: Requires a one-time CMakeUserPresets.json set up per templates/CMakeUserPresets.json.template.
+    set "CMAKE_PRESET=ps4-release"
+    if "%YYPLATFORM_name%"=="PlayStation 5" set "CMAKE_PRESET=ps5-release"
+
+    call "%YYPREF_visual_studio_path%"
+
+    where cmake >nul 2>nul
+    if errorlevel 1 call %Utils% logError "cmake was not found on PATH. Install CMake to build %YYPLATFORM_name%."
+
+    pushd "%EXTENSION_DIR%source"
+    cmake --preset %CMAKE_PRESET%
+    if errorlevel 1 call %Utils% logError "CMake configure failed for %CMAKE_PRESET%. Check CMakeUserPresets.json is set up (see templates/CMakeUserPresets.json.template)."
+    cmake --build --preset %CMAKE_PRESET% --target GMPhoton
+    if errorlevel 1 call %Utils% logError "CMake build failed for %CMAKE_PRESET%."
+    popd
+exit /b 0
+
+:: ----------------------------------------------------------------------------------------------------
 :setupSwitch
-    :: Nothing to do here
+    :: See :setupPlaystation above for why a build trigger is needed here at all — same reasoning,
+    :: GMPhoton.nro/.nrr/.nrs are never committed and must be built from source before packaging.
+    call "%YYPREF_visual_studio_path%"
+
+    where cmake >nul 2>nul
+    if errorlevel 1 call %Utils% logError "cmake was not found on PATH. Install CMake to build Nintendo Switch."
+
+    pushd "%EXTENSION_DIR%source"
+    cmake --preset switch-release
+    if errorlevel 1 call %Utils% logError "CMake configure failed for switch-release. Check CMakeUserPresets.json is set up (see templates/CMakeUserPresets.json.template)."
+    cmake --build --preset switch-release --target GMPhoton
+    if errorlevel 1 call %Utils% logError "CMake build failed for switch-release."
+    popd
 exit /b 0

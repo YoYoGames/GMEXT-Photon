@@ -17,7 +17,8 @@ if "%YYTARGET_runtime%" == "GMRT" (
 )
 
 :: Call setup method depending on the platform
-:: NOTE: the setup method can be (:setupWindows, :setupMacOS, :setupLinux, :setupAndroid, :setupiOS, :setupSwitch)
+:: NOTE: the setup method can be (:setupWindows, :setupMacOS, :setupLinux, :setupAndroid, :setupiOS,
+::       :setupPlaystation, :setupSwitch). See pre_build_step.bat for why PlayStation covers both PS4/PS5.
 call :setup%YYPLATFORM_name%
 
 popd
@@ -56,6 +57,13 @@ exit /b 0
 exit /b 0
 
 :: ----------------------------------------------------------------------------------------------------
+:setupPlaystation
+    :: Nothing to do here — pre_build_step already built GMPhoton_ps4.prx/_ps5.prx via CMake, and
+    :: CMake's own post-build step (cmake/ps4|ps5/extgen_post_build.cmake) already copies it here.
+exit /b 0
+
+:: ----------------------------------------------------------------------------------------------------
 :setupSwitch
-    :: Nothing to do here
+    :: Nothing to do here — pre_build_step already built GMPhoton.nro/.nrr/.nrs via CMake, and CMake's
+    :: own post-build step (cmake/switch/extgen_post_build.cmake) already copies them here.
 exit /b 0
