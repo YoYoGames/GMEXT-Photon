@@ -886,9 +886,9 @@ function __PhotonRealtimeJoinRandomOptions_encode(_inst, _buffer, _offset, _wher
 
         // field: expected_users, type: String[]
         if (!is_array(self.expected_users)) show_error($"{_where} :: self.expected_users expected array", true);
-        var _length = array_length(self.expected_users);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = array_length(self.expected_users);
+        buffer_write(_buffer, buffer_u32, __length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             if (!is_string(self.expected_users[_i])) show_error($"{_where} :: self.expected_users[_i] expected string", true);
             buffer_write(_buffer, buffer_u32, string_byte_length(self.expected_users[_i]));
@@ -965,9 +965,9 @@ function __PhotonRealtimeJoinRandomOptions_decode(_buffer, _offset)
         }
 
         // field: expected_users, type: String[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.expected_users = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = buffer_read(_buffer, buffer_u32);
+        self.expected_users = array_create(__length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             buffer_read(_buffer, buffer_u32);
             self.expected_users[_i] = buffer_read(_buffer, buffer_string);
@@ -1103,9 +1103,9 @@ function __PhotonRealtimeRoomOptions_encode(_inst, _buffer, _offset, _where = _G
 
         // field: lobby_keys, type: String[]
         if (!is_array(self.lobby_keys)) show_error($"{_where} :: self.lobby_keys expected array", true);
-        var _length = array_length(self.lobby_keys);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = array_length(self.lobby_keys);
+        buffer_write(_buffer, buffer_u32, __length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             if (!is_string(self.lobby_keys[_i])) show_error($"{_where} :: self.lobby_keys[_i] expected string", true);
             buffer_write(_buffer, buffer_u32, string_byte_length(self.lobby_keys[_i]));
@@ -1114,9 +1114,9 @@ function __PhotonRealtimeRoomOptions_encode(_inst, _buffer, _offset, _where = _G
 
         // field: expected_users, type: String[]
         if (!is_array(self.expected_users)) show_error($"{_where} :: self.expected_users expected array", true);
-        var _length = array_length(self.expected_users);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = array_length(self.expected_users);
+        buffer_write(_buffer, buffer_u32, __length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             if (!is_string(self.expected_users[_i])) show_error($"{_where} :: self.expected_users[_i] expected string", true);
             buffer_write(_buffer, buffer_u32, string_byte_length(self.expected_users[_i]));
@@ -1232,18 +1232,18 @@ function __PhotonRealtimeRoomOptions_decode(_buffer, _offset)
         }
 
         // field: lobby_keys, type: String[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.lobby_keys = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = buffer_read(_buffer, buffer_u32);
+        self.lobby_keys = array_create(__length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             buffer_read(_buffer, buffer_u32);
             self.lobby_keys[_i] = buffer_read(_buffer, buffer_string);
         }
 
         // field: expected_users, type: String[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.expected_users = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = buffer_read(_buffer, buffer_u32);
+        self.expected_users = array_create(__length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             buffer_read(_buffer, buffer_u32);
             self.expected_users[_i] = buffer_read(_buffer, buffer_string);
@@ -1422,9 +1422,9 @@ function __PhotonRealtimeRaiseEventOptions_encode(_inst, _buffer, _offset, _wher
 
         // field: target_players, type: Int32[]
         if (!is_array(self.target_players)) show_error($"{_where} :: self.target_players expected array", true);
-        var _length = array_length(self.target_players);
-        buffer_write(_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = array_length(self.target_players);
+        buffer_write(_buffer, buffer_u32, __length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             if (!is_numeric(self.target_players[_i])) show_error($"{_where} :: self.target_players[_i] expected number", true);
             buffer_write(_buffer, buffer_s32, self.target_players[_i]);
@@ -1508,9 +1508,9 @@ function __PhotonRealtimeRaiseEventOptions_decode(_buffer, _offset)
         }
 
         // field: target_players, type: Int32[]
-        var _length = buffer_read(_buffer, buffer_u32);
-        self.target_players = array_create(_length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = buffer_read(_buffer, buffer_u32);
+        self.target_players = array_create(__length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             self.target_players[_i] = buffer_read(_buffer, buffer_s32);
         }
@@ -1739,7 +1739,7 @@ function __PhotonRealtimeRoomInfo_encode(_inst, _buffer, _offset, _where = _GMFU
  */
 function __PhotonRealtimeRoomInfo_decode(_buffer, _offset)
 {
-    static __decoders = __GMPhoton_get_decoders();
+    static __decoders__ = __GMPhoton_get_decoders();
 
     buffer_seek(_buffer, buffer_seek_start, _offset);
 
@@ -1760,7 +1760,7 @@ function __PhotonRealtimeRoomInfo_decode(_buffer, _offset)
         self.is_open = buffer_read(_buffer, buffer_bool);
 
         // field: custom_properties, type: AnyMap
-        self.custom_properties = __ext_core_buffer_unmarshal_value(_buffer, __decoders);
+        self.custom_properties = __ext_core_buffer_unmarshal_value(_buffer, __decoders__);
 
     }
 
@@ -2210,8 +2210,8 @@ function __PhotonChatConnectOptions_decode(_buffer, _offset)
  */
 function photon_realtime_connect(_app_id, _app_version, _options)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2237,9 +2237,9 @@ function photon_realtime_connect(_app_id, _app_version, _options)
         __PhotonRealtimeConnectOptions_encode(_options, __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
     }
 
-    var _return_value = __photon_realtime_connect(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_connect(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_realtime_disconnect (no wrapper is required)
@@ -2262,10 +2262,10 @@ function photon_realtime_connect(_app_id, _app_version, _options)
  */
 function photon_realtime_operation_join_lobby(_lobby_name, _lobby_type, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2288,13 +2288,13 @@ function photon_realtime_operation_join_lobby(_lobby_name, _lobby_type, _callbac
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_join_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_join_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2303,10 +2303,10 @@ function photon_realtime_operation_join_lobby(_lobby_name, _lobby_type, _callbac
  */
 function photon_realtime_operation_leave_lobby(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2319,13 +2319,13 @@ function photon_realtime_operation_leave_lobby(_callback)
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_leave_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_leave_lobby(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2337,12 +2337,12 @@ function photon_realtime_operation_leave_lobby(_callback)
  */
 function photon_realtime_operation_create_room(_room_name, _options, _custom_properties, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
-    static __decoders = __GMPhoton_get_decoders();
+    static __decoders__ = __GMPhoton_get_decoders();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2368,13 +2368,13 @@ function photon_realtime_operation_create_room(_room_name, _options, _custom_pro
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_create_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_create_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2387,12 +2387,12 @@ function photon_realtime_operation_create_room(_room_name, _options, _custom_pro
  */
 function photon_realtime_operation_join_or_create_room(_room_name, _options, _custom_properties, _cache_slice_index, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
-    static __decoders = __GMPhoton_get_decoders();
+    static __decoders__ = __GMPhoton_get_decoders();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2430,13 +2430,13 @@ function photon_realtime_operation_join_or_create_room(_room_name, _options, _cu
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_join_or_create_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_join_or_create_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2447,10 +2447,10 @@ function photon_realtime_operation_join_or_create_room(_room_name, _options, _cu
  */
 function photon_realtime_operation_join_room(_room_name, _options, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2472,13 +2472,13 @@ function photon_realtime_operation_join_room(_room_name, _options, _callback)
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_join_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_join_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2489,12 +2489,12 @@ function photon_realtime_operation_join_room(_room_name, _options, _callback)
  */
 function photon_realtime_operation_join_random_room(_options, _expected_properties, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
-    static __decoders = __GMPhoton_get_decoders();
+    static __decoders__ = __GMPhoton_get_decoders();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2515,13 +2515,13 @@ function photon_realtime_operation_join_random_room(_options, _expected_properti
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_join_random_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_join_random_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2532,10 +2532,10 @@ function photon_realtime_operation_join_random_room(_options, _expected_properti
  */
 function photon_realtime_operation_leave_room(_will_come_back, _send_authentication_cookie, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2556,13 +2556,13 @@ function photon_realtime_operation_leave_room(_will_come_back, _send_authenticat
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_leave_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_leave_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2576,12 +2576,12 @@ function photon_realtime_operation_leave_room(_will_come_back, _send_authenticat
  */
 function photon_realtime_operation_join_random_or_create_room(_room_name, _options, _custom_properties, _random_options, _expected_properties, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
-    static __decoders = __GMPhoton_get_decoders();
+    static __decoders__ = __GMPhoton_get_decoders();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2615,13 +2615,13 @@ function photon_realtime_operation_join_random_or_create_room(_room_name, _optio
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_join_random_or_create_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_join_random_or_create_room(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2632,10 +2632,10 @@ function photon_realtime_operation_join_random_or_create_room(_room_name, _optio
  */
 function photon_realtime_operation_get_room_list(_lobby_name, _sql_filter, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2658,13 +2658,13 @@ function photon_realtime_operation_get_room_list(_lobby_name, _sql_filter, _call
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_get_room_list(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_get_room_list(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2673,10 +2673,10 @@ function photon_realtime_operation_get_room_list(_lobby_name, _sql_filter, _call
  */
 function photon_realtime_operation_lobby_stats(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2689,13 +2689,13 @@ function photon_realtime_operation_lobby_stats(_callback)
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_lobby_stats(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_lobby_stats(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2705,18 +2705,18 @@ function photon_realtime_operation_lobby_stats(_callback)
  */
 function photon_realtime_operation_find_friends(_friends, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _friends, type: String[]
     if (!is_array(_friends)) show_error($"{_GMFUNCTION_} :: _friends expected array", true);
-    var _length = array_length(_friends);
-    buffer_write(__args_buffer, buffer_u32, _length);
-    for (var _i = 0; _i < _length; ++_i)
+    var __length__ = array_length(_friends);
+    buffer_write(__args_buffer, buffer_u32, __length__);
+    for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_string(_friends[_i])) show_error($"{_GMFUNCTION_} :: _friends[_i] expected string", true);
         buffer_write(__args_buffer, buffer_u32, string_byte_length(_friends[_i]));
@@ -2732,13 +2732,13 @@ function photon_realtime_operation_find_friends(_friends, _callback)
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_find_friends(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_find_friends(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2748,10 +2748,10 @@ function photon_realtime_operation_find_friends(_friends, _callback)
  */
 function photon_realtime_operation_web_rpc(_uri_path, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2769,13 +2769,13 @@ function photon_realtime_operation_web_rpc(_uri_path, _callback)
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_realtime_operation_web_rpc(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_web_rpc(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2785,8 +2785,8 @@ function photon_realtime_operation_web_rpc(_uri_path, _callback)
  */
 function photon_realtime_operation_change_groups(_groups_to_remove, _groups_to_add)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2799,9 +2799,9 @@ function photon_realtime_operation_change_groups(_groups_to_remove, _groups_to_a
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_array(_groups_to_remove)) show_error($"{_GMFUNCTION_} :: _groups_to_remove expected array", true);
-        var _length = array_length(_groups_to_remove);
-        buffer_write(__args_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = array_length(_groups_to_remove);
+        buffer_write(__args_buffer, buffer_u32, __length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             if (!is_numeric(_groups_to_remove[_i])) show_error($"{_GMFUNCTION_} :: _groups_to_remove[_i] expected number", true);
             buffer_write(__args_buffer, buffer_s32, _groups_to_remove[_i]);
@@ -2817,18 +2817,18 @@ function photon_realtime_operation_change_groups(_groups_to_remove, _groups_to_a
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_array(_groups_to_add)) show_error($"{_GMFUNCTION_} :: _groups_to_add expected array", true);
-        var _length = array_length(_groups_to_add);
-        buffer_write(__args_buffer, buffer_u32, _length);
-        for (var _i = 0; _i < _length; ++_i)
+        var __length__ = array_length(_groups_to_add);
+        buffer_write(__args_buffer, buffer_u32, __length__);
+        for (var _i = 0; _i < __length__; ++_i)
         {
             if (!is_numeric(_groups_to_add[_i])) show_error($"{_GMFUNCTION_} :: _groups_to_add[_i] expected number", true);
             buffer_write(__args_buffer, buffer_s32, _groups_to_add[_i]);
         }
     }
 
-    var _return_value = __photon_realtime_operation_change_groups(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_change_groups(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2837,8 +2837,8 @@ function photon_realtime_operation_change_groups(_groups_to_remove, _groups_to_a
  */
 function photon_realtime_operation_custom_auth_next_step(_authentication)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2846,9 +2846,9 @@ function photon_realtime_operation_custom_auth_next_step(_authentication)
     if (_authentication.__uid != 1448014036) show_error($"{_GMFUNCTION_} :: _authentication expected PhotonRealtimeAuthenticationValues", true);
     __PhotonRealtimeAuthenticationValues_encode(_authentication, __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
 
-    var _return_value = __photon_realtime_operation_custom_auth_next_step(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_custom_auth_next_step(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2860,8 +2860,8 @@ function photon_realtime_operation_custom_auth_next_step(_authentication)
  */
 function photon_realtime_operation_raise_event_string(_reliable, _payload, _event_code, _options)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2890,9 +2890,9 @@ function photon_realtime_operation_raise_event_string(_reliable, _payload, _even
         __PhotonRealtimeRaiseEventOptions_encode(_options, __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
     }
 
-    var _return_value = __photon_realtime_operation_raise_event_string(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_raise_event_string(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -2905,8 +2905,8 @@ function photon_realtime_operation_raise_event_string(_reliable, _payload, _even
  */
 function photon_realtime_operation_raise_event_buffer(_reliable, _data, _bytes, _event_code, _options)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2938,9 +2938,9 @@ function photon_realtime_operation_raise_event_buffer(_reliable, _data, _bytes, 
         __PhotonRealtimeRaiseEventOptions_encode(_options, __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
     }
 
-    var _return_value = __photon_realtime_operation_raise_event_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_operation_raise_event_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_realtime_get_buffer_event_queue_count (no wrapper is required)
@@ -2963,8 +2963,8 @@ function photon_realtime_operation_raise_event_buffer(_reliable, _data, _bytes, 
  */
 function photon_realtime_receive_one_event_buffer(_out_data, _max_bytes, _offset)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -2982,11 +2982,11 @@ function photon_realtime_receive_one_event_buffer(_out_data, _max_bytes, _offset
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_receive_one_event_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_receive_one_event_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = __PhotonRealtimeEventBufferReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    return _result;
+    var __result__ = undefined;
+    __result__ = __PhotonRealtimeEventBufferReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    return __result__;
 }
 
 // Skipping function photon_realtime_is_initialized (no wrapper is required)
@@ -3027,16 +3027,16 @@ function photon_realtime_receive_one_event_buffer(_out_data, _max_bytes, _offset
  */
 function photon_realtime_get_state()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_get_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_get_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 // Skipping function photon_realtime_get_round_trip_time (no wrapper is required)
@@ -3050,16 +3050,16 @@ function photon_realtime_get_state()
  */
 function photon_realtime_get_disconnected_cause()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_get_disconnected_cause(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_get_disconnected_cause(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 // Skipping function photon_realtime_get_user_id (no wrapper is required)
@@ -3131,16 +3131,16 @@ function photon_realtime_get_disconnected_cause()
  */
 function photon_realtime_get_room_info_by_index(_index)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_get_room_info_by_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_get_room_info_by_index(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = __PhotonRealtimeRoomInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    return _result;
+    var __result__ = undefined;
+    __result__ = __PhotonRealtimeRoomInfo_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    return __result__;
 }
 
 // Skipping function photon_realtime_get_player_count (no wrapper is required)
@@ -3166,21 +3166,21 @@ function photon_realtime_get_room_info_by_index(_index)
  */
 function photon_realtime_get_player_numbers()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_get_player_numbers(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_get_player_numbers(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    var _length = buffer_read(__ret_buffer, buffer_u32);
-    _result = array_create(_length);
-    for (var _i = 0; _i < _length; ++_i)
+    var __result__ = undefined;
+    var __length__ = buffer_read(__ret_buffer, buffer_u32);
+    __result__ = array_create(__length__);
+    for (var _i = 0; _i < __length__; ++_i)
     {
-        _result[_i] = buffer_read(__ret_buffer, buffer_s32);
+        __result__[_i] = buffer_read(__ret_buffer, buffer_s32);
     }
-    return _result;
+    return __result__;
 }
 
 /**
@@ -3189,21 +3189,21 @@ function photon_realtime_get_player_numbers()
  */
 function photon_realtime_set_callback_debug(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_debug(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_debug(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3212,21 +3212,21 @@ function photon_realtime_set_callback_debug(_callback)
  */
 function photon_realtime_set_callback_connected(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_connected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_connected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3235,21 +3235,21 @@ function photon_realtime_set_callback_connected(_callback)
  */
 function photon_realtime_set_callback_disconnected(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_disconnected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_disconnected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3258,21 +3258,21 @@ function photon_realtime_set_callback_disconnected(_callback)
  */
 function photon_realtime_set_callback_connection_error(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_connection_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_connection_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3281,21 +3281,21 @@ function photon_realtime_set_callback_connection_error(_callback)
  */
 function photon_realtime_set_callback_client_error(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_client_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_client_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3304,21 +3304,21 @@ function photon_realtime_set_callback_client_error(_callback)
  */
 function photon_realtime_set_callback_server_error(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_server_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_server_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3327,21 +3327,21 @@ function photon_realtime_set_callback_server_error(_callback)
  */
 function photon_realtime_set_callback_warning(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_warning(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_warning(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3350,21 +3350,21 @@ function photon_realtime_set_callback_warning(_callback)
  */
 function photon_realtime_set_callback_join_room_event(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_join_room_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_join_room_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3373,21 +3373,21 @@ function photon_realtime_set_callback_join_room_event(_callback)
  */
 function photon_realtime_set_callback_leave_room_event(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_leave_room_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_leave_room_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3396,21 +3396,21 @@ function photon_realtime_set_callback_leave_room_event(_callback)
  */
 function photon_realtime_set_callback_custom_event(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_custom_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_custom_event(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3419,21 +3419,21 @@ function photon_realtime_set_callback_custom_event(_callback)
  */
 function photon_realtime_set_callback_room_properties_change(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_room_properties_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_room_properties_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3442,21 +3442,21 @@ function photon_realtime_set_callback_room_properties_change(_callback)
  */
 function photon_realtime_set_callback_player_properties_change(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_player_properties_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_player_properties_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3465,21 +3465,21 @@ function photon_realtime_set_callback_player_properties_change(_callback)
  */
 function photon_realtime_set_callback_room_list_update(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_room_list_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_room_list_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3488,21 +3488,21 @@ function photon_realtime_set_callback_room_list_update(_callback)
  */
 function photon_realtime_set_callback_app_stats_update(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_app_stats_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_app_stats_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3511,21 +3511,21 @@ function photon_realtime_set_callback_app_stats_update(_callback)
  */
 function photon_realtime_set_callback_lobby_stats_update(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_lobby_stats_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_lobby_stats_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3534,21 +3534,21 @@ function photon_realtime_set_callback_lobby_stats_update(_callback)
  */
 function photon_realtime_set_callback_cache_slice_changed(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_cache_slice_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_cache_slice_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3557,21 +3557,21 @@ function photon_realtime_set_callback_cache_slice_changed(_callback)
  */
 function photon_realtime_set_callback_master_client_changed(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_master_client_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_master_client_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3580,21 +3580,21 @@ function photon_realtime_set_callback_master_client_changed(_callback)
  */
 function photon_realtime_set_callback_properties_change_failed(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_properties_change_failed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_properties_change_failed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3603,21 +3603,21 @@ function photon_realtime_set_callback_properties_change_failed(_callback)
  */
 function photon_realtime_set_callback_custom_authentication_step(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_custom_authentication_step(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_custom_authentication_step(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3626,21 +3626,21 @@ function photon_realtime_set_callback_custom_authentication_step(_callback)
  */
 function photon_realtime_set_callback_available_regions(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_available_regions(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_available_regions(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3649,21 +3649,21 @@ function photon_realtime_set_callback_available_regions(_callback)
  */
 function photon_realtime_set_callback_secret_receival(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_secret_receival(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_secret_receival(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3672,21 +3672,21 @@ function photon_realtime_set_callback_secret_receival(_callback)
  */
 function photon_realtime_set_callback_direct_connection_established(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_direct_connection_established(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_direct_connection_established(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3695,21 +3695,21 @@ function photon_realtime_set_callback_direct_connection_established(_callback)
  */
 function photon_realtime_set_callback_direct_connection_failed(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_direct_connection_failed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_direct_connection_failed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3718,21 +3718,21 @@ function photon_realtime_set_callback_direct_connection_failed(_callback)
  */
 function photon_realtime_set_callback_direct_message(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_direct_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_direct_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -3741,21 +3741,21 @@ function photon_realtime_set_callback_direct_message(_callback)
  */
 function photon_realtime_set_callback_custom_operation_response(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_realtime_set_callback_custom_operation_response(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_set_callback_custom_operation_response(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_realtime_remove_callback_debug (no wrapper is required)
@@ -3874,16 +3874,16 @@ function photon_realtime_set_callback_custom_operation_response(_callback)
  */
 function photon_realtime_room_properties_get_all()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_room_properties_get_all(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_room_properties_get_all(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = __ext_core_buffer_unmarshal_value(__ret_buffer, __decoders);
-    return _result;
+    var __result__ = undefined;
+    __result__ = __ext_core_buffer_unmarshal_value(__ret_buffer, __decoders__);
+    return __result__;
 }
 
 // Skipping function photon_realtime_room_properties_cas_string (no wrapper is required)
@@ -3939,16 +3939,16 @@ function photon_realtime_room_properties_get_all()
  */
 function photon_realtime_player_properties_get_local_all()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_player_properties_get_local_all(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_player_properties_get_local_all(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = __ext_core_buffer_unmarshal_value(__ret_buffer, __decoders);
-    return _result;
+    var __result__ = undefined;
+    __result__ = __ext_core_buffer_unmarshal_value(__ret_buffer, __decoders__);
+    return __result__;
 }
 
 // Skipping function photon_realtime_player_properties_has_remote (no wrapper is required)
@@ -3975,16 +3975,16 @@ function photon_realtime_player_properties_get_local_all()
  */
 function photon_realtime_player_properties_get_remote_all(_player_number)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_player_properties_get_remote_all(_player_number, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_player_properties_get_remote_all(_player_number, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = __ext_core_buffer_unmarshal_value(__ret_buffer, __decoders);
-    return _result;
+    var __result__ = undefined;
+    __result__ = __ext_core_buffer_unmarshal_value(__ret_buffer, __decoders__);
+    return __result__;
 }
 
 // Skipping function photon_realtime_peek_next_buffer_event_player_number (no wrapper is required)
@@ -4010,8 +4010,8 @@ function photon_realtime_player_properties_get_remote_all(_player_number)
  */
 function photon_chat_connect(_app_id, _app_version, _options)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4037,9 +4037,9 @@ function photon_chat_connect(_app_id, _app_version, _options)
         __PhotonChatConnectOptions_encode(_options, __args_buffer, buffer_tell(__args_buffer), _GMFUNCTION_);
     }
 
-    var _return_value = __photon_chat_connect(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_connect(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_chat_disconnect (no wrapper is required)
@@ -4053,18 +4053,18 @@ function photon_chat_connect(_app_id, _app_version, _options)
  */
 function photon_chat_operation_subscribe(_channels, _messages_from_history, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channels, type: String[]
     if (!is_array(_channels)) show_error($"{_GMFUNCTION_} :: _channels expected array", true);
-    var _length = array_length(_channels);
-    buffer_write(__args_buffer, buffer_u32, _length);
-    for (var _i = 0; _i < _length; ++_i)
+    var __length__ = array_length(_channels);
+    buffer_write(__args_buffer, buffer_u32, __length__);
+    for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_string(_channels[_i])) show_error($"{_GMFUNCTION_} :: _channels[_i] expected string", true);
         buffer_write(__args_buffer, buffer_u32, string_byte_length(_channels[_i]));
@@ -4092,13 +4092,13 @@ function photon_chat_operation_subscribe(_channels, _messages_from_history, _cal
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_chat_operation_subscribe(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_operation_subscribe(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4108,18 +4108,18 @@ function photon_chat_operation_subscribe(_channels, _messages_from_history, _cal
  */
 function photon_chat_operation_unsubscribe(_channels, _callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _channels, type: String[]
     if (!is_array(_channels)) show_error($"{_GMFUNCTION_} :: _channels expected array", true);
-    var _length = array_length(_channels);
-    buffer_write(__args_buffer, buffer_u32, _length);
-    for (var _i = 0; _i < _length; ++_i)
+    var __length__ = array_length(_channels);
+    buffer_write(__args_buffer, buffer_u32, __length__);
+    for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_string(_channels[_i])) show_error($"{_GMFUNCTION_} :: _channels[_i] expected string", true);
         buffer_write(__args_buffer, buffer_u32, string_byte_length(_channels[_i]));
@@ -4135,13 +4135,13 @@ function photon_chat_operation_unsubscribe(_channels, _callback)
     {
         buffer_write(__args_buffer, buffer_bool, true);
         if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-        var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+        var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
         buffer_write(__args_buffer, buffer_u64, _callback_handle);
     }
 
-    var _return_value = __photon_chat_operation_unsubscribe(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_operation_unsubscribe(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_chat_operation_publish_message (no wrapper is required)
@@ -4155,8 +4155,8 @@ function photon_chat_operation_unsubscribe(_channels, _callback)
  */
 function photon_chat_operation_send_private_message(_user_name, _message, _encrypt)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4182,9 +4182,9 @@ function photon_chat_operation_send_private_message(_user_name, _message, _encry
         buffer_write(__args_buffer, buffer_bool, _encrypt);
     }
 
-    var _return_value = __photon_chat_operation_send_private_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_operation_send_private_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4194,8 +4194,8 @@ function photon_chat_operation_send_private_message(_user_name, _message, _encry
  */
 function photon_chat_operation_set_online_status(_status, _message)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4217,9 +4217,9 @@ function photon_chat_operation_set_online_status(_status, _message)
         buffer_write(__args_buffer, buffer_string, _message);
     }
 
-    var _return_value = __photon_chat_operation_set_online_status(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_operation_set_online_status(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4228,25 +4228,25 @@ function photon_chat_operation_set_online_status(_status, _message)
  */
 function photon_chat_operation_add_friends(_user_ids)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _user_ids, type: String[]
     if (!is_array(_user_ids)) show_error($"{_GMFUNCTION_} :: _user_ids expected array", true);
-    var _length = array_length(_user_ids);
-    buffer_write(__args_buffer, buffer_u32, _length);
-    for (var _i = 0; _i < _length; ++_i)
+    var __length__ = array_length(_user_ids);
+    buffer_write(__args_buffer, buffer_u32, __length__);
+    for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_string(_user_ids[_i])) show_error($"{_GMFUNCTION_} :: _user_ids[_i] expected string", true);
         buffer_write(__args_buffer, buffer_u32, string_byte_length(_user_ids[_i]));
         buffer_write(__args_buffer, buffer_string, _user_ids[_i]);
     }
 
-    var _return_value = __photon_chat_operation_add_friends(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_operation_add_friends(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4255,25 +4255,25 @@ function photon_chat_operation_add_friends(_user_ids)
  */
 function photon_chat_operation_remove_friends(_user_ids)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _user_ids, type: String[]
     if (!is_array(_user_ids)) show_error($"{_GMFUNCTION_} :: _user_ids expected array", true);
-    var _length = array_length(_user_ids);
-    buffer_write(__args_buffer, buffer_u32, _length);
-    for (var _i = 0; _i < _length; ++_i)
+    var __length__ = array_length(_user_ids);
+    buffer_write(__args_buffer, buffer_u32, __length__);
+    for (var _i = 0; _i < __length__; ++_i)
     {
         if (!is_string(_user_ids[_i])) show_error($"{_GMFUNCTION_} :: _user_ids[_i] expected string", true);
         buffer_write(__args_buffer, buffer_u32, string_byte_length(_user_ids[_i]));
         buffer_write(__args_buffer, buffer_string, _user_ids[_i]);
     }
 
-    var _return_value = __photon_chat_operation_remove_friends(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_operation_remove_friends(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_chat_is_initialized (no wrapper is required)
@@ -4287,16 +4287,16 @@ function photon_chat_operation_remove_friends(_user_ids)
  */
 function photon_chat_get_state()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_chat_get_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_chat_get_state(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 /**
@@ -4304,16 +4304,16 @@ function photon_chat_get_state()
  */
 function photon_chat_get_disconnect_cause()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_chat_get_disconnect_cause(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_chat_get_disconnect_cause(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 // Skipping function photon_chat_get_user_id (no wrapper is required)
@@ -4340,8 +4340,8 @@ function photon_chat_get_disconnect_cause()
  */
 function photon_chat_get_channel_count(_channel_type)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4350,9 +4350,9 @@ function photon_chat_get_channel_count(_channel_type)
     if (!is_numeric(_channel_type)) show_error($"{_GMFUNCTION_} :: _channel_type expected number", true);
     buffer_write(__args_buffer, buffer_s32, _channel_type);
 
-    var _return_value = __photon_chat_get_channel_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_get_channel_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4362,8 +4362,8 @@ function photon_chat_get_channel_count(_channel_type)
  */
 function photon_chat_get_channel_name(_channel_type, _index)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4376,9 +4376,9 @@ function photon_chat_get_channel_name(_channel_type, _index)
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
     buffer_write(__args_buffer, buffer_s32, _index);
 
-    var _return_value = __photon_chat_get_channel_name(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_get_channel_name(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4388,8 +4388,8 @@ function photon_chat_get_channel_name(_channel_type, _index)
  */
 function photon_chat_get_channel_message_count(_channel_type, _channel_name)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4403,9 +4403,9 @@ function photon_chat_get_channel_message_count(_channel_type, _channel_name)
     buffer_write(__args_buffer, buffer_u32, string_byte_length(_channel_name));
     buffer_write(__args_buffer, buffer_string, _channel_name);
 
-    var _return_value = __photon_chat_get_channel_message_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_get_channel_message_count(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4416,8 +4416,8 @@ function photon_chat_get_channel_message_count(_channel_type, _channel_name)
  */
 function photon_chat_get_channel_message(_channel_type, _channel_name, _index)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4435,9 +4435,9 @@ function photon_chat_get_channel_message(_channel_type, _channel_name, _index)
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
     buffer_write(__args_buffer, buffer_s32, _index);
 
-    var _return_value = __photon_chat_get_channel_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_get_channel_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4448,8 +4448,8 @@ function photon_chat_get_channel_message(_channel_type, _channel_name, _index)
  */
 function photon_chat_get_channel_sender(_channel_type, _channel_name, _index)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4467,9 +4467,9 @@ function photon_chat_get_channel_sender(_channel_type, _channel_name, _index)
     if (!is_numeric(_index)) show_error($"{_GMFUNCTION_} :: _index expected number", true);
     buffer_write(__args_buffer, buffer_s32, _index);
 
-    var _return_value = __photon_chat_get_channel_sender(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_get_channel_sender(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4478,21 +4478,21 @@ function photon_chat_get_channel_sender(_channel_type, _channel_name, _index)
  */
 function photon_chat_set_callback_debug(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_debug(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_debug(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4501,21 +4501,21 @@ function photon_chat_set_callback_debug(_callback)
  */
 function photon_chat_set_callback_connected(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_connected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_connected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4524,21 +4524,21 @@ function photon_chat_set_callback_connected(_callback)
  */
 function photon_chat_set_callback_state_change(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_state_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_state_change(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4547,21 +4547,21 @@ function photon_chat_set_callback_state_change(_callback)
  */
 function photon_chat_set_callback_connection_error(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_connection_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_connection_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4570,21 +4570,21 @@ function photon_chat_set_callback_connection_error(_callback)
  */
 function photon_chat_set_callback_client_error(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_client_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_client_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4593,21 +4593,21 @@ function photon_chat_set_callback_client_error(_callback)
  */
 function photon_chat_set_callback_warning(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_warning(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_warning(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4616,21 +4616,21 @@ function photon_chat_set_callback_warning(_callback)
  */
 function photon_chat_set_callback_server_error(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_server_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_server_error(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4639,21 +4639,21 @@ function photon_chat_set_callback_server_error(_callback)
  */
 function photon_chat_set_callback_disconnected(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_disconnected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_disconnected(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4662,21 +4662,21 @@ function photon_chat_set_callback_disconnected(_callback)
  */
 function photon_chat_set_callback_status_update(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_status_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_status_update(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4685,21 +4685,21 @@ function photon_chat_set_callback_status_update(_callback)
  */
 function photon_chat_set_callback_get_messages(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_get_messages(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_get_messages(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4708,21 +4708,21 @@ function photon_chat_set_callback_get_messages(_callback)
  */
 function photon_chat_set_callback_private_message(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_private_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_private_message(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -4731,21 +4731,21 @@ function photon_chat_set_callback_private_message(_callback)
  */
 function photon_chat_set_callback_receive_broadcast(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_chat_set_callback_receive_broadcast(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_set_callback_receive_broadcast(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_chat_get_broadcast_queue_count (no wrapper is required)
@@ -4768,8 +4768,8 @@ function photon_chat_set_callback_receive_broadcast(_callback)
  */
 function photon_chat_receive_one_broadcast_buffer(_out_data, _max_bytes, _offset)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4787,11 +4787,11 @@ function photon_chat_receive_one_broadcast_buffer(_out_data, _max_bytes, _offset
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_chat_receive_one_broadcast_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_chat_receive_one_broadcast_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = __PhotonRealtimeEventBufferReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    return _result;
+    var __result__ = undefined;
+    __result__ = __PhotonRealtimeEventBufferReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    return __result__;
 }
 
 // Skipping function photon_chat_remove_callback_debug (no wrapper is required)
@@ -4874,8 +4874,8 @@ function photon_chat_receive_one_broadcast_buffer(_out_data, _max_bytes, _offset
  */
 function photon_voice_create_local_voice(_channel_id, _codec, _sample_rate, _channels, _bitrate, _frames_per_packet)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4904,9 +4904,9 @@ function photon_voice_create_local_voice(_channel_id, _codec, _sample_rate, _cha
     if (!is_numeric(_frames_per_packet)) show_error($"{_GMFUNCTION_} :: _frames_per_packet expected number", true);
     buffer_write(__args_buffer, buffer_s32, _frames_per_packet);
 
-    var _return_value = __photon_voice_create_local_voice(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_voice_create_local_voice(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_voice_remove_local_voice (no wrapper is required)
@@ -4920,8 +4920,8 @@ function photon_voice_create_local_voice(_channel_id, _codec, _sample_rate, _cha
  */
 function photon_voice_push_frame_buffer(_voice_id, _data, _bytes)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4937,9 +4937,9 @@ function photon_voice_push_frame_buffer(_voice_id, _data, _bytes)
     if (!is_numeric(_bytes)) show_error($"{_GMFUNCTION_} :: _bytes expected number", true);
     buffer_write(__args_buffer, buffer_u32, _bytes);
 
-    var _return_value = __photon_voice_push_frame_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_voice_push_frame_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_voice_get_frame_queue_count (no wrapper is required)
@@ -4965,8 +4965,8 @@ function photon_voice_push_frame_buffer(_voice_id, _data, _bytes)
  */
 function photon_voice_receive_frame_buffer(_out_data, _max_bytes, _offset)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -4984,11 +4984,11 @@ function photon_voice_receive_frame_buffer(_out_data, _max_bytes, _offset)
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_voice_receive_frame_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_voice_receive_frame_buffer(buffer_get_address(__args_buffer), buffer_tell(__args_buffer), buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = __PhotonRealtimeEventBufferReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
-    return _result;
+    var __result__ = undefined;
+    __result__ = __PhotonRealtimeEventBufferReceived_decode(__ret_buffer, buffer_tell(__ret_buffer));
+    return __result__;
 }
 
 // Skipping function photon_voice_get_remote_voice_count (no wrapper is required)
@@ -5006,16 +5006,16 @@ function photon_voice_receive_frame_buffer(_out_data, _max_bytes, _offset)
  */
 function photon_voice_get_remote_voice_codec(_index)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_voice_get_remote_voice_codec(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_voice_get_remote_voice_codec(_index, buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 // Skipping function photon_voice_get_remote_voice_sample_rate (no wrapper is required)
@@ -5048,21 +5048,21 @@ function photon_voice_get_remote_voice_codec(_index)
  */
 function photon_voice_set_callback_remote_voice_added(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_voice_set_callback_remote_voice_added(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_voice_set_callback_remote_voice_added(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -5071,21 +5071,21 @@ function photon_voice_set_callback_remote_voice_added(_callback)
  */
 function photon_voice_set_callback_remote_voice_removed(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_voice_set_callback_remote_voice_removed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_voice_set_callback_remote_voice_removed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -5094,21 +5094,21 @@ function photon_voice_set_callback_remote_voice_removed(_callback)
  */
 function photon_voice_set_callback_speaking_changed(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_voice_set_callback_speaking_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_voice_set_callback_speaking_changed(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -5117,21 +5117,21 @@ function photon_voice_set_callback_speaking_changed(_callback)
  */
 function photon_voice_set_callback_debug(_callback)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
-    var __dispatcher = __GMPhoton_get_dispatcher();
+    var __dispatcher__ = __GMPhoton_get_dispatcher();
 
     var __args_buffer = __ext_core_get_args_buffer();
 
     // param: _callback, type: Function
     if (!is_callable(_callback)) show_error($"{_GMFUNCTION_} :: _callback expected callable type", true);
-    var _callback_handle = __ext_core_function_register(_callback, __dispatcher);
+    var _callback_handle = __ext_core_function_register(_callback, __dispatcher__);
     buffer_write(__args_buffer, buffer_u64, _callback_handle);
 
-    var _return_value = __photon_voice_set_callback_debug(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_voice_set_callback_debug(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_voice_remove_callback_remote_voice_added (no wrapper is required)
@@ -5202,16 +5202,16 @@ function photon_voice_set_callback_debug(_callback)
  */
 function photon_realtime_peer_get_debug_output_level()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_realtime_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_realtime_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 /**
@@ -5220,8 +5220,8 @@ function photon_realtime_peer_get_debug_output_level()
  */
 function photon_realtime_peer_set_debug_output_level(_level)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -5230,9 +5230,9 @@ function photon_realtime_peer_set_debug_output_level(_level)
     if (!is_numeric(_level)) show_error($"{_GMFUNCTION_} :: _level expected number", true);
     buffer_write(__args_buffer, buffer_s32, _level);
 
-    var _return_value = __photon_realtime_peer_set_debug_output_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_realtime_peer_set_debug_output_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_realtime_peer_get_disconnect_timeout (no wrapper is required)
@@ -5288,16 +5288,16 @@ function photon_realtime_peer_set_debug_output_level(_level)
  */
 function photon_chat_peer_get_debug_output_level()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_chat_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_chat_peer_get_debug_output_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 /**
@@ -5306,8 +5306,8 @@ function photon_chat_peer_get_debug_output_level()
  */
 function photon_chat_peer_set_debug_output_level(_level)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -5316,9 +5316,9 @@ function photon_chat_peer_set_debug_output_level(_level)
     if (!is_numeric(_level)) show_error($"{_GMFUNCTION_} :: _level expected number", true);
     buffer_write(__args_buffer, buffer_s32, _level);
 
-    var _return_value = __photon_chat_peer_set_debug_output_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_chat_peer_set_debug_output_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_chat_peer_get_disconnect_timeout (no wrapper is required)
@@ -5369,8 +5369,8 @@ function photon_chat_peer_set_debug_output_level(_level)
  */
 function photon_common_set_debug_level(_level)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -5379,9 +5379,9 @@ function photon_common_set_debug_level(_level)
     if (!is_numeric(_level)) show_error($"{_GMFUNCTION_} :: _level expected number", true);
     buffer_write(__args_buffer, buffer_s32, _level);
 
-    var _return_value = __photon_common_set_debug_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_common_set_debug_level(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 /**
@@ -5389,16 +5389,16 @@ function photon_common_set_debug_level(_level)
  */
 function photon_common_get_debug_level()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_common_get_debug_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_common_get_debug_level(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 /**
@@ -5406,16 +5406,16 @@ function photon_common_get_debug_level()
  */
 function photon_common_get_serialization_protocol()
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __ret_buffer = __ext_core_get_ret_buffer();
 
-    var _return_value = __photon_common_get_serialization_protocol(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
+    var __return_value__ = __photon_common_get_serialization_protocol(buffer_get_address(__ret_buffer), buffer_get_size(__ret_buffer));
 
-    var _result = undefined;
-    _result = buffer_read(__ret_buffer, buffer_s32);
-    return _result;
+    var __result__ = undefined;
+    __result__ = buffer_read(__ret_buffer, buffer_s32);
+    return __result__;
 }
 
 /**
@@ -5424,8 +5424,8 @@ function photon_common_get_serialization_protocol()
  */
 function photon_common_type_code_to_string(_type_code)
 {
-    var __available = __GMPhoton_is_available();
-    if (!__available) return;
+    var __available__ = __GMPhoton_is_available();
+    if (!__available__) return;
 
     var __args_buffer = __ext_core_get_args_buffer();
 
@@ -5434,9 +5434,9 @@ function photon_common_type_code_to_string(_type_code)
     if (!is_numeric(_type_code)) show_error($"{_GMFUNCTION_} :: _type_code expected number", true);
     buffer_write(__args_buffer, buffer_s32, _type_code);
 
-    var _return_value = __photon_common_type_code_to_string(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
+    var __return_value__ = __photon_common_type_code_to_string(buffer_get_address(__args_buffer), buffer_tell(__args_buffer));
 
-    return _return_value;
+    return __return_value__;
 }
 
 // Skipping function photon_common_get_sdk_version (no wrapper is required)
@@ -5451,7 +5451,7 @@ function photon_common_type_code_to_string(_type_code)
 /// @ignore
 function __GMPhoton_get_decoders()
 {
-    static __decoders = [
+    static __decoders__ = [
         __PhotonRealtimeEventBufferReceived_decode,
         __PhotonRealtimeJoinRandomOptions_decode,
         __PhotonRealtimeRoomOptions_decode,
@@ -5466,17 +5466,17 @@ function __GMPhoton_get_decoders()
         __PhotonRealtimeConnectOptions_decode,
         __PhotonChatConnectOptions_decode
     ];
-    return __decoders;
+    return __decoders__;
 }
 /// @ignore
 function __GMPhoton_get_dispatcher()
 {
-    static __dispatcher = new __GMNativeFunctionDispatcher(__GMPhoton_invocation_handler, __GMPhoton_get_decoders());
-    return __dispatcher;
+    static __dispatcher__ = new __GMNativeFunctionDispatcher(__GMPhoton_invocation_handler, __GMPhoton_get_decoders());
+    return __dispatcher__;
 }
 /// @ignore
 function __GMPhoton_is_available()
 {
-    static __available = extension_exists("GMPhoton");
-    return __available;
+    static __available__ = extension_exists("GMPhoton");
+    return __available__;
 }
