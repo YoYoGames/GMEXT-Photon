@@ -14,7 +14,7 @@
   "copyToTargets":-1,
   "description":"",
   "exportToGame":true,
-  "extensionVersion":"1.0.0",
+  "extensionVersion":"1.0.1",
   "files":[
     {"$GMExtensionFile":"v1","%Name":"","constants":[],"copyToTargets":-1,"filename":"GMPhoton.ext","final":"","functions":[
         {"$GMExtensionFunction":"","%Name":"photon_realtime_init","argCount":0,"args":[],"documentation":"@returns {Real}","externalName":"__EXT_NATIVE__photon_realtime_init","help":"","hidden":false,"kind":4,"name":"photon_realtime_init","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
